@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DxpTable - Liferay Custom Element</title>
+    <meta name="description" content="Reusable DataTable component with Liferay integration" />
+  </head>
+  <body>
+    <!-- Root element for development -->
+    <div id="root"></div>
+
+    <!-- Main entry point -->
+    <script type="module" src="/src/main.jsx"></script>
+
+    <!-- For Liferay deployment, the custom element will be instantiated like:
+         <dxp-datatable data-liferay-config='{"apiBaseURL":"...","oAuthToken":"..."}'></dxp-datatable>
+    -->
+  </body>
+</html>

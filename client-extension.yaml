@@ -1,0 +1,45 @@
+# Liferay Client Extension Configuration
+# This file configures the DxpTable component as a Liferay Custom Element
+
+assemble:
+  - from: dist
+    include: "**/*"
+    into: static
+
+dxp-datatable-custom-element:
+  # CSS files to be loaded
+  cssURLs:
+    - main.css
+
+  # URL mapping for the custom element
+  friendlyURLMapping: dxp-datatable
+
+  # HTML custom element tag name
+  htmlElementName: dxp-datatable
+
+  # Allow multiple instances on the same page
+  instanceable: true
+
+  # Display name in Liferay
+  name: DxpTable Component
+
+  # Category in the widget menu
+  portletCategoryName: category.client-extensions
+
+  # Type of client extension
+  type: customElement
+
+  # JavaScript files to be loaded
+  urls:
+    - main.js
+
+  # Use ES Modules
+  useESM: true
+
+  # Properties that can be configured in Liferay
+  properties:
+    apiEndpoint:
+      default: /o/headless-admin-user/v1.0/user-accounts
+      name: API Endpoint
+      type: String
+      description: Liferay Headless API endpoint to fetch data from
