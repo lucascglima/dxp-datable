@@ -89,11 +89,17 @@ const DataTablePage = () => {
     console.log('Sort Info:', sortInfo);
 
     try {
-      // Prepare API config with sorting and pagination configuration
+      // Prepare API config with sorting, pagination, URL params, and default query params
       const apiConfig = {
         sortingConfig: config.events?.sorting,
         // Use custom pagination parameter names from config if in API mode
         apiParamNames: paginationMode === 'api' ? config.pagination?.apiParamNames : undefined,
+        // Include response mapping configuration if available
+        responseDataPath: config.responseDataPath || undefined,
+        // Include URL path variables (e.g., :version, :userId)
+        urlParams: config.urlParams || [],
+        // Include default query params (with enabled flag)
+        defaultQueryParams: config.defaultQueryParams || [],
       };
 
       // Determine if we should send pagination params to API

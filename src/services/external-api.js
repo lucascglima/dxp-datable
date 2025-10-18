@@ -2,10 +2,13 @@
  * External API Service
  *
  * Handles generic API requests to external (non-Liferay) endpoints.
- * Supports authentication tokens, custom pagination parameters, and flexible response parsing.
+ * Supports authentication tokens, custom pagination parameters, URL path variables,
+ * default query params, and flexible response parsing.
  */
 
 import axios from 'axios';
+import { replaceUrlParams } from '../utils/url-params-replacer';
+import { toObject } from '../utils/query-string-parser';
 
 /**
  * Gets value from nested object using dot notation
@@ -41,10 +44,10 @@ const createExternalApiInstance = (token = '') => {
 /**
  * Fetches data from external API endpoint with customizable parameters
  *
- * @param {string} endpoint - Full API URL
+ * @param {string} endpoint - Full API URL (may contain path variables like :version)
  * @param {string} token - Optional authentication token
  * @param {Object} pagination - Pagination parameters
- * @param {Object} apiConfig - API configuration (param names, response paths, pagination config)
+ * @param {Object} apiConfig - API configuration (param names, response paths, pagination config, urlParams, defaultQueryParams)
  * @param {Object} sortInfo - Sorting information (columnKey, order)
  * @returns {Promise<Object>} Response with data and pagination
  */
@@ -53,6 +56,16 @@ export const fetchData = async (endpoint, token = '', pagination = {}, apiConfig
     const api = createExternalApiInstance(token);
     const { page = 1, pageSize = 20, enablePagination = true } = pagination;
 
+    // Replace URL path variables with their values
+    let finalEndpoint = endpoint;
+    if (apiConfig.urlParams && apiConfig.urlParams.length > 0) {
+      const urlResult = replaceUrlParams(endpoint, apiConfig.urlParams);
+      if (urlResult.errors.length > 0) {
+        throw new Error(`URL parameter error: ${urlResult.errors.join(', ')}`);
+      }
+      finalEndpoint = urlResult.url;
+    }
+
     // Get custom parameter names or use defaults
     const paramNames = apiConfig.apiParamNames || {
       page: '_page',
@@ -60,10 +73,16 @@ export const fetchData = async (endpoint, token = '', pagination = {}, apiConfig
       sort: 'sort',
     };
 
-    // Build query parameters
+    // Start with default query params (enabled ones only)
     const params = {};
+    if (apiConfig.defaultQueryParams && Array.isArray(apiConfig.defaultQueryParams)) {
+      const defaultParams = toObject(
+        apiConfig.defaultQueryParams.filter(p => p.enabled !== false)
+      );
+      Object.assign(params, defaultParams);
+    }
 
-    // Only add pagination parameters if pagination is enabled
+    // Add pagination parameters if enabled (these override default params if there's a conflict)
     if (enablePagination) {
       params[paramNames.page] = page;
       params[paramNames.pageSize] = pageSize;
@@ -77,7 +96,7 @@ export const fetchData = async (endpoint, token = '', pagination = {}, apiConfig
       params[orderParam] = orderValues[sortInfo.order] || orderValues.ascend;
     }
 
-    const response = await api.get(endpoint, { params });
+    const response = await api.get(finalEndpoint, { params });
 
     // Get response data path configuration
     const responsePaths = apiConfig.responseDataPath || {
@@ -130,23 +149,38 @@ export const fetchData = async (endpoint, token = '', pagination = {}, apiConfig
 
 /**
  * Tests connection to API endpoint
+ * @param {string} endpoint - API endpoint URL (may contain path variables)
+ * @param {string} token - Optional auth token
+ * @param {Object} apiConfig - API configuration including response mapping, urlParams
+ * @param {Object} testParams - Custom query parameters for testing (optional)
  */
-export const testConnection = async (endpoint, token = '', apiConfig = {}) => {
+export const testConnection = async (endpoint, token = '', apiConfig = {}, testParams = {}) => {
   try {
     const api = createExternalApiInstance(token);
 
-    // Use configured param names for test
-    const paramNames = apiConfig?.apiParamNames || {
-      page: '_page',
-      pageSize: '_limit',
-    };
+    // Replace URL path variables with their values
+    let finalEndpoint = endpoint;
+    if (apiConfig.urlParams && apiConfig.urlParams.length > 0) {
+      const urlResult = replaceUrlParams(endpoint, apiConfig.urlParams);
+      if (urlResult.errors.length > 0) {
+        return {
+          success: false,
+          status: 0,
+          message: `URL parameter error: ${urlResult.errors.join(', ')}`,
+          error: {
+            code: 'URL_PARAM_ERROR',
+            message: urlResult.errors.join(', '),
+          },
+        };
+      }
+      finalEndpoint = urlResult.url;
+    }
 
-    const response = await api.get(endpoint, {
-      params: {
-        [paramNames.pageSize]: 1,
-        [paramNames.page]: 1,
-      },
-    });
+    // Use custom test parameters provided by user
+    // testParams should already include merged default params from preview-section
+    const params = { ...testParams };
+
+    const response = await api.get(finalEndpoint, { params });
 
     // Try to extract data using configuration
     const responsePaths = apiConfig?.responseDataPath || { dataKey: '' };

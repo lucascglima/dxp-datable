@@ -114,6 +114,12 @@ export const getExampleConfiguration = () => {
   return {
     apiEndpoint: 'https://jsonplaceholder.typicode.com/users',
     authToken: '',
+    urlParams: [], // No URL params in this example (no :variables in URL)
+    defaultQueryParams: [], // No default query params for this simple example
+    testQueryParams: [ // Pre-filled test params for convenience
+      { key: '_page', value: '1' },
+      { key: '_limit', value: '10' }
+    ],
     columns: [
       {
         key: 'id',
@@ -154,6 +160,7 @@ export const getExampleConfiguration = () => {
         pageSize: '_page_size',
       },
     },
+    responseDataPath: null, // null = direct array response, or { dataKey: 'data.items', totalKey: 'data.total', totalSource: 'body' }
     events: {
       onRowClick: {
         enabled: true,

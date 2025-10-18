@@ -47,11 +47,15 @@ const ConfigurationPage = () => {
   const [config, setConfig] = useState({
     apiEndpoint: '',
     authToken: '',
+    urlParams: [], // URL path variables like :version, :userId
+    defaultQueryParams: [], // Default query params with enabled flag
+    testQueryParams: [], // Test query params (saved for convenience)
     columns: [],
     pagination: {
       pageSize: 20,
       showPagination: true,
     },
+    responseDataPath: null, // Optional response mapping configuration
     events: {
       onRowClick: {
         enabled: false,
@@ -130,6 +134,18 @@ const ConfigurationPage = () => {
       ...config,
       apiEndpoint: apiConfig.apiEndpoint,
       authToken: apiConfig.authToken,
+      urlParams: apiConfig.urlParams || [],
+      defaultQueryParams: apiConfig.defaultQueryParams || [],
+    });
+  };
+
+  /**
+   * Handles test query params change
+   */
+  const handleTestQueryParamsChange = (testQueryParams) => {
+    setConfig({
+      ...config,
+      testQueryParams,
     });
   };
 
@@ -164,6 +180,16 @@ const ConfigurationPage = () => {
   };
 
   /**
+   * Handles response mapping configuration change
+   */
+  const handleResponseMappingChange = (responseDataPath) => {
+    setConfig({
+      ...config,
+      responseDataPath,
+    });
+  };
+
+  /**
    * Applies suggested columns from preview
    */
   const handleSuggestColumns = (suggestedColumns) => {
@@ -172,7 +198,7 @@ const ConfigurationPage = () => {
       columns: suggestedColumns,
     });
     message.success(`Applied ${suggestedColumns.length} suggested columns`);
-    setCurrentStep(1); // Move to columns step
+    setCurrentStep(2); // Move to columns step
   };
 
   /**
@@ -251,11 +277,15 @@ const ConfigurationPage = () => {
         setConfig({
           apiEndpoint: '',
           authToken: '',
+          urlParams: [],
+          defaultQueryParams: [],
+          testQueryParams: [],
           columns: [],
           pagination: {
             pageSize: 20,
             showPagination: true,
           },
+          responseDataPath: null,
           events: {
             onRowClick: {
               enabled: false,
@@ -296,7 +326,12 @@ const ConfigurationPage = () => {
       icon: <ApiOutlined />,
       content: (
         <ApiConfigSection
-          value={{ apiEndpoint: config.apiEndpoint, authToken: config.authToken }}
+          value={{
+            apiEndpoint: config.apiEndpoint,
+            authToken: config.authToken,
+            urlParams: config.urlParams,
+            defaultQueryParams: config.defaultQueryParams,
+          }}
           onChange={handleApiConfigChange}
         />
       ),
@@ -308,7 +343,12 @@ const ConfigurationPage = () => {
         <PreviewSection
           apiEndpoint={config.apiEndpoint}
           authToken={config.authToken}
+          urlParams={config.urlParams}
+          defaultQueryParams={config.defaultQueryParams}
+          testQueryParams={config.testQueryParams}
+          onTestQueryParamsChange={handleTestQueryParamsChange}
           onSuggestColumns={handleSuggestColumns}
+          onResponseMappingChange={handleResponseMappingChange}
         />
       ),
     },

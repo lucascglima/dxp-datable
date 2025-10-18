@@ -6,9 +6,11 @@
  */
 
 import React, { useState } from 'react';
-import { Form, Input, Button, Alert, Space } from 'antd';
+import { Form, Input, Button, Alert, Space, Divider } from 'antd';
 import { EyeInvisibleOutlined, EyeOutlined, LinkOutlined } from '@ant-design/icons';
 import { validateUrl } from '../../utils/api-validator';
+import UrlParamsEditor from './url-params-editor';
+import DefaultQueryParamsEditor from './default-query-params-editor';
 
 const ApiConfigSection = ({ value = {}, onChange }) => {
   const [showToken, setShowToken] = useState(false);
@@ -39,6 +41,26 @@ const ApiConfigSection = ({ value = {}, onChange }) => {
   };
 
   /**
+   * Handles URL params change
+   */
+  const handleUrlParamsChange = (urlParams) => {
+    onChange({
+      ...value,
+      urlParams,
+    });
+  };
+
+  /**
+   * Handles default query params change
+   */
+  const handleDefaultQueryParamsChange = (defaultQueryParams) => {
+    onChange({
+      ...value,
+      defaultQueryParams,
+    });
+  };
+
+  /**
    * Loads example API configuration
    */
   const handleLoadExample = () => {
@@ -46,6 +68,8 @@ const ApiConfigSection = ({ value = {}, onChange }) => {
       ...value,
       apiEndpoint: 'https://jsonplaceholder.typicode.com/users',
       authToken: '',
+      urlParams: [],
+      defaultQueryParams: [],
     });
     setUrlValidation({ valid: true, severity: 'success' });
   };
@@ -98,6 +122,25 @@ const ApiConfigSection = ({ value = {}, onChange }) => {
           </Button>
         )}
       </Form.Item>
+
+      <Divider orientation="left">URL Parameters</Divider>
+
+      {/* URL Params Section */}
+      <UrlParamsEditor
+        value={value.urlParams || []}
+        onChange={handleUrlParamsChange}
+        currentUrl={value.apiEndpoint || ''}
+      />
+
+      <Divider orientation="left">Query Parameters</Divider>
+
+      {/* Default Query Params Section */}
+      <DefaultQueryParamsEditor
+        value={value.defaultQueryParams || []}
+        onChange={handleDefaultQueryParamsChange}
+      />
+
+      <Divider orientation="left">Authentication</Divider>
 
       <Form.Item
         label="Authentication Token (Optional)"
