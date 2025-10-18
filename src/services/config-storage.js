@@ -148,6 +148,11 @@ export const getExampleConfiguration = () => {
     pagination: {
       pageSize: 20,
       showPagination: true,
+      mode: 'api', // 'api' = server-side pagination | 'client' = client-side pagination
+      apiParamNames: {
+        page: '_page',
+        pageSize: '_page_size',
+      },
     },
     events: {
       onRowClick: {

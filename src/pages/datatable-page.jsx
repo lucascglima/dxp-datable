@@ -33,18 +33,20 @@ const DataTablePage = () => {
   const navigate = useNavigate();
   const [config, setConfig] = useState(null);
   const [data, setData] = useState([]);
+  const [allData, setAllData] = useState([]); // Store all data for client-side pagination
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [pagination, setPagination] = useState({
     current: 1,
     pageSize: 20,
     total: 0,
+    showPagination: true,
+    responsive: false,
   });
   const [sortInfo, setSortInfo] = useState({
     columnKey: null,
     order: null,
   });
-  
 
   /**
    * Load configuration on mount
@@ -57,9 +59,14 @@ const DataTablePage = () => {
 
     const loadedConfig = loadConfiguration();
     setConfig(loadedConfig);
+
+    // Set pagination config from loaded configuration
+    const paginationConfig = loadedConfig.pagination || {};
     setPagination((prev) => ({
       ...prev,
-      pageSize: loadedConfig.pagination?.pageSize || 20,
+      pageSize: paginationConfig.pageSize || 20,
+      showPagination: paginationConfig.showPagination !== false,
+      responsive: paginationConfig.mode === 'client', // client mode = responsive pagination
     }));
   }, []);
 
@@ -72,29 +79,77 @@ const DataTablePage = () => {
     setLoading(true);
     setError(null);
 
+    const paginationMode = config.pagination?.mode || 'api';
+    const showPagination = config.pagination?.showPagination !== false;
+
     console.log('=== FETCHING DATA ===');
+    console.log('Pagination Mode:', paginationMode);
+    console.log('Show Pagination:', showPagination);
     console.log('Pagination:', { current: pagination.current, pageSize: pagination.pageSize });
     console.log('Sort Info:', sortInfo);
 
     try {
-      // Prepare API config with sorting configuration
+      // Prepare API config with sorting and pagination configuration
       const apiConfig = {
         sortingConfig: config.events?.sorting,
+        // Use custom pagination parameter names from config if in API mode
+        apiParamNames: paginationMode === 'api' ? config.pagination?.apiParamNames : undefined,
       };
+
+      // Determine if we should send pagination params to API
+      // API Mode: Send pagination params
+      // Client Mode OR No Pagination: Don't send pagination params
+      const enablePagination = paginationMode === 'api' && showPagination;
 
       const response = await fetchData(
         config.apiEndpoint,
         config.authToken,
-        pagination,
+        {
+          page: pagination.current,
+          pageSize: pagination.pageSize,
+          enablePagination, // Controls whether to send pagination params to API
+        },
         apiConfig,
         sortInfo
       );
 
-      setData(response.data);
-      setPagination((prev) => ({
-        ...prev,
-        total: response.pagination.total,
-      }));
+      // Handle different pagination modes
+      if (paginationMode === 'client' || !showPagination) {
+        // Client-side pagination or no pagination: Store all data
+        setAllData(response.data);
+
+        if (!showPagination) {
+          // No pagination: Show all data at once
+          setData(response.data);
+          setPagination((prev) => ({
+            ...prev,
+            total: response.data.length,
+            current: 1,
+          }));
+        } else {
+          // Client-side pagination: Paginate in frontend
+          const startIndex = (pagination.current - 1) * pagination.pageSize;
+          const endIndex = startIndex + pagination.pageSize;
+          const paginatedData = response.data.slice(startIndex, endIndex);
+
+          setData(paginatedData);
+          setPagination((prev) => ({
+            ...prev,
+            total: response.data.length,
+          }));
+        }
+      } else {
+        // API mode: Use data from API response
+        setData(response.data);
+        setPagination((prev) => ({
+          ...prev,
+          total: response.pagination.total,
+        }));
+      }
+
+      console.log('✅ Data loaded successfully');
+      console.log('Total items:', response.pagination?.total || response.data.length);
+      console.log('Items in current view:', response.data.length);
     } catch (err) {
       setError(err.message || 'Failed to load data');
       message.error('❌ ' + (err.message || 'Failed to load data'));
@@ -105,9 +160,25 @@ const DataTablePage = () => {
 
   /**
    * Fetch data when config or pagination changes
+   * For client-side pagination, only refetch when sort changes or initial load
    */
   useEffect(() => {
-    if (config) {
+    if (!config) return;
+
+    const paginationMode = config.pagination?.mode || 'api';
+    const showPagination = config.pagination?.showPagination !== false;
+
+    if (paginationMode === 'client' && allData.length > 0) {
+      // Client-side pagination: Just slice the existing data
+      const startIndex = (pagination.current - 1) * pagination.pageSize;
+      const endIndex = startIndex + pagination.pageSize;
+      const paginatedData = allData.slice(startIndex, endIndex);
+      setData(paginatedData);
+    } else if (!showPagination && allData.length > 0) {
+      // No pagination mode: Show all data (already loaded)
+      return;
+    } else {
+      // API mode or initial load: Fetch from API
       fetchTableData();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

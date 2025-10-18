@@ -13,7 +13,7 @@ import { dxpTablePropTypes } from './dxp-table.types';
  * @param {Object} props
  * @param {Array} props.columns - Column configuration array
  * @param {Array} props.data - Data array to be rendered
- * @param {Object} props.pagination - Pagination configuration (current, pageSize, total)
+ * @param {Object} props.pagination - Pagination configuration (current, pageSize, total, showPagination, responsive)
  * @param {boolean} props.loading - Loading state indicator
  * @param {Function} props.onSort - Callback when column is sorted
  * @param {Function} props.onRowClick - Callback when row is clicked
@@ -82,6 +82,8 @@ const DxpTable = ({
         current={pagination.current}
         pageSize={pagination.pageSize}
         total={pagination.total}
+        showPagination={pagination.showPagination}
+        responsive={pagination.responsive}
         pageSizeOptions={pagination.pageSizeOptions}
         onPageChange={handlePageChange}
         onPageSizeChange={handlePageSizeChange}

@@ -44,14 +44,14 @@ const createExternalApiInstance = (token = '') => {
  * @param {string} endpoint - Full API URL
  * @param {string} token - Optional authentication token
  * @param {Object} pagination - Pagination parameters
- * @param {Object} apiConfig - API configuration (param names, response paths)
+ * @param {Object} apiConfig - API configuration (param names, response paths, pagination config)
  * @param {Object} sortInfo - Sorting information (columnKey, order)
  * @returns {Promise<Object>} Response with data and pagination
  */
 export const fetchData = async (endpoint, token = '', pagination = {}, apiConfig = {}, sortInfo = null) => {
   try {
     const api = createExternalApiInstance(token);
-    const { page = 1, pageSize = 20 } = pagination;
+    const { page = 1, pageSize = 20, enablePagination = true } = pagination;
 
     // Get custom parameter names or use defaults
     const paramNames = apiConfig.apiParamNames || {
@@ -60,11 +60,14 @@ export const fetchData = async (endpoint, token = '', pagination = {}, apiConfig
       sort: 'sort',
     };
 
-    // Build query parameters using custom names
-    const params = {
-      [paramNames.page]: page,
-      [paramNames.pageSize]: pageSize,
-    };
+    // Build query parameters
+    const params = {};
+
+    // Only add pagination parameters if pagination is enabled
+    if (enablePagination) {
+      params[paramNames.page] = page;
+      params[paramNames.pageSize] = pageSize;
+    }
 
     // Add sorting parameters if provided and mode is server-side
     if (sortInfo && sortInfo.columnKey && apiConfig.sortingConfig?.mode === 'server') {
