@@ -24,7 +24,8 @@ import {
   InfoCircleOutlined,
 } from '@ant-design/icons';
 import DxpTable from '../components/dxp-table';
-import { loadConfiguration, hasConfiguration } from '../services/config-storage';
+import { SearchInputParam } from '../components/dynamic-params';
+import { loadConfiguration, hasConfiguration, updateConfiguration } from '../services/config-storage';
 import { fetchData } from '../services/external-api';
 
 const { Title, Text, Paragraph } = Typography;
@@ -47,6 +48,7 @@ const DataTablePage = () => {
     columnKey: null,
     order: null,
   });
+  const [searchValue, setSearchValue] = useState('');
 
   /**
    * Load configuration on mount
@@ -68,6 +70,11 @@ const DataTablePage = () => {
       showPagination: paginationConfig.showPagination !== false,
       responsive: paginationConfig.mode === 'client', // client mode = responsive pagination
     }));
+
+    // Load search value from config if it exists
+    if (loadedConfig.dynamicParams?.searchInput?.currentValue) {
+      setSearchValue(loadedConfig.dynamicParams.searchInput.currentValue);
+    }
   }, []);
 
   /**
@@ -89,7 +96,7 @@ const DataTablePage = () => {
     console.log('Sort Info:', sortInfo);
 
     try {
-      // Prepare API config with sorting, pagination, URL params, and default query params
+      // Prepare API config with sorting, pagination, URL params, default query params, and dynamic params
       const apiConfig = {
         sortingConfig: config.events?.sorting,
         // Use custom pagination parameter names from config if in API mode
@@ -100,6 +107,8 @@ const DataTablePage = () => {
         urlParams: config.urlParams || [],
         // Include default query params (with enabled flag)
         defaultQueryParams: config.defaultQueryParams || [],
+        // Include dynamic parameters (search, filters, etc.)
+        dynamicParams: config.dynamicParams || {},
       };
 
       // Determine if we should send pagination params to API
@@ -188,7 +197,7 @@ const DataTablePage = () => {
       fetchTableData();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [config, pagination.current, pagination.pageSize, sortInfo.columnKey, sortInfo.order]);
+  }, [config, pagination.current, pagination.pageSize, sortInfo.columnKey, sortInfo.order, searchValue]);
 
   /**
    * Handles pagination changes
@@ -227,6 +236,40 @@ const DataTablePage = () => {
   };
 
 
+
+  /**
+   * Handles search input change
+   */
+  const handleSearchChange = (newValue) => {
+    console.log('=== SEARCH VALUE CHANGED ===');
+    console.log('New value:', newValue);
+
+    // Update local state
+    setSearchValue(newValue);
+
+    // Update config with new search value
+    const updatedConfig = {
+      ...config,
+      dynamicParams: {
+        ...config.dynamicParams,
+        searchInput: {
+          ...config.dynamicParams?.searchInput,
+          currentValue: newValue,
+        },
+      },
+    };
+
+    setConfig(updatedConfig);
+
+    // Save to localStorage
+    updateConfiguration(updatedConfig);
+
+    // Reset to first page when search changes
+    setPagination((prev) => ({
+      ...prev,
+      current: 1,
+    }));
+  };
 
   /**
    * Handles row click - Executes custom code if enabled
@@ -399,6 +442,18 @@ const DataTablePage = () => {
               showIcon
             />
           )}
+
+          {/* Dynamic Parameters Section */}
+          {config.dynamicParams?.searchInput?.enabled && (
+            <div style={{ marginBottom: '16px' }}>
+              <SearchInputParam
+                value={searchValue}
+                onChange={handleSearchChange}
+                placeholder={config.dynamicParams.searchInput.placeholder || 'Search...'}
+              />
+            </div>
+          )}
+
           {/* DataTable */}
           <DxpTable
             columns={getProcessedColumns()}

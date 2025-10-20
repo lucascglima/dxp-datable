@@ -120,6 +120,14 @@ export const getExampleConfiguration = () => {
       { key: '_page', value: '1' },
       { key: '_limit', value: '10' }
     ],
+    dynamicParams: {
+      searchInput: {
+        enabled: true,
+        queryParamName: 'q',
+        placeholder: 'Search by name or email...',
+        currentValue: '',
+      },
+    },
     columns: [
       {
         key: 'id',

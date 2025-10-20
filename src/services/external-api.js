@@ -47,7 +47,7 @@ const createExternalApiInstance = (token = '') => {
  * @param {string} endpoint - Full API URL (may contain path variables like :version)
  * @param {string} token - Optional authentication token
  * @param {Object} pagination - Pagination parameters
- * @param {Object} apiConfig - API configuration (param names, response paths, pagination config, urlParams, defaultQueryParams)
+ * @param {Object} apiConfig - API configuration (param names, response paths, pagination config, urlParams, defaultQueryParams, dynamicParams)
  * @param {Object} sortInfo - Sorting information (columnKey, order)
  * @returns {Promise<Object>} Response with data and pagination
  */
@@ -94,6 +94,20 @@ export const fetchData = async (endpoint, token = '', pagination = {}, apiConfig
 
       params[columnParam] = sortInfo.columnKey;
       params[orderParam] = orderValues[sortInfo.order] || orderValues.ascend;
+    }
+
+    // Add dynamic parameters (search input, date range, etc.)
+    if (apiConfig.dynamicParams) {
+      // Add search input parameter if enabled and has value
+      if (apiConfig.dynamicParams.searchInput?.enabled && apiConfig.dynamicParams.searchInput?.currentValue) {
+        const { queryParamName, currentValue } = apiConfig.dynamicParams.searchInput;
+        if (queryParamName && currentValue.trim()) {
+          params[queryParamName] = currentValue.trim();
+        }
+      }
+
+      // Future: Add other dynamic parameters here (date range, tabs, etc.)
+      // if (apiConfig.dynamicParams.dateRange?.enabled) { ... }
     }
 
     const response = await api.get(finalEndpoint, { params });

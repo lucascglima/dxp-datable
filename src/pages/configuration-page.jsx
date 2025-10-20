@@ -25,11 +25,13 @@ import {
   EyeOutlined,
   SaveOutlined,
   ClearOutlined,
+  SearchOutlined,
 } from '@ant-design/icons';
 import ApiConfigSection from '../components/configuration-form/api-config-section';
 import ColumnsConfigSection from '../components/configuration-form/columns-config-section';
 import PaginationConfigSection from '../components/configuration-form/pagination-config-section';
 import EventsConfigSection from '../components/configuration-form/events-config.section';
+import DynamicParamsConfigSection from '../components/configuration-form/dynamic-params-config-section';
 import PreviewSection from '../components/configuration-form/preview-section';
 import {
   saveConfiguration,
@@ -74,6 +76,14 @@ const ConfigurationPage = () => {
         },
       },
     },
+    dynamicParams: {
+      searchInput: {
+        enabled: false,
+        queryParamName: 'search',
+        placeholder: 'Search...',
+        currentValue: '',
+      },
+    },
   });
 
   /**
@@ -101,6 +111,14 @@ const ConfigurationPage = () => {
                 descend: '-1',
               },
             },
+          },
+        },
+        dynamicParams: existing.dynamicParams || {
+          searchInput: {
+            enabled: false,
+            queryParamName: 'search',
+            placeholder: 'Search...',
+            currentValue: '',
           },
         },
       };
@@ -176,6 +194,16 @@ const ConfigurationPage = () => {
     setConfig({
       ...config,
       events,
+    });
+  };
+
+  /**
+   * Handles dynamic parameters configuration change
+   */
+  const handleDynamicParamsChange = (dynamicParams) => {
+    setConfig({
+      ...config,
+      dynamicParams,
     });
   };
 
@@ -304,6 +332,14 @@ const ConfigurationPage = () => {
               },
             },
           },
+          dynamicParams: {
+            searchInput: {
+              enabled: false,
+              queryParamName: 'search',
+              placeholder: 'Search...',
+              currentValue: '',
+            },
+          },
         });
         setCurrentStep(0);
         message.success('Configuration cleared');
@@ -383,7 +419,16 @@ const ConfigurationPage = () => {
         />
       ),
     },
-    
+    {
+      title: 'Dynamic Params',
+      icon: <SearchOutlined />,
+      content: (
+        <DynamicParamsConfigSection
+          value={config.dynamicParams}
+          onChange={handleDynamicParamsChange}
+        />
+      ),
+    },
   ];
 
   return (
