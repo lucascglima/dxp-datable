@@ -24,10 +24,10 @@ const NavigationMenu = () => {
       icon: <SettingOutlined />,
       label: (
         <Link to="/configuration">
-          Configuration{' '}
+          Configuração{' '}
           {!configExists && (
             <Badge
-              count="New"
+              count="Novo"
               style={{ backgroundColor: '#52c41a', marginLeft: 8 }}
             />
           )}
@@ -37,7 +37,7 @@ const NavigationMenu = () => {
     {
       key: '/datatable',
       icon: <TableOutlined />,
-      label: <Link to="/datatable">My DataTable</Link>,
+      label: <Link to="/datatable">Tabela configurada</Link>,
       disabled: !configExists,
     },
   ];

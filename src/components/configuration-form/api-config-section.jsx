@@ -16,9 +16,6 @@ const ApiConfigSection = ({ value = {}, onChange }) => {
   const [showToken, setShowToken] = useState(false);
   const [urlValidation, setUrlValidation] = useState(null);
 
-  /**
-   * Handles API endpoint change with validation
-   */
   const handleEndpointChange = (e) => {
     const url = e.target.value;
     const validation = validateUrl(url);
@@ -33,17 +30,18 @@ const ApiConfigSection = ({ value = {}, onChange }) => {
   /**
    * Handles auth token change
    */
+
   const handleTokenChange = (e) => {
     onChange({
       ...value,
       authToken: e.target.value,
     });
   };
-
+  
   /**
    * Handles URL params change
    */
-  const handleUrlParamsChange = (urlParams) => {
+    const handleUrlParamsChange = (urlParams) => {
     onChange({
       ...value,
       urlParams,
@@ -77,14 +75,14 @@ const ApiConfigSection = ({ value = {}, onChange }) => {
   return (
     <Space direction="vertical" size="large" style={{ width: '100%' }}>
       <Alert
-        message="API Configuration"
-        description="Configure the external API endpoint you want to fetch data from. You can use any REST API that returns JSON data."
+        message="Configuração da API"
+        description="Configure o endpoint da API externa de onde você deseja buscar os dados. Você pode usar qualquer API REST que retorne dados em JSON."
         type="info"
         showIcon
       />
 
       <Form.Item
-        label="API Endpoint URL"
+        label="URL do Endpoint da API"
         required
         validateStatus={
           urlValidation
@@ -96,7 +94,7 @@ const ApiConfigSection = ({ value = {}, onChange }) => {
         help={
           urlValidation?.error ||
           urlValidation?.warning ||
-          'Enter the complete URL of your API endpoint'
+          'Digite a URL completa do endpoint da sua API'
         }
       >
         <Input
@@ -118,39 +116,37 @@ const ApiConfigSection = ({ value = {}, onChange }) => {
               setUrlValidation(validateUrl(urlValidation.fixedUrl));
             }}
           >
-            Use suggested URL: {urlValidation.fixedUrl}
+            Usar URL sugerida: {urlValidation.fixedUrl}
           </Button>
         )}
       </Form.Item>
 
-      <Divider orientation="left">URL Parameters</Divider>
+      <Divider orientation="left">Parâmetros de URL</Divider>
 
-      {/* URL Params Section */}
       <UrlParamsEditor
         value={value.urlParams || []}
         onChange={handleUrlParamsChange}
         currentUrl={value.apiEndpoint || ''}
       />
 
-      <Divider orientation="left">Query Parameters</Divider>
+      <Divider orientation="left">Parâmetros de Consulta (Query)</Divider>
 
-      {/* Default Query Params Section */}
       <DefaultQueryParamsEditor
         value={value.defaultQueryParams || []}
         onChange={handleDefaultQueryParamsChange}
       />
 
-      <Divider orientation="left">Authentication</Divider>
+      <Divider orientation="left">Autenticação</Divider>
 
       <Form.Item
-        label="Authentication Token (Optional)"
-        help="Leave empty if your API doesn't require authentication. Include 'Bearer' prefix if needed."
+        label="Token de Autenticação (Opcional)"
+        help="Deixe em branco se sua API não exigir autenticação. Inclua o prefixo 'Bearer' se necessário."
       >
         <Input
           type={showToken ? 'text' : 'password'}
           value={value.authToken}
           onChange={handleTokenChange}
-          placeholder="Bearer your-token-here or leave empty"
+          placeholder="Bearer seu-token-aqui ou deixe em branco"
           suffix={
             <Button
               type="text"
@@ -162,10 +158,10 @@ const ApiConfigSection = ({ value = {}, onChange }) => {
         />
       </Form.Item>
 
-      <Form.Item label="Request Method">
+      <Form.Item label="Método da Requisição">
         <Input value="GET" disabled size="large" />
         <span style={{ fontSize: '12px', color: '#666' }}>
-          Only GET requests are supported in this version
+          Apenas requisições GET são suportadas nesta versão
         </span>
       </Form.Item>
 
@@ -175,7 +171,7 @@ const ApiConfigSection = ({ value = {}, onChange }) => {
         onClick={handleLoadExample}
         block
       >
-        Load Example API (JSONPlaceholder Users)
+        Carregar API de Exemplo (Usuários do JSONPlaceholder)
       </Button>
     </Space>
   );

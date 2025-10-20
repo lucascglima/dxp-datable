@@ -122,7 +122,7 @@ export const validateUrl = (url) => {
   if (!url || !url.trim()) {
     return {
       valid: false,
-      error: 'URL is required',
+      error: 'URL é obrigatória',
       severity: 'error',
     };
   }
@@ -132,7 +132,7 @@ export const validateUrl = (url) => {
   if (!validation.isValid) {
     return {
       valid: false,
-      error: validation.suggestions[0] || 'Invalid URL format',
+      error: validation.suggestions[0] || 'Formato de URL inválido',
       suggestions: validation.suggestions,
       fixedUrl: validation.fixedUrl,
       severity: 'error',
@@ -142,7 +142,7 @@ export const validateUrl = (url) => {
   if (!validation.isSecure) {
     return {
       valid: true,
-      warning: 'URL is not secure (HTTPS recommended)',
+      warning: 'URL não é segura (HTTPS recomendado)',
       severity: 'warning',
     };
   }

@@ -144,11 +144,11 @@ const UrlParamsEditor = ({ value = [], onChange, currentUrl = '' }) => {
   const detectedVariables = hasVariables ? extractUrlVariables(currentUrl) : [];
 
   return (
-    <Card title="URL Params (Path Variables)" size="small">
+    <Card title="Parâmetros de URL (Variáveis de Caminho)" size="small">
       <Space direction="vertical" size="middle" style={{ width: '100%' }}>
         <Alert
-          message="Configure path variables in your URL"
-          description="Path variables like :version or :userId will be replaced with the values you define here. Example: https://api.com/:version/users → https://api.com/2.3/users"
+          message="Configure variáveis de caminho na sua URL"
+          description="Variáveis de caminho como :version ou :userId serão substituídas pelos valores que você definir aqui. Exemplo: https://api.com/:version/users → https://api.com/2.3/users"
           type="info"
           showIcon
           icon={<InfoCircleOutlined />}
@@ -158,8 +158,8 @@ const UrlParamsEditor = ({ value = [], onChange, currentUrl = '' }) => {
 
         {!hasVariables && currentUrl && (
           <Alert
-            message="No path variables detected in the URL"
-            description="Path variables start with ':' (e.g., :version, :userId). Your URL doesn't contain any."
+            message="Nenhuma variável de caminho detectada na URL"
+            description="Variáveis de caminho começam com ':' (ex.: :version, :userId). Sua URL não contém nenhuma."
             type="info"
             showIcon
           />
@@ -175,7 +175,7 @@ const UrlParamsEditor = ({ value = [], onChange, currentUrl = '' }) => {
               return (
                 <Space key={index} style={{ width: '100%' }} align="start">
                   <Input
-                    placeholder="Variable name (e.g., version)"
+                    placeholder="Nome da variável (ex.: version)"
                     value={param.key}
                     onChange={(e) => handleParamChange(index, 'key', e.target.value)}
                     style={{ width: 150 }}
@@ -183,7 +183,7 @@ const UrlParamsEditor = ({ value = [], onChange, currentUrl = '' }) => {
                     status={!isUsed && param.key ? 'warning' : undefined}
                   />
                   <Input
-                    placeholder="Value (e.g., 2.3)"
+                    placeholder="Valor (ex.: 2.3)"
                     value={param.value}
                     onChange={(e) => handleParamChange(index, 'value', e.target.value)}
                     style={{ width: 200 }}
@@ -191,7 +191,7 @@ const UrlParamsEditor = ({ value = [], onChange, currentUrl = '' }) => {
                   />
                   {!isUsed && param.key && (
                     <Tag color="orange" icon={<WarningOutlined />}>
-                      Not used in URL
+                      Não usado na URL
                     </Tag>
                   )}
                   <Button
@@ -212,7 +212,7 @@ const UrlParamsEditor = ({ value = [], onChange, currentUrl = '' }) => {
           onClick={handleAddParam}
           block
         >
-          Add URL Parameter
+          Adicionar Parâmetro de URL
         </Button>
 
         {/* Validation messages */}
@@ -220,7 +220,7 @@ const UrlParamsEditor = ({ value = [], onChange, currentUrl = '' }) => {
           <Space direction="vertical" size="small" style={{ width: '100%' }}>
             {validation.valid && (
               <Alert
-                message="All URL parameters are configured correctly"
+                message="Todos os parâmetros de URL estão configurados corretamente"
                 type="success"
                 showIcon
                 icon={<CheckCircleOutlined />}
@@ -229,7 +229,7 @@ const UrlParamsEditor = ({ value = [], onChange, currentUrl = '' }) => {
 
             {validation.errors.length > 0 && (
               <Alert
-                message="Configuration errors"
+                message="Erros de configuração"
                 description={
                   <ul style={{ margin: 0, paddingLeft: 20 }}>
                     {validation.errors.map((error, i) => (
@@ -244,7 +244,7 @@ const UrlParamsEditor = ({ value = [], onChange, currentUrl = '' }) => {
 
             {validation.warnings.length > 0 && (
               <Alert
-                message="Warnings"
+                message="Avisos"
                 description={
                   <ul style={{ margin: 0, paddingLeft: 20 }}>
                     {validation.warnings.map((warning, i) => (
@@ -262,7 +262,7 @@ const UrlParamsEditor = ({ value = [], onChange, currentUrl = '' }) => {
         {/* URL Preview */}
         {urlPreview && urlPreview.url !== currentUrl && (
           <Card
-            title="URL Preview"
+            title="Pré-visualização da URL"
             size="small"
             type="inner"
             style={{ backgroundColor: '#fafafa' }}
@@ -270,7 +270,7 @@ const UrlParamsEditor = ({ value = [], onChange, currentUrl = '' }) => {
             <Space direction="vertical" size="small" style={{ width: '100%' }}>
               <div>
                 <Text type="secondary" style={{ fontSize: 12 }}>
-                  Original URL:
+                  URL Original:
                 </Text>
                 <div
                   style={{
@@ -289,7 +289,7 @@ const UrlParamsEditor = ({ value = [], onChange, currentUrl = '' }) => {
 
               <div>
                 <Text type="secondary" style={{ fontSize: 12 }}>
-                  Final URL (with replaced values):
+                  URL Final (com valores substituídos):
                 </Text>
                 <div
                   style={{
@@ -309,7 +309,7 @@ const UrlParamsEditor = ({ value = [], onChange, currentUrl = '' }) => {
 
               {urlPreview.missing.length > 0 && (
                 <Alert
-                  message={`Missing values for: ${urlPreview.missing.map(m => `:${m}`).join(', ')}`}
+                  message={`Valores ausentes para: ${urlPreview.missing.map(m => `:${m}`).join(', ')}`}
                   type="warning"
                   showIcon
                   style={{ marginTop: 8 }}

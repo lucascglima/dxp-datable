@@ -194,7 +194,7 @@ const QueryParamsEditor = ({ value = [], onChange }) => {
       children: (
         <Space direction="vertical" size="middle" style={{ width: '100%' }}>
           <Alert
-            message="Visual editor for query parameters"
+            message="Editor visual para parâmetros de consulta"
             type="info"
             showIcon
             icon={<InfoCircleOutlined />}
@@ -204,13 +204,13 @@ const QueryParamsEditor = ({ value = [], onChange }) => {
           {params.map((param, index) => (
             <Space key={index} style={{ width: '100%' }} align="start">
               <Input
-                placeholder="Key (e.g., page)"
+                placeholder="Chave (ex.: página)"
                 value={param.key}
                 onChange={(e) => handleParamChange(index, 'key', e.target.value)}
                 style={{ width: 150 }}
               />
               <Input
-                placeholder="Value (e.g., 1)"
+                placeholder="Valor (ex.: 1)"
                 value={param.value}
                 onChange={(e) => handleParamChange(index, 'value', e.target.value)}
                 style={{ width: 200 }}
@@ -230,7 +230,7 @@ const QueryParamsEditor = ({ value = [], onChange }) => {
             onClick={handleAddParam}
             block
           >
-            Add Parameter
+            Adicionar Parâmetro
           </Button>
         </Space>
       ),
@@ -241,8 +241,8 @@ const QueryParamsEditor = ({ value = [], onChange }) => {
       children: (
         <Space direction="vertical" size="middle" style={{ width: '100%' }}>
           <Alert
-            message="Paste or edit query string"
-            description="Format: key1=value1&key2=value2. Auto-syncs with Visual and JSON formats."
+            message="Cole ou edite a query string"
+            description="Formato: chave1=valor1&chave2=valor2. Sincroniza automaticamente com os formatos Visual e JSON."
             type="info"
             showIcon
           />
@@ -256,7 +256,7 @@ const QueryParamsEditor = ({ value = [], onChange }) => {
           />
 
           <Text type="secondary" style={{ fontSize: 12 }}>
-            Special characters will be URL encoded automatically when sent to the API.
+            Caracteres especiais serão codificados em URL automaticamente ao serem enviados para a API.
           </Text>
         </Space>
       ),
@@ -267,8 +267,8 @@ const QueryParamsEditor = ({ value = [], onChange }) => {
       children: (
         <Space direction="vertical" size="middle" style={{ width: '100%' }}>
           <Alert
-            message="Paste or edit JSON array"
-            description='Format: [{"key": "page", "value": "1"}]. Auto-syncs with Visual and Query String formats.'
+            message="Cole ou edite o array JSON"
+            description='Formato: [{"key": "page", "value": "1"}]. Sincroniza automaticamente com os formatos Visual e Query String.'
             type="info"
             showIcon
           />
@@ -282,7 +282,7 @@ const QueryParamsEditor = ({ value = [], onChange }) => {
           />
 
           <Text type="secondary" style={{ fontSize: 12 }}>
-            Must be a valid JSON array with &quot;key&quot; and &quot;value&quot; properties.
+            Deve ser um array JSON válido com as propriedades &quot;key&quot; e &quot;value&quot;.
           </Text>
         </Space>
       ),
@@ -290,7 +290,7 @@ const QueryParamsEditor = ({ value = [], onChange }) => {
   ];
 
   return (
-    <Card title="Test Query Parameters" size="small">
+    <Card title="Parâmetros de Consulta de Teste" size="small">
       <Space direction="vertical" size="middle" style={{ width: '100%' }}>
         <Tabs
           activeKey={activeTab}
@@ -301,7 +301,7 @@ const QueryParamsEditor = ({ value = [], onChange }) => {
         {/* Parsing Preview */}
         {parsePreview && (
           <Card
-            title="Parsing Preview"
+            title="Pré-visualização da Análise"
             size="small"
             type="inner"
             style={{ backgroundColor: '#fafafa' }}
@@ -309,7 +309,7 @@ const QueryParamsEditor = ({ value = [], onChange }) => {
             {parsePreview.success ? (
               <Space direction="vertical" size="small" style={{ width: '100%' }}>
                 <Alert
-                  message={`Parsed successfully (${parsePreview.count} parameter${parsePreview.count !== 1 ? 's' : ''})`}
+                  message={`Analisado com sucesso (${parsePreview.count} parâmetro${parsePreview.count !== 1 ? 's' : ''})`}
                   type="success"
                   showIcon
                   icon={<CheckCircleOutlined />}
@@ -320,12 +320,12 @@ const QueryParamsEditor = ({ value = [], onChange }) => {
                     <div key={index} style={{ marginBottom: 4 }}>
                       <Text strong>{param.key}</Text>
                       <Text type="secondary">: </Text>
-                      <Text>{param.value || '(empty)'}</Text>
+                      <Text>{param.value || '(vazio)'}</Text>
 
                       {param.value && /[*()&=?#+]/.test(param.value) && (
                         <div style={{ marginLeft: 16, fontSize: 12 }}>
                           <Text type="secondary">
-                            URL encoded: {encodeParam(param.value)}
+                            Codificado em URL: {encodeParam(param.value)}
                           </Text>
                         </div>
                       )}
@@ -335,8 +335,8 @@ const QueryParamsEditor = ({ value = [], onChange }) => {
 
                 {parsePreview.hasSpecialChars && (
                   <Alert
-                    message="Special characters detected"
-                    description="Values with special characters (*()&=?#+) will be automatically URL encoded when sent to the API."
+                    message="Caracteres especiais detectados"
+                    description="Valores com caracteres especiais (*()&=?#+) serão automaticamente codificados em URL ao serem enviados para a API."
                     type="info"
                     showIcon
                     style={{ marginTop: 8 }}
@@ -346,7 +346,7 @@ const QueryParamsEditor = ({ value = [], onChange }) => {
             ) : (
               <Space direction="vertical" size="small" style={{ width: '100%' }}>
                 <Alert
-                  message="Parsing errors"
+                  message="Erros de análise"
                   type="error"
                   showIcon
                   icon={<CloseCircleOutlined />}

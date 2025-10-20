@@ -39,7 +39,7 @@ export const parseQueryString = (queryString) => {
 
     return params;
   } catch (error) {
-    throw new Error(`Failed to parse query string: ${error.message}`);
+    throw new Error(`Falha ao analisar a sequência de consulta: ${error.message}`);
   }
 };
 
@@ -59,7 +59,7 @@ export const parseJSON = (jsonString) => {
 
     return parsed.map((item, index) => {
       if (!item.key && !item.hasOwnProperty('key')) {
-        throw new Error(`Item at index ${index} missing 'key' property`);
+        throw new Error(`Item no índice ${index} sem propriedade 'key'`);
       }
       return {
         key: String(item.key || '').trim(),
@@ -160,22 +160,22 @@ export const validateParams = (params) => {
   if (!params || !Array.isArray(params)) {
     return {
       valid: false,
-      errors: ['Parameters must be an array'],
+      errors: ['Parâmetros devem ser um array'],
     };
   }
 
   params.forEach((param, index) => {
     if (!param.key || typeof param.key !== 'string') {
-      errors.push(`Parameter ${index + 1}: key is required and must be a string`);
+      errors.push(`Parâmetro ${index + 1}: key é obrigatório e deve ser uma string`);
     }
 
     if (param.key && param.key.trim() === '') {
-      errors.push(`Parameter ${index + 1}: key cannot be empty`);
+      errors.push(`Parâmetro ${index + 1}: key não pode estar vazio`);
     }
 
     if (param.value !== undefined && typeof param.value !== 'string') {
       errors.push(
-        `Parameter ${index + 1}: value must be a string (got ${typeof param.value})`
+        `Parâmetro ${index + 1}: value deve ser uma string (recebido ${typeof param.value})`
       );
     }
   });
@@ -233,7 +233,7 @@ export const parseAny = (input) => {
       return {
         params: [],
         format: 'unknown',
-        errors: ['Could not detect input format. Use query string (key=value&...) or JSON array format.'],
+        errors: ['Não foi possível detectar o formato de entrada. Use a sequência de consulta (key=value&...) ou o formato de matriz JSON.'],
       };
     }
 
@@ -344,7 +344,7 @@ export const validateParamConflicts = (options = {}) => {
     defaultParams = [],
     paginationParams = [],
     labels = {
-      testParams: 'Test Query Params',
+      testParams: 'Teste Query Params',
       defaultParams: 'Default Query Params',
       paginationParams: 'Pagination Params',
     },
@@ -365,7 +365,7 @@ export const validateParamConflicts = (options = {}) => {
       });
 
       errors.push(
-        `Duplicate parameter "${key}" found in: ${locations.join(', ')}`
+        ` Parâmetro duplicado "${key}" encontrado em: ${locations.join(', ')}`
       );
     });
   }
