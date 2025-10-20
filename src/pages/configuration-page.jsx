@@ -346,6 +346,7 @@ const ConfigurationPage = () => {
           urlParams={config.urlParams}
           defaultQueryParams={config.defaultQueryParams}
           testQueryParams={config.testQueryParams}
+          responseDataPath={config.responseDataPath}
           onTestQueryParamsChange={handleTestQueryParamsChange}
           onSuggestColumns={handleSuggestColumns}
           onResponseMappingChange={handleResponseMappingChange}

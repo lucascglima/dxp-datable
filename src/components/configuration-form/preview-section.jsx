@@ -6,7 +6,7 @@
  * Supports customizable query parameters and optional response mapping.
  */
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Button,
   Alert,
@@ -41,6 +41,7 @@ const PreviewSection = ({
   onTestQueryParamsChange,
   defaultQueryParams = [],
   urlParams = [],
+  responseDataPath = null,
 }) => {
   const [testing, setTesting] = useState(false);
   const [testResult, setTestResult] = useState(null);
@@ -59,6 +60,17 @@ const PreviewSection = ({
   const [dataPath, setDataPath] = useState('');
   const [totalPath, setTotalPath] = useState('');
   const [mappingValidation, setMappingValidation] = useState(null);
+
+  /**
+   * Load responseDataPath values when component mounts or when prop changes
+   */
+  useEffect(() => {
+    if (responseDataPath && responseDataPath.dataKey) {
+      setEnableMapping(true);
+      setDataPath(responseDataPath.dataKey || '');
+      setTotalPath(responseDataPath.totalKey || '');
+    }
+  }, [responseDataPath]);
 
   /**
    * Handles query params change from editor
