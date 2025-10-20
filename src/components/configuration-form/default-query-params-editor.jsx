@@ -80,11 +80,11 @@ const DefaultQueryParamsEditor = ({ value = [], onChange }) => {
 
 
   return (
-    <Card title="Default Query Params" size="small">
+    <Card title="Parâmetros de Consulta Padrão" size="small">
       <Space direction="vertical" size="middle" style={{ width: '100%' }}>
         <Alert
-          message="Default query parameters for all requests"
-          description="These query parameters will be sent with all API requests (both table data and tests). Use the checkbox to enable/disable each parameter."
+          message="Parâmetros de consulta padrão para todas as requisições"
+          description="Esses parâmetros serão enviados com todas as requisições da API (tanto para os dados da tabela quanto para os testes). Use a caixa de seleção para ativar/desativar cada parâmetro."
           type="info"
           showIcon
           icon={<InfoCircleOutlined />}
@@ -104,14 +104,14 @@ const DefaultQueryParamsEditor = ({ value = [], onChange }) => {
                     style={{ marginTop: 8 }}
                   />
                   <Input
-                    placeholder="Key (e.g., site)"
+                    placeholder="Chave (ex: site)"
                     value={param.key}
                     onChange={(e) => handleParamChange(index, 'key', e.target.value)}
                     style={{ width: 150 }}
                     disabled={!param.enabled}
                   />
                   <Input
-                    placeholder="Value (e.g., stackoverflow)"
+                    placeholder="Valor (ex: stackoverflow)"
                     value={param.value}
                     onChange={(e) => handleParamChange(index, 'value', e.target.value)}
                     style={{ width: 200 }}
@@ -135,8 +135,8 @@ const DefaultQueryParamsEditor = ({ value = [], onChange }) => {
                   }}
                 >
                   {param.enabled
-                    ? `Will be sent: ?${param.key || '...'}=${param.value || '...'}`
-                    : 'Disabled - will not be sent in requests'}
+                    ? `Será enviado: ?${param.key || '...'}=${param.value || '...'}`
+                    : 'Desativado - não será enviado nas requisições'}
                 </Text>
               </div>
             ))}
@@ -145,8 +145,8 @@ const DefaultQueryParamsEditor = ({ value = [], onChange }) => {
 
         {params.length === 0 && (
           <Alert
-            message="No default query params configured"
-            description="Add query parameters that should be sent with every API request. You can enable/disable them individually."
+            message="Nenhum parâmetro de consulta padrão configurado"
+            description="Adicione parâmetros de consulta que devem ser enviados com cada requisição da API. Você pode ativar ou desativar cada um individualmente."
             type="info"
             showIcon
           />
@@ -158,20 +158,20 @@ const DefaultQueryParamsEditor = ({ value = [], onChange }) => {
           onClick={handleAddParam}
           block
         >
-          Add Default Query Parameter
+          Adicionar Parâmetro de Consulta Padrão
         </Button>
 
         {/* Example section */}
         {params.length === 0 && (
           <Alert
-            message="Example use case"
+            message="Exemplo de uso"
             description={
               <div>
                 <Text>
-                  If your API always requires certain parameters like{' '}
-                  <Text code>site=stackoverflow</Text> or{' '}
-                  <Text code>filter=withbody</Text>, add them here. You can temporarily
-                  disable them without deleting using the checkbox.
+                  Se a sua API sempre exige certos parâmetros como{' '}
+                  <Text code>site=stackoverflow</Text> ou{' '}
+                  <Text code>filter=withbody</Text>, adicione-os aqui. Você pode
+                  desativá-los temporariamente sem excluir usando a caixa de seleção.
                 </Text>
               </div>
             }

@@ -166,8 +166,8 @@ const DataTablePage = () => {
       console.log('Total items:', response.pagination?.total || response.data.length);
       console.log('Items in current view:', response.data.length);
     } catch (err) {
-      setError(err.message || 'Failed to load data');
-      message.error('❌ ' + (err.message || 'Failed to load data'));
+      setError(err.message || 'Falha ao carregar dados');
+      message.error('❌ ' + (err.message || 'Falha ao carregar dados'));
     } finally {
       setLoading(false);
     }
@@ -225,13 +225,13 @@ const DataTablePage = () => {
     if (sortingMode === 'server') {
       // Server-side sorting: update state and trigger data fetch
       setSortInfo(newSortInfo);
-      message.info('Sorting applied - fetching sorted data from server');
+      message.info('Ordenação aplicada - buscando dados ordenados no servidor');
     } else if (sortingMode === 'client') {
       // Client-side sorting: handled by Ant Design Table
-      message.info('Sorting applied in browser');
+      message.info('Ordenação aplicada no navegador');
     } else {
       // Sorting disabled
-      message.warning('Sorting is disabled in configuration');
+      message.warning('A ordenação está desabilitada na configuração');
     }
   };
 
@@ -300,7 +300,7 @@ const DataTablePage = () => {
       // Handle execution errors
       console.error('Error executing row click handler:', error);
       notification.error({
-        message: 'Row Click Handler Error',
+        message: 'Erro no Manipulador de Clique da Linha',
         description: error.message,
         placement: 'topRight',
         duration: 4,
@@ -340,7 +340,7 @@ const DataTablePage = () => {
    * Handles refresh button click
    */
   const handleRefresh = () => {
-    message.loading('Refreshing data...', 0.5);
+    message.loading('Atualizando dados...', 0.5);
     fetchTableData();
   };
 
@@ -358,19 +358,19 @@ const DataTablePage = () => {
         <Card>
           <Space direction="vertical" size="large" style={{ width: '100%', textAlign: 'center' }}>
             <WarningOutlined style={{ fontSize: '64px', color: '#faad14' }} />
-            <Title level={2}>Welcome! 👋</Title>
+            <Title level={2}>Bem-vindo! 👋</Title>
             <Paragraph>
-              Let's configure your data table. Click the button below to get started.
+              Vamos configurar sua tabela de dados. Clique no botão abaixo para começar.
             </Paragraph>
             <Paragraph type="secondary">
-              Configuration is quick and easy - no coding required!
+              A configuração é rápida e fácil - não é necessário codificar!
             </Paragraph>
             <Button
               type="primary"
               size="large"
               onClick={() => navigate('/configuration')}
             >
-              Go to Configuration
+              Ir para Configuração
             </Button>
           </Space>
         </Card>
@@ -386,10 +386,10 @@ const DataTablePage = () => {
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div>
               <Title level={2} style={{ margin: 0 }}>
-                My DataTable
+                Tabela Configurada
               </Title>
               <Text type="secondary">
-                Data from: <code>{config.apiEndpoint}</code>
+                Dados de: <code>{config.apiEndpoint}</code>
               </Text>
             </div>
 
@@ -398,7 +398,7 @@ const DataTablePage = () => {
                 icon={<EditOutlined />}
                 onClick={handleEditConfig}
               >
-                Edit Configuration
+                Editar Configuração
               </Button>
               <Button
                 type="primary"
@@ -406,7 +406,7 @@ const DataTablePage = () => {
                 onClick={handleRefresh}
                 loading={loading}
               >
-                Refresh
+                Recarregar
               </Button>
             </Space>
           </div>
@@ -414,7 +414,7 @@ const DataTablePage = () => {
           {/* Status Badge */}
           {!loading && !error && data.length > 0 && (
             <Alert
-              message={`✅ ${pagination.total} records loaded successfully`}
+              message={`✅ ${pagination.total} registros carregados com sucesso`}
               type="success"
               showIcon
               closable
@@ -424,16 +424,16 @@ const DataTablePage = () => {
           {/* Error Display */}
           {error && (
             <Alert
-              message="Failed to Load Data"
+              message="Falha ao Carregar Dados"
               description={
                 <Space direction="vertical">
                   <Text>{error}</Text>
                   <Space>
                     <Button size="small" onClick={handleRefresh}>
-                      Try Again
+                      Tentar Novamente
                     </Button>
                     <Button size="small" onClick={handleEditConfig}>
-                      Edit Configuration
+                      Editar Configuração
                     </Button>
                   </Space>
                 </Space>
@@ -449,7 +449,7 @@ const DataTablePage = () => {
               <SearchInputParam
                 value={searchValue}
                 onChange={handleSearchChange}
-                placeholder={config.dynamicParams.searchInput.placeholder || 'Search...'}
+                placeholder={config.dynamicParams.searchInput.placeholder || 'Pesquisar...'}
               />
             </div>
           )}

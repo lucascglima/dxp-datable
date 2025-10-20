@@ -35,7 +35,6 @@ import {
 const { TextArea } = Input;
 const { Option } = Select;
 
-// Available Ant Design icons for column configuration
 const AVAILABLE_ICONS = [
   { value: 'UserOutlined', label: 'User' },
   { value: 'MailOutlined', label: 'Mail' },
@@ -63,7 +62,7 @@ const ColumnsConfigSection = ({ value = [], onChange }) => {
   const [jsonModalVisible, setJsonModalVisible] = useState(false);
   const [jsonText, setJsonText] = useState('');
   const [jsonError, setJsonError] = useState(null);
-
+  
   /**
    * Adds a new empty column
    */
@@ -83,7 +82,7 @@ const ColumnsConfigSection = ({ value = [], onChange }) => {
 
     onChange([...value, newColumn]);
   };
-
+  
   /**
    * Removes a column by index
    */
@@ -92,7 +91,7 @@ const ColumnsConfigSection = ({ value = [], onChange }) => {
     onChange(newColumns);
   };
 
-  /**
+    /**
    * Updates a specific column field
    * FIXED: Now properly handles state updates without remounting
    */
@@ -117,18 +116,18 @@ const ColumnsConfigSection = ({ value = [], onChange }) => {
     onChange(newColumns);
   };
 
-  /**
+   /**
    * Validates column configuration
    */
   const getColumnValidation = (column) => {
     const errors = [];
 
     if (!column.title || !column.title.trim()) {
-      errors.push('Column title is required');
+      errors.push('O título da coluna é obrigatório');
     }
 
     if (!column.dataIndex || !column.dataIndex.trim()) {
-      errors.push('Data field is required');
+      errors.push('O campo de dados é obrigatório');
     }
 
     return errors;
@@ -143,9 +142,11 @@ const ColumnsConfigSection = ({ value = [], onChange }) => {
     setJsonModalVisible(true);
   };
 
+
   /**
    * Exports current configuration as JSON
    */
+
   const handleExportJson = () => {
     const json = JSON.stringify(value, null, 2);
     const blob = new Blob([json], { type: 'application/json' });
@@ -155,32 +156,29 @@ const ColumnsConfigSection = ({ value = [], onChange }) => {
     a.download = 'columns-configuration.json';
     a.click();
     URL.revokeObjectURL(url);
-    message.success('Configuration exported successfully');
+    message.success('Configuração exportada com sucesso');
   };
 
-  /**
+   /**
    * Imports configuration from JSON
    */
   const handleImportJson = () => {
     try {
       const parsed = JSON.parse(jsonText);
 
-      // Validate JSON structure
       if (!Array.isArray(parsed)) {
-        throw new Error('JSON must be an array of columns');
+        throw new Error('O JSON deve ser um array de colunas');
       }
 
-      // Validate each column
       parsed.forEach((col, index) => {
         if (!col.title) {
-          throw new Error(`Column ${index + 1}: title is required`);
+          throw new Error(`Coluna ${index + 1}: o campo "title" é obrigatório`);
         }
         if (!col.dataIndex) {
-          throw new Error(`Column ${index + 1}: dataIndex is required`);
+          throw new Error(`Coluna ${index + 1}: o campo "dataIndex" é obrigatório`);
         }
       });
 
-      // Add id to each column if not present
       const columnsWithIds = parsed.map((col, index) => ({
         id: col.id || `col_${Date.now()}_${index}`,
         key: col.key || col.dataIndex,
@@ -196,7 +194,7 @@ const ColumnsConfigSection = ({ value = [], onChange }) => {
       onChange(columnsWithIds);
       setJsonModalVisible(false);
       setJsonError(null);
-      message.success(`Successfully imported ${columnsWithIds.length} columns`);
+      message.success(`Importadas ${columnsWithIds.length} colunas com sucesso`);
     } catch (error) {
       setJsonError(error.message);
     }
@@ -207,40 +205,39 @@ const ColumnsConfigSection = ({ value = [], onChange }) => {
    */
   const handleCopyJson = () => {
     navigator.clipboard.writeText(jsonText);
-    message.success('JSON copied to clipboard');
+    message.success('JSON copiado para a área de transferência');
   };
 
   return (
     <Space direction="vertical" size="large" style={{ width: '100%' }}>
       <Alert
-        message="Table Columns Configuration"
-        description="Define which columns to display in your table. You can configure columns visually or import from JSON."
+        message="Configuração das Colunas da Tabela"
+        description="Defina quais colunas serão exibidas na sua tabela. Você pode configurar visualmente ou importar via JSON."
         type="info"
         showIcon
         icon={<ColumnHeightOutlined />}
       />
 
-      {/* JSON Import/Export Buttons */}
       <Space>
         <Button
           icon={<ImportOutlined />}
           onClick={handleOpenJsonModal}
         >
-          Import/Edit JSON
+          Importar/Editar JSON
         </Button>
         <Button
           icon={<ExportOutlined />}
           onClick={handleExportJson}
           disabled={value.length === 0}
         >
-          Export JSON
+          Exportar JSON
         </Button>
       </Space>
 
       {value.length === 0 && (
         <Alert
-          message="No columns configured"
-          description="Click 'Add Column' below to configure columns manually, or use 'Import JSON' to paste column configuration."
+          message="Nenhuma coluna configurada"
+          description="Clique em 'Adicionar Coluna' abaixo para configurar manualmente ou use 'Importar JSON' para colar uma configuração existente."
           type="warning"
           showIcon
         />
@@ -252,12 +249,12 @@ const ColumnsConfigSection = ({ value = [], onChange }) => {
 
         return (
           <Card
-            key={column.id || index} // Use stable id for React key
+            key={column.id || index}
             size="small"
             title={
               <Space>
-                <span>Column {index + 1}</span>
-                {column.title && <span style={{ fontWeight: 'normal' }}>- {column.title}</span>}
+                <span>Coluna {index + 1}</span>
+                {column.title && <span style={{ fontWeight: 'normal' }}> - {column.title}</span>}
               </Space>
             }
             extra={
@@ -267,7 +264,7 @@ const ColumnsConfigSection = ({ value = [], onChange }) => {
                 icon={<DeleteOutlined />}
                 onClick={() => handleRemoveColumn(index)}
               >
-                Remove
+                Remover
               </Button>
             }
             style={{
@@ -280,8 +277,8 @@ const ColumnsConfigSection = ({ value = [], onChange }) => {
                   <Form.Item
                     label={
                       <Space>
-                        Column Display Name
-                        <Tooltip title="This is what users will see in the table header">
+                        Nome da Coluna
+                        <Tooltip title="Texto exibido no cabeçalho da tabela">
                           <InfoCircleOutlined style={{ color: '#1890ff' }} />
                         </Tooltip>
                       </Space>
@@ -294,7 +291,7 @@ const ColumnsConfigSection = ({ value = [], onChange }) => {
                       onChange={(e) =>
                         handleColumnChange(index, 'title', e.target.value)
                       }
-                      placeholder="Name"
+                      placeholder="Nome"
                     />
                   </Form.Item>
                 </Col>
@@ -303,8 +300,8 @@ const ColumnsConfigSection = ({ value = [], onChange }) => {
                   <Form.Item
                     label={
                       <Space>
-                        Data Field Name
-                        <Tooltip title="The exact property name from your API response (case-sensitive)">
+                        Campo de Dados
+                        <Tooltip title="Nome exato da propriedade retornada pela sua API (case-sensitive)">
                           <InfoCircleOutlined style={{ color: '#1890ff' }} />
                         </Tooltip>
                       </Space>
@@ -317,7 +314,7 @@ const ColumnsConfigSection = ({ value = [], onChange }) => {
                       onChange={(e) =>
                         handleColumnChange(index, 'dataIndex', e.target.value)
                       }
-                      placeholder="name"
+                      placeholder="nome"
                     />
                   </Form.Item>
                 </Col>
@@ -325,13 +322,13 @@ const ColumnsConfigSection = ({ value = [], onChange }) => {
 
               <Row gutter={16}>
                 <Col span={8}>
-                  <Form.Item label="Column Width (Optional)">
+                  <Form.Item label="Largura da Coluna (Opcional)">
                     <InputNumber
                       value={column.width}
                       onChange={(val) =>
                         handleColumnChange(index, 'width', val)
                       }
-                      placeholder="Auto"
+                      placeholder="Automático"
                       min={50}
                       max={1000}
                       addonAfter="px"
@@ -347,15 +344,15 @@ const ColumnsConfigSection = ({ value = [], onChange }) => {
                         handleColumnChange(index, 'sortable', e.target.checked)
                       }
                     >
-                      Enable sorting
+                      Habilitar ordenação
                     </Checkbox>
                   </Form.Item>
                 </Col>
               </Row>
-              
+
               {hasErrors && (
                 <Alert
-                  message="Column configuration incomplete"
+                  message="Configuração da coluna incompleta"
                   description={
                     <ul style={{ margin: 0, paddingLeft: 20 }}>
                       {validation.map((error, i) => (
@@ -380,45 +377,44 @@ const ColumnsConfigSection = ({ value = [], onChange }) => {
         block
         size="large"
       >
-        Add Column
+        Adicionar Coluna
       </Button>
 
       {value.length > 0 && (
         <Alert
-          message={`${value.length} column${value.length > 1 ? 's' : ''} configured`}
+          message={`${value.length} coluna${value.length > 1 ? 's' : ''} configurada${value.length > 1 ? 's' : ''}`}
           type="success"
           showIcon
         />
       )}
 
-      {/* JSON Import/Export Modal */}
       <Modal
-        title="Import/Edit Columns JSON"
+        title="Importar/Editar JSON de Colunas"
         open={jsonModalVisible}
         onCancel={() => setJsonModalVisible(false)}
         onOk={handleImportJson}
-        okText="Import"
+        okText="Importar"
         width={700}
         footer={[
           <Button key="copy" onClick={handleCopyJson}>
-            Copy to Clipboard
+            Copiar para Área de Transferência
           </Button>,
           <Button key="cancel" onClick={() => setJsonModalVisible(false)}>
-            Cancel
+            Cancelar
           </Button>,
           <Button key="import" type="primary" onClick={handleImportJson}>
-            Import
+            Importar
           </Button>,
         ]}
       >
         <Space direction="vertical" style={{ width: '100%' }} size="large">
           <Alert
-            message="JSON Format"
+            message="Formato do JSON"
             description={
               <div>
-                <p>Paste or edit your columns configuration in JSON format.</p>
-                <p><strong>Required fields:</strong> title, dataIndex</p>
-                <p><strong>Optional fields:</strong> key, sortable, clickable, width, icon, iconClickable</p>
+                <p>Cole ou edite a configuração das colunas em formato JSON.</p>
+                <p><strong>Campos obrigatórios:</strong> title, dataIndex</p>
+                <p><strong>Campos opcionais:</strong> key, sortable, clickable, width, icon, iconClickable</p>
               </div>
             }
             type="info"
@@ -427,7 +423,7 @@ const ColumnsConfigSection = ({ value = [], onChange }) => {
 
           {jsonError && (
             <Alert
-              message="Invalid JSON"
+              message="JSON Inválido"
               description={jsonError}
               type="error"
               showIcon
@@ -439,7 +435,7 @@ const ColumnsConfigSection = ({ value = [], onChange }) => {
             value={jsonText}
             onChange={(e) => setJsonText(e.target.value)}
             rows={15}
-            placeholder='[{"title": "Name", "dataIndex": "name", "sortable": true}]'
+            placeholder='[{"title": "Nome", "dataIndex": "name", "sortable": true}]'
             style={{ fontFamily: 'monospace' }}
           />
         </Space>

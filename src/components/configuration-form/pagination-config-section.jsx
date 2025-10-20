@@ -68,32 +68,32 @@ const PaginationConfigSection = ({ value = {}, onChange }) => {
   return (
     <Space direction="vertical" size="large" style={{ width: '100%' }}>
       <Alert
-        message="Pagination Settings"
-        description="Configure pagination behavior: disable it, use client-side pagination, or send pagination parameters to your API."
+        message="Configurações de Paginação"
+        description="Configure o comportamento da paginação: desabilite-a, use paginação do lado do cliente ou envie parâmetros de paginação para sua API."
         type="info"
         showIcon
         icon={<SettingOutlined />}
       />
 
       {/* Show Pagination Toggle */}
-      <Form.Item help="Uncheck to hide pagination controls and show all items in a single page">
+      <Form.Item help="Desmarque para ocultar os controles de paginação e mostrar todos os itens em uma única página">
         <Checkbox
           checked={defaultPagination.showPagination}
           onChange={handleShowPaginationChange}
         >
-          Show pagination controls
+          Mostrar controles de paginação
         </Checkbox>
       </Form.Item>
 
       {/* Show additional options only if pagination is enabled */}
       {defaultPagination.showPagination && (
         <>
-          <Divider orientation="left">Pagination Mode</Divider>
+          <Divider orientation="left">Modo de Paginação</Divider>
 
           {/* Pagination Mode */}
           <Form.Item
-            label="Pagination Mode"
-            help="Choose how pagination is handled"
+            label="Modo de Paginação"
+            help="Escolha como a paginação é tratada"
           >
             <Radio.Group
               value={defaultPagination.mode}
@@ -104,18 +104,18 @@ const PaginationConfigSection = ({ value = {}, onChange }) => {
                 <Radio value="api">
                   <Space>
                     <ApiOutlined />
-                    <strong>API Pagination</strong>
+                    <strong>Paginação por API</strong>
                     <span style={{ color: '#8c8c8c' }}>
-                      - Send page parameters to API (server-side)
+                      - Enviar parâmetros de página para a API (lado do servidor)
                     </span>
                   </Space>
                 </Radio>
                 <Radio value="client">
                   <Space>
                     <ThunderboltOutlined />
-                    <strong>Auto Pagination (Client-side)</strong>
+                    <strong>Auto Paginação (Lado do cliente)</strong>
                     <span style={{ color: '#8c8c8c' }}>
-                      - Load all data once, paginate in browser
+                      - Carregar todos os dados uma vez, paginar no navegador
                     </span>
                   </Space>
                 </Radio>
@@ -125,8 +125,8 @@ const PaginationConfigSection = ({ value = {}, onChange }) => {
 
           {/* Items per Page */}
           <Form.Item
-            label="Items per Page"
-            help="Number of rows to display on each page"
+            label="Itens por Página"
+            help="Número de linhas a serem exibidas em cada página"
           >
             <Select
               value={defaultPagination.pageSize}
@@ -134,29 +134,29 @@ const PaginationConfigSection = ({ value = {}, onChange }) => {
               size="large"
               style={{ width: '100%' }}
             >
-              <Option value={10}>10 items</Option>
-              <Option value={20}>20 items</Option>
-              <Option value={50}>50 items</Option>
-              <Option value={100}>100 items</Option>
+              <Option value={10}>10 itens</Option>
+              <Option value={20}>20 itens</Option>
+              <Option value={50}>50 itens</Option>
+              <Option value={100}>100 itens</Option>
             </Select>
           </Form.Item>
 
           {/* API Parameter Names - Only show if mode is 'api' */}
           {defaultPagination.mode === 'api' && (
             <>
-              <Divider orientation="left">API Parameters</Divider>
+              <Divider orientation="left">Parâmetros da API</Divider>
 
               <Alert
-                message="Custom API Parameter Names"
-                description="Configure the query parameter names that will be sent to your API for pagination."
+                message="Nomes de Parâmetros de API Personalizados"
+                description="Configure os nomes dos parâmetros de consulta que serão enviados para sua API para paginação."
                 type="info"
                 showIcon
                 style={{ marginBottom: 16 }}
               />
 
               <Form.Item
-                label="Page Parameter Name"
-                help="Query parameter name for page number (e.g., ?_page=1)"
+                label="Nome do Parâmetro da Página"
+                help="Nome do parâmetro de consulta para o número da página (ex.: ?_page=1)"
               >
                 <Input
                   value={defaultPagination.apiParamNames?.page || '_page'}
@@ -168,8 +168,8 @@ const PaginationConfigSection = ({ value = {}, onChange }) => {
               </Form.Item>
 
               <Form.Item
-                label="Page Size Parameter Name"
-                help="Query parameter name for page size (e.g., ?_page_size=20)"
+                label="Nome do Parâmetro de Tamanho da Página"
+                help="Nome do parâmetro de consulta para o tamanho da página (ex.: ?_page_size=20)"
               >
                 <Input
                   value={defaultPagination.apiParamNames?.pageSize || '_page_size'}
@@ -181,7 +181,7 @@ const PaginationConfigSection = ({ value = {}, onChange }) => {
               </Form.Item>
 
               <Alert
-                message={`Example API Call: ${defaultPagination.apiParamNames?.page || '_page'}=1&${defaultPagination.apiParamNames?.pageSize || '_page_size'}=${defaultPagination.pageSize}`}
+                message={`Exemplo de Chamada de API: ${defaultPagination.apiParamNames?.page || '_page'}=1&${defaultPagination.apiParamNames?.pageSize || '_page_size'}=${defaultPagination.pageSize}`}
                 type="success"
                 showIcon
               />
@@ -191,8 +191,8 @@ const PaginationConfigSection = ({ value = {}, onChange }) => {
           {/* Client-side mode info */}
           {defaultPagination.mode === 'client' && (
             <Alert
-              message="Client-side Pagination Active"
-              description="All data will be loaded from the API once. Pagination will be handled in the browser for better performance."
+              message="Paginação do Lado do Cliente Ativa"
+              description="Todos os dados serão carregados da API uma vez. A paginação será tratada no navegador para melhor desempenho."
               type="success"
               showIcon
             />
@@ -203,8 +203,8 @@ const PaginationConfigSection = ({ value = {}, onChange }) => {
       {/* Warning when pagination is disabled */}
       {!defaultPagination.showPagination && (
         <Alert
-          message="Pagination Disabled"
-          description="All items will be displayed on a single page without pagination controls. The API will be called without pagination parameters to fetch all data."
+          message="Paginação Desabilitada"
+          description="Todos os itens serão exibidos em uma única página sem controles de paginação. A API será chamada sem parâmetros de paginação para buscar todos os dados."
           type="warning"
           showIcon
         />
@@ -213,8 +213,8 @@ const PaginationConfigSection = ({ value = {}, onChange }) => {
       {/* Warning for large page sizes */}
       {defaultPagination.showPagination && defaultPagination.pageSize > 50 && (
         <Alert
-          message="Large Page Size"
-          description="Displaying many items per page may affect page performance."
+          message="Tamanho de Página Grande"
+          description="Exibir muitos itens por página pode afetar o desempenho da página."
           type="info"
           showIcon
         />

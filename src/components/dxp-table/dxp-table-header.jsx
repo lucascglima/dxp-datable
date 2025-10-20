@@ -45,15 +45,15 @@ const DxpTableHeader = ({ columns, onSort = () => {}, sortingConfig }) => {
    */
   const validateColumn = (column) => {
     if (!column.key) {
-      console.error('Column is missing required property: key', column);
+      console.error('A coluna não possui a propriedade necessária: key', column);
       return false;
     }
     if (!column.title) {
-      console.error('Column is missing required property: title', column);
+      console.error('A coluna não possui a propriedade necessária: title', column);
       return false;
     }
     if (!column.dataIndex) {
-      console.error('Column is missing required property: dataIndex', column);
+      console.error('A coluna não possui a propriedade necessária: dataIndex', column);
       return false;
     }
     return true;

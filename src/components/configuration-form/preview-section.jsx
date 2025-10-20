@@ -161,7 +161,7 @@ const PreviewSection = ({
     if (!paramValidation.valid) {
       setTestResult({
         success: false,
-        message: 'Duplicate query parameters detected',
+        message: 'Parâmetros de consulta duplicados detectados',
         duplicateErrors: paramValidation.errors,
       });
       return;
@@ -275,7 +275,7 @@ const PreviewSection = ({
         }
       }
     } catch (error) {
-      validation.errors.push(`Mapping validation error: ${error.message}`);
+      validation.errors.push(`Erro de validação de mapeamento: ${error.message}`);
     }
 
     return validation;
@@ -301,8 +301,8 @@ const PreviewSection = ({
   return (
     <Space direction="vertical" size="large" style={{ width: '100%' }}>
       <Alert
-        message="Test & Preview"
-        description="Configure test parameters, set up response mapping if needed, and preview your API data structure."
+        message="Testar e Pré-visualizar"
+        description="Configure parâmetros de teste, defina o mapeamento de resposta, se necessário, e pré-visualize a estrutura de dados da sua API."
         type="info"
         showIcon
         icon={<ApiOutlined />}
@@ -315,18 +315,18 @@ const PreviewSection = ({
       />
 
       {/* Response Mapping Section */}
-      <Card title="Response Mapping" size="small">
+      <Card title="Mapeamento de Resposta" size="small">
         <Space direction="vertical" size="middle" style={{ width: '100%' }}>
           <Checkbox
             checked={enableMapping}
             onChange={handleMappingToggle}
           >
-            My API returns nested data (need mapping)
+            Habilitar Mapeamento de Resposta Personalizado
           </Checkbox>
 
           {!enableMapping && (
             <Alert
-              message="The API response will be treated as a direct array of items"
+              message="A resposta da API será tratada como um array direto de itens"
               type="info"
               showIcon
             />
@@ -334,10 +334,10 @@ const PreviewSection = ({
 
           {enableMapping && (
             <>
-              <Divider orientation="left" style={{ margin: '8px 0' }}>Mapping Configuration</Divider>
+              
 
               <div>
-                <Text strong>Items List Path (required)</Text>
+                <Text strong>Caminho da Lista de Itens (obrigatório)</Text>
                 <Input
                   placeholder='Caminho em notação dot, ex.: "data.items", "results"'
                   value={dataPath}
@@ -345,20 +345,20 @@ const PreviewSection = ({
                   style={{ marginTop: 4 }}
                 />
                 <Text type="secondary" style={{ fontSize: 12 }}>
-                  Dot notation path to items array
+                  Caminho em notação dot para o array de itens
                 </Text>
               </div>
 
               <div>
-                <Text strong>Total Count Path (optional)</Text>
+                <Text strong>Caminho da Contagem Total (opcional)</Text>
                 <Input
-                  placeholder='e.g., "data.pagination.total", "total", leave blank if not available'
+                  placeholder='ex.: "data.pagination.total", "total", deixe em branco se não estiver disponível'
                   value={totalPath}
                   onChange={(e) => setTotalPath(e.target.value)}
                   style={{ marginTop: 4 }}
                 />
                 <Text type="secondary" style={{ fontSize: 12 }}>
-                  Leave blank if API doesn&apos;t return total count
+                  Deixe em branco se a API não retornar a contagem total
                 </Text>
               </div>
 
@@ -366,7 +366,7 @@ const PreviewSection = ({
                 <Space direction="vertical" size="small" style={{ width: '100%' }}>
                   {mappingValidation.itemsFound && (
                     <Alert
-                      message={`Found ${mappingValidation.itemsCount} items at "${dataPath}"`}
+                      message={`Encontrados ${mappingValidation.itemsCount} itens em "${dataPath}"`}
                       type="success"
                       showIcon
                       icon={<CheckCircleOutlined />}
@@ -375,7 +375,7 @@ const PreviewSection = ({
 
                   {mappingValidation.totalFound && (
                     <Alert
-                      message={`Found total: ${mappingValidation.totalValue} at "${totalPath}"`}
+                      message={`Total encontrado: ${mappingValidation.totalValue} em "${totalPath}"`}
                       type="success"
                       showIcon
                       icon={<CheckCircleOutlined />}
@@ -384,7 +384,7 @@ const PreviewSection = ({
 
                   {!mappingValidation.totalFound && totalPath && (
                     <Alert
-                      message="Total count not available (using items length)"
+                      message="Contagem total não disponível (usando o tamanho dos itens)"
                       type="info"
                       showIcon
                     />
@@ -392,7 +392,7 @@ const PreviewSection = ({
 
                   {mappingValidation.errors.length > 0 && (
                     <Alert
-                      message="Mapping Errors"
+                      message="Erros de Mapeamento"
                       description={
                         <ul style={{ margin: 0, paddingLeft: 20 }}>
                           {mappingValidation.errors.map((error, i) => (
@@ -421,13 +421,13 @@ const PreviewSection = ({
         size="large"
         block
       >
-        {testing ? 'Testing Connection...' : 'Test API Connection'}
+        {testing ? 'Testando Conexão...' : 'Testar Conexão com a API'}
       </Button>
 
       {!apiEndpoint && (
         <Alert
-          message="API endpoint required"
-          description="Please enter an API endpoint URL above before testing"
+          message="Endpoint da API é obrigatório"
+          description="Por favor, insira uma URL de endpoint da API acima antes de testar"
           type="warning"
           showIcon
         />
@@ -440,12 +440,12 @@ const PreviewSection = ({
             testResult.success ? (
               <Space>
                 <CheckCircleOutlined />
-                Connection Successful
+                Conexão Bem-sucedida
               </Space>
             ) : (
               <Space>
                 <CloseCircleOutlined />
-                Connection Failed
+                Conexão Falhou
               </Space>
             )
           }
@@ -470,10 +470,10 @@ const PreviewSection = ({
 
       {/* Response Structure Preview */}
       {parsedStructure && parsedStructure.isValid && (
-        <Card title="Response Structure" size="small">
+        <Card title="Estrutura da Resposta" size="small">
           <Space direction="vertical" size="middle" style={{ width: '100%' }}>
             <Alert
-              message={`Found ${parsedStructure.fields.length} fields in API response`}
+              message={`Encontrados ${parsedStructure.fields.length} campos na resposta da API`}
               type="info"
               showIcon
               icon={<InfoCircleOutlined />}
@@ -483,7 +483,7 @@ const PreviewSection = ({
               items={[
                 {
                   key: 'fields',
-                  label: 'Available Fields',
+                  label: 'Campos Disponíveis',
                   children: (
                     <Space direction="vertical" style={{ width: '100%' }}>
                       {parsedStructure.fields.map((field) => (
@@ -493,11 +493,11 @@ const PreviewSection = ({
                               <Text strong>{field.name}</Text>
                               <Tag color="blue">{field.type}</Tag>
                               {field.suggestAsColumn && (
-                                <Tag color="green">Recommended for column</Tag>
+                                <Tag color="green">Recomendado para coluna</Tag>
                               )}
                             </Space>
                             <Text type="secondary" style={{ fontSize: '12px' }}>
-                              Sample: {JSON.stringify(field.sampleValue)}
+                              Amostra: {JSON.stringify(field.sampleValue)}
                             </Text>
                           </Space>
                         </Card>
@@ -507,7 +507,7 @@ const PreviewSection = ({
                 },
                 {
                   key: 'json',
-                  label: 'Sample Data (JSON)',
+                  label: 'Dados de Amostra (JSON)',
                   children: (
                     <pre
                       style={{
@@ -524,7 +524,7 @@ const PreviewSection = ({
                 },
                 testResult?.fullResponse && {
                   key: 'fullResponse',
-                  label: 'Full Response (Raw)',
+                  label: 'Resposta Completa (Bruta)',
                   children: (
                     <pre
                       style={{
@@ -546,8 +546,8 @@ const PreviewSection = ({
               parsedStructure.suggestedColumns.length > 0 && (
                 <>
                   <Alert
-                    message="Column Suggestions Available"
-                    description={`We found ${parsedStructure.suggestedColumns.length} fields that would work well as table columns. Click below to auto-configure them.`}
+                    message="Sugestões de Colunas Disponíveis"
+                    description={`Encontramos ${parsedStructure.suggestedColumns.length} campos que funcionariam bem como colunas da tabela. Clique abaixo para configurá-los automaticamente.`}
                     type="success"
                     showIcon
                   />
@@ -557,11 +557,11 @@ const PreviewSection = ({
                     onClick={handleApplySuggestions}
                     block
                   >
-                    Apply Suggested Columns ({parsedStructure.suggestedColumns.length})
+                    Aplicar Colunas Sugeridas ({parsedStructure.suggestedColumns.length})
                   </Button>
 
                   <Paragraph type="secondary" style={{ fontSize: '12px', marginTop: 8 }}>
-                    This will replace your current column configuration with suggested columns based on the API response.
+                    Isso substituirá sua configuração de coluna atual por colunas sugeridas com base na resposta da API.
                   </Paragraph>
                 </>
               )}

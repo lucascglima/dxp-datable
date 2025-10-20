@@ -140,7 +140,7 @@ const ConfigurationPage = () => {
       }
 
       setConfig(configWithEvents);
-      message.info('Loaded existing configuration');
+      message.info('Configuração existente carregada');
     }
   }, []);
 
@@ -225,7 +225,7 @@ const ConfigurationPage = () => {
       ...config,
       columns: suggestedColumns,
     });
-    message.success(`Applied ${suggestedColumns.length} suggested columns`);
+    message.success(`Aplicadas ${suggestedColumns.length} colunas sugeridas`);
     setCurrentStep(2); // Move to columns step
   };
 
@@ -238,20 +238,20 @@ const ConfigurationPage = () => {
     // Validate API endpoint
     const urlValidation = validateUrl(config.apiEndpoint);
     if (!urlValidation.valid) {
-      errors.push('Valid API endpoint is required');
+      errors.push('O endpoint de API válido é obrigatório');
     }
 
     // Validate columns
     if (config.columns.length === 0) {
-      errors.push('At least one column must be configured');
+      errors.push('Pelo menos uma coluna deve ser configurada');
     }
 
     config.columns.forEach((col, index) => {
       if (!col.title || !col.title.trim()) {
-        errors.push(`Column ${index + 1}: Title is required`);
+        errors.push(`Coluna ${index + 1}: O Título é obrigatório`);
       }
       if (!col.dataIndex || !col.dataIndex.trim()) {
-        errors.push(`Column ${index + 1}: Data field is required`);
+        errors.push(`Coluna ${index + 1}: O Campo de dados é obrigatório`);
       }
     });
 
@@ -266,7 +266,7 @@ const ConfigurationPage = () => {
 
     if (errors.length > 0) {
       Modal.error({
-        title: 'Configuration Incomplete',
+        title: 'Configuração Incompleta',
         content: (
           <ul>
             {errors.map((error, index) => (
@@ -281,12 +281,12 @@ const ConfigurationPage = () => {
     const success = saveConfiguration(config);
 
     if (success) {
-      message.success('✅ Configuration saved successfully! Redirecting...', 2);
+      message.success('✅ Configuração salva com sucesso! Redirecionando...', 2);
       setTimeout(() => {
         navigate('/datatable');
       }, 1000);
     } else {
-      message.error('Failed to save configuration');
+      message.error('Falha ao salvar a configuração');
     }
   };
 
@@ -295,11 +295,11 @@ const ConfigurationPage = () => {
    */
   const handleClearAll = () => {
     Modal.confirm({
-      title: 'Clear All Configuration?',
-      content: 'This will remove all your current settings. This action cannot be undone.',
-      okText: 'Yes, Clear All',
+      title: 'Limpar Toda a Configuração?',
+      content: 'Isso removerá todas as suas configurações atuais. Esta ação não pode ser desfeita.',
+      okText: 'Sim, Limpar Tudo',
       okType: 'danger',
-      cancelText: 'Cancel',
+      cancelText: 'Cancelar',
       onOk: () => {
         clearConfiguration();
         setConfig({
@@ -342,7 +342,7 @@ const ConfigurationPage = () => {
           },
         });
         setCurrentStep(0);
-        message.success('Configuration cleared');
+        message.success('Configuração limpa');
       },
     });
   };
@@ -353,12 +353,12 @@ const ConfigurationPage = () => {
   const handleLoadExample = () => {
     const example = getExampleConfiguration();
     setConfig(example);
-    message.success('Example configuration loaded');
+    message.success('Configuração de exemplo carregada');
   };
 
   const steps = [
     {
-      title: 'API Setup',
+      title: 'API',
       icon: <ApiOutlined />,
       content: (
         <ApiConfigSection
@@ -373,7 +373,7 @@ const ConfigurationPage = () => {
       ),
     },
     {
-      title: 'Preview & Test',
+      title: 'Preview e Teste',
       icon: <EyeOutlined />,
       content: (
         <PreviewSection
@@ -390,7 +390,7 @@ const ConfigurationPage = () => {
       ),
     },
     {
-      title: 'Columns',
+      title: 'Colunas',
       icon: <TableOutlined />,
       content: (
         <ColumnsConfigSection
@@ -400,7 +400,7 @@ const ConfigurationPage = () => {
       ),
     },
     {
-      title: 'Pagination',
+      title: 'Paginação',
       icon: <SettingOutlined />,
       content: (
         <PaginationConfigSection
@@ -410,7 +410,7 @@ const ConfigurationPage = () => {
       ),
     },
     {
-      title: 'Events',
+      title: 'Eventos',
       icon: <ThunderboltOutlined />,
       content: (
         <EventsConfigSection
@@ -420,7 +420,7 @@ const ConfigurationPage = () => {
       ),
     },
     {
-      title: 'Dynamic Params',
+      title: 'Inputs dinâmicos',
       icon: <SearchOutlined />,
       content: (
         <DynamicParamsConfigSection
@@ -437,9 +437,9 @@ const ConfigurationPage = () => {
         <Space direction="vertical" size="large" style={{ width: '100%' }}>
           {/* Header */}
           <div>
-            <Title level={2}>Configure Your DataTable</Title>
+            <Title level={2}>Configure sua Tabela</Title>
             <Paragraph type="secondary">
-              Set up your data table in 5 easy steps. No coding required!
+              Configure sua tabela em 5 passos simples. Não é necessário codificar!
             </Paragraph>
           </div>
 
@@ -466,21 +466,21 @@ const ConfigurationPage = () => {
             style={{ width: '100%', justifyContent: 'space-between' }}
           >
             <Space>
-              <Button onClick={handleLoadExample}>Load Example</Button>
+              <Button onClick={handleLoadExample}>Carregar Exemplo</Button>
               <Button danger icon={<ClearOutlined />} onClick={handleClearAll}>
-                Clear All
+                Limpar Tudo
               </Button>
             </Space>
 
             <Space>
               {currentStep > 0 && (
                 <Button onClick={() => setCurrentStep(currentStep - 1)}>
-                  Previous
+                  Anterior
                 </Button>
               )}
               {currentStep < steps.length - 1 && (
                 <Button type="primary" onClick={() => setCurrentStep(currentStep + 1)}>
-                  Next
+                  Próximo
                 </Button>
               )}
               {currentStep === steps.length - 1 && (
@@ -490,7 +490,7 @@ const ConfigurationPage = () => {
                   onClick={handleSaveConfiguration}
                   size="large"
                 >
-                  Save Configuration & View Table
+                  Salvar Configuração e Visualizar Tabela
                 </Button>
               )}
             </Space>

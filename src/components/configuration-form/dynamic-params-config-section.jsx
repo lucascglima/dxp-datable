@@ -74,7 +74,7 @@ const DynamicParamsConfigSection = ({ value = {}, onChange }) => {
       searchInput: {
         enabled: true,
         queryParamName: 'search',
-        placeholder: 'Search by name, email or phone...',
+        placeholder: 'Buscar por nome, e-mail',
         currentValue: '',
       },
     });
@@ -83,8 +83,8 @@ const DynamicParamsConfigSection = ({ value = {}, onChange }) => {
   return (
     <Space direction="vertical" size="large" style={{ width: '100%' }}>
       <Alert
-        message="Dynamic Parameters Configuration"
-        description="Configure dynamic search and filter parameters that appear above your table. These parameters allow users to filter data in real-time."
+        message="Configuração de Parâmetros Dinâmicos"
+        description="Configure parâmetros dinâmicos de busca e filtros que aparecem acima da tabela. Esses parâmetros permitem que os usuários filtrem os dados em tempo real."
         type="info"
         showIcon
         icon={<FilterOutlined />}
@@ -95,76 +95,71 @@ const DynamicParamsConfigSection = ({ value = {}, onChange }) => {
         title={
           <Space>
             <SearchOutlined />
-            <Text strong>Search Input</Text>
+            <Text strong>Campo de Busca</Text>
           </Space>
         }
         extra={
           <Switch
             checked={currentConfig.searchInput?.enabled || false}
             onChange={handleSearchInputToggle}
-            checkedChildren="Enabled"
-            unCheckedChildren="Disabled"
+            checkedChildren="Ativado"
+            unCheckedChildren="Desativado"
           />
         }
       >
         <Space direction="vertical" size="middle" style={{ width: '100%' }}>
           <Paragraph type="secondary" style={{ marginBottom: 0 }}>
-            Add a search input above the table. The search value will be sent to your API as a query parameter after the user stops typing (1 second delay).
+            Adicione um campo de busca acima da tabela. O valor digitado será enviado à sua API como um parâmetro de consulta após o usuário parar de digitar (1 segundo de atraso).
           </Paragraph>
 
           {currentConfig.searchInput?.enabled && (
             <>
               <Form.Item
-                label="Query Parameter Name"
-                help="The name of the query parameter that will be sent to your API (e.g., 'search', 'q', 'filter')"
+                label="Nome do Parâmetro de Consulta"
+                help="Nome do parâmetro que será enviado à API (ex: 'search', 'q', 'filter')"
                 required
               >
                 <Input
                   value={currentConfig.searchInput?.queryParamName || ''}
                   onChange={handleQueryParamNameChange}
                   placeholder="search"
-                  
                 />
               </Form.Item>
 
               <Form.Item
-                label="Placeholder Text"
-                help="The placeholder text shown in the search input"
+                label="Texto do Placeholder"
+                help="O texto exibido dentro do campo de busca"
               >
                 <Input
                   value={currentConfig.searchInput?.placeholder || ''}
                   onChange={handlePlaceholderChange}
-                  placeholder="Search..."
+                  placeholder="Buscar..."
                 />
               </Form.Item>
 
               <Divider orientation="left">
                 <Text type="secondary" style={{ fontSize: '13px' }}>
-                  Preview
+                  Pré-visualização
                 </Text>
               </Divider>
 
               <SearchInputParam
-                placeholder={currentConfig.searchInput?.placeholder || 'Search...'}
+                placeholder={currentConfig.searchInput?.placeholder || 'Buscar...'}
                 disabled
                 style={{ width: '100%' }}
               />
 
               <Alert
-                message="How it works"
+                message="Como funciona"
                 description={
                   <ul style={{ marginBottom: 0, paddingLeft: '20px' }}>
+                    <li>O usuário digita no campo de busca acima da tabela</li>
+                    <li>Após 1 segundo sem digitar, o valor é enviado à API</li>
                     <li>
-                      User types in the search input above the table
+                      A API recebe: <code>?{currentConfig.searchInput?.queryParamName}=valor_da_busca</code>
                     </li>
                     <li>
-                      After 1 second of no typing, the search value is sent to your API
-                    </li>
-                    <li>
-                      API receives: <code>?{currentConfig.searchInput?.queryParamName}=search_value</code>
-                    </li>
-                    <li>
-                      The search value is saved in localStorage and restored on page reload
+                      O valor de busca é salvo no localStorage e restaurado ao recarregar a página
                     </li>
                   </ul>
                 }
@@ -174,7 +169,7 @@ const DynamicParamsConfigSection = ({ value = {}, onChange }) => {
 
               <div style={{ display: 'flex', gap: '8px' }}>
                 <a onClick={handleLoadExample} style={{ fontSize: '13px' }}>
-                  Load Example Configuration
+                  Carregar Configuração de Exemplo
                 </a>
               </div>
             </>
@@ -182,8 +177,8 @@ const DynamicParamsConfigSection = ({ value = {}, onChange }) => {
 
           {!currentConfig.searchInput?.enabled && (
             <Alert
-              message="Search input is disabled"
-              description="Enable the switch above to configure a search input that will appear above your table."
+              message="Campo de busca desativado"
+              description="Ative o interruptor acima para configurar um campo de busca que aparecerá acima da tabela."
               type="warning"
               showIcon
             />
@@ -196,26 +191,26 @@ const DynamicParamsConfigSection = ({ value = {}, onChange }) => {
         title={
           <Space>
             <CalendarOutlined />
-            <Text strong>More Parameters Coming Soon</Text>
+            <Text strong>Mais Parâmetros em Breve</Text>
           </Space>
         }
       >
         <Space direction="vertical" size="small" style={{ width: '100%' }}>
           <Paragraph type="secondary" style={{ marginBottom: 0 }}>
-            Future versions will support additional dynamic parameters:
+            Versões futuras incluirão parâmetros dinâmicos adicionais:
           </Paragraph>
           <ul style={{ marginBottom: 0, paddingLeft: '20px' }}>
             <li>
-              <Text disabled>Date Range Picker - Filter by date ranges</Text>
+              <Text disabled>Selecionador de Intervalo de Datas – Filtrar por períodos</Text>
             </li>
             <li>
-              <Text disabled>Tab Selector - Filter by category tabs</Text>
+              <Text disabled>Seletor de Abas – Filtrar por categorias</Text>
             </li>
             <li>
-              <Text disabled>Dropdown Filters - Single or multiple select dropdowns</Text>
+              <Text disabled>Filtros Dropdown – Seleção única ou múltipla</Text>
             </li>
             <li>
-              <Text disabled>Custom Parameters - Define your own parameter types</Text>
+              <Text disabled>Parâmetros Personalizados – Defina seus próprios tipos de parâmetro</Text>
             </li>
           </ul>
         </Space>

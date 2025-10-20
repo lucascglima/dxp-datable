@@ -24,7 +24,7 @@ export const saveConfiguration = (config) => {
     localStorage.setItem(CONFIG_KEY, JSON.stringify(configWithTimestamp));
     return true;
   } catch (error) {
-    console.error('Error saving configuration:', error);
+    console.error('Erro ao salvar configuração:', error);
     return false;
   }
 };
@@ -44,7 +44,7 @@ export const loadConfiguration = () => {
     const config = JSON.parse(stored);
     return config;
   } catch (error) {
-    console.error('Error loading configuration:', error);
+    console.error('Erro ao carregar configuração:', error);
     return null;
   }
 };
@@ -59,7 +59,7 @@ export const clearConfiguration = () => {
     localStorage.removeItem(CONFIG_KEY);
     return true;
   } catch (error) {
-    console.error('Error clearing configuration:', error);
+    console.error('Erro ao limpar configuração:', error);
     return false;
   }
 };
@@ -74,7 +74,7 @@ export const hasConfiguration = () => {
     const stored = localStorage.getItem(CONFIG_KEY);
     return stored !== null && stored !== undefined;
   } catch (error) {
-    console.error('Error checking configuration:', error);
+    console.error('Erro ao verificar configuração:', error);
     return false;
   }
 };
@@ -100,7 +100,7 @@ export const updateConfiguration = (updates) => {
 
     return saveConfiguration(updated);
   } catch (error) {
-    console.error('Error updating configuration:', error);
+    console.error('Erro ao atualizar configuração:', error);
     return false;
   }
 };
@@ -124,7 +124,7 @@ export const getExampleConfiguration = () => {
       searchInput: {
         enabled: true,
         queryParamName: 'q',
-        placeholder: 'Search by name or email...',
+        placeholder: 'Buscar por nome ou email...',
         currentValue: '',
       },
     },
@@ -139,7 +139,7 @@ export const getExampleConfiguration = () => {
       },
       {
         key: 'name',
-        title: 'Name',
+        title: 'Nome',
         dataIndex: 'name',
         sortable: true,
         clickable: true,
@@ -153,7 +153,7 @@ export const getExampleConfiguration = () => {
       },
       {
         key: 'phone',
-        title: 'Phone',
+        title: 'Telefone',
         dataIndex: 'phone',
         sortable: false,
         clickable: false,
@@ -173,10 +173,10 @@ export const getExampleConfiguration = () => {
       onRowClick: {
         enabled: true,
         code: `// Example: Show user details in alert
-alert('User Details:\\n\\nName: ' + record.name + '\\nEmail: ' + record.email + '\\nPhone: ' + record.phone);
+alert('User Details:\\n\\nNome: ' + record.name + '\\nEmail: ' + record.email + '\\nTelefone: ' + record.phone);
 
 // Also log to console
-console.log('User clicked:', record);`,
+console.log('Usuário clicou:', record);`,
       },
       sorting: {
         mode: 'server', // 'server' | 'client' | 'disabled'

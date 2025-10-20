@@ -154,8 +154,8 @@ alert('Name: ' + record.name + '\\nEmail: ' + record.email);
   return (
     <Space direction="vertical" size="large" style={{ width: '100%' }}>
       <Alert
-        message="Events Configuration"
-        description="Configure custom event handlers for your table. Use JavaScript to define what happens when users interact with your data."
+        message="Configuração de Eventos"
+        description="Configure manipuladores de eventos personalizados para sua tabela. Use JavaScript para definir o que acontece quando os usuários interagem com seus dados."
         type="info"
         showIcon
         icon={<ThunderboltOutlined />}
@@ -166,30 +166,30 @@ alert('Name: ' + record.name + '\\nEmail: ' + record.email);
         title={
           <Space>
             <CodeOutlined />
-            <Text strong>Row Click Event</Text>
+            <Text strong>Evento de Clique na Linha</Text>
           </Space>
         }
         extra={
           <Switch
             checked={currentEvents.onRowClick?.enabled || false}
             onChange={handleRowClickToggle}
-            checkedChildren="Enabled"
-            unCheckedChildren="Disabled"
+            checkedChildren="Habilitado"
+            unCheckedChildren="Desabilitado"
           />
         }
       >
         <Space direction="vertical" size="middle" style={{ width: '100%' }}>
           <Paragraph type="secondary" style={{ marginBottom: 0 }}>
-            Define what happens when a user clicks on a table row. The row data is available
-            as the <code>record</code> variable.
+            Defina o que acontece quando um usuário clica em uma linha da tabela. Os dados da linha estão disponíveis
+            como a <code>record</code> variável.
           </Paragraph>
 
           {currentEvents.onRowClick?.enabled && (
             <>
               <Form.Item
-                label="JavaScript Code"
+                label="Código JavaScript"
                 validateStatus={codeError ? 'error' : undefined}
-                help={codeError || 'Write JavaScript code to execute on row click. Variable "record" contains the row data.'}
+                help={codeError || 'Escreva o código JavaScript para executar no clique da linha. A variável "record" contém os dados da linha.'}
               >
                 <TextArea
                   value={currentEvents.onRowClick?.code || ''}
@@ -204,17 +204,17 @@ alert('Name: ' + record.name + '\\nEmail: ' + record.email);
               </Form.Item>
 
               <Alert
-                message="Available Variables"
+                message="Variáveis Disponíveis"
                 description={
                   <ul style={{ marginBottom: 0, paddingLeft: '20px' }}>
                     <li>
-                      <code>record</code> - Object containing all data from the clicked row
+                      <code>record</code> - Objeto contendo todos os dados da linha clicada
                     </li>
                     <li>
-                      <code>console</code> - Use console.log() to debug
+                      <code>console</code> - Use console.log() para depurar
                     </li>
                     <li>
-                      <code>alert()</code> - Show alert dialogs
+                      <code>alert()</code> - Mostrar caixas de diálogo de alerta
                     </li>
                   </ul>
                 }
@@ -224,7 +224,7 @@ alert('Name: ' + record.name + '\\nEmail: ' + record.email);
 
               <div style={{ display: 'flex', gap: '8px' }}>
                 <a onClick={handleLoadExample} style={{ fontSize: '13px' }}>
-                  Load Example Code
+                  Carregar Código de Exemplo
                 </a>
               </div>
             </>
@@ -232,8 +232,8 @@ alert('Name: ' + record.name + '\\nEmail: ' + record.email);
 
           {!currentEvents.onRowClick?.enabled && (
             <Alert
-              message="Row click event is disabled"
-              description="Enable the switch above to configure custom row click behavior."
+              message="Evento de clique na linha está desabilitado"
+              description="Habilite o interruptor acima para configurar o comportamento personalizado de clique na linha."
               type="warning"
               showIcon
             />
@@ -246,39 +246,39 @@ alert('Name: ' + record.name + '\\nEmail: ' + record.email);
         title={
           <Space>
             <SortAscendingOutlined />
-            <Text strong>Column Sorting</Text>
+            <Text strong>Ordenação de Colunas</Text>
           </Space>
         }
       >
         <Space direction="vertical" size="middle" style={{ width: '100%' }}>
           <Paragraph type="secondary" style={{ marginBottom: 0 }}>
-            Choose how table columns should be sorted when users click on column headers.
+            Escolha como as colunas da tabela devem ser ordenadas quando os usuários clicam nos cabeçalhos das colunas.
           </Paragraph>
 
-          <Form.Item label="Sorting Mode">
+          <Form.Item label="Modo de Ordenação">
             <Radio.Group
               value={sortingConfig.mode}
               onChange={handleSortingModeChange}
               buttonStyle="solid"
             >
-              <Radio.Button value="server">Server-Side (API)</Radio.Button>
-              <Radio.Button value="client">Client-Side (Browser)</Radio.Button>
-              <Radio.Button value="disabled">Disabled</Radio.Button>
+              <Radio.Button value="server">Lado do Servidor (API)</Radio.Button>
+              <Radio.Button value="client">Lado do Cliente (Navegador)</Radio.Button>
+              <Radio.Button value="disabled">Desabilitado</Radio.Button>
             </Radio.Group>
           </Form.Item>
 
           {sortingConfig.mode === 'server' && (
             <>
               <Alert
-                message="Server-Side Sorting"
-                description="Sorting parameters will be sent to your API as query parameters. Your backend must handle these parameters and return sorted data."
+                message="Ordenação do Lado do Servidor"
+                description="Os parâmetros de ordenação serão enviados para sua API como parâmetros de consulta. Seu backend deve lidar com esses parâmetros e retornar dados ordenados."
                 type="info"
                 showIcon
               />
 
               <Form.Item
-                label="Column Parameter Name"
-                help="The query parameter name for the column to sort by (e.g., 'sortBy', '_columnSort')"
+                label="Nome do Parâmetro da Coluna"
+                help="O nome do parâmetro de consulta para a coluna a ser ordenada (ex.: 'sortBy', '_columnSort')"
               >
                 <Input
                   value={sortingConfig.serverConfig.columnParam}
@@ -288,8 +288,8 @@ alert('Name: ' + record.name + '\\nEmail: ' + record.email);
               </Form.Item>
 
               <Form.Item
-                label="Order Parameter Name"
-                help="The query parameter name for the sort order (e.g., 'order', '_sort')"
+                label="Nome do Parâmetro de Ordem"
+                help="O nome do parâmetro de consulta para a ordem de ordenação (ex.: 'order', '_sort')"
               >
                 <Input
                   value={sortingConfig.serverConfig.orderParam}
@@ -299,8 +299,8 @@ alert('Name: ' + record.name + '\\nEmail: ' + record.email);
               </Form.Item>
 
               <Form.Item
-                label="Order Value Format"
-                help="How the sort direction should be represented in the query"
+                label="Formato do Valor da Ordem"
+                help="Como a direção da ordenação deve ser representada na consulta"
               >
                 <Select
                   value={sortingConfig.serverConfig.orderFormat}
@@ -308,19 +308,19 @@ alert('Name: ' + record.name + '\\nEmail: ' + record.email);
                   style={{ width: '100%' }}
                 >
                   <Select.Option value="numeric">
-                    Numeric (1 = ascending, -1 = descending)
+                    Numérico (1 = ascendente, -1 = descendente)
                   </Select.Option>
                   <Select.Option value="text">
-                    Text (asc = ascending, desc = descending)
+                    Texto reduzido (asc = ascendente, desc = descendente)
                   </Select.Option>
                   <Select.Option value="antd">
-                    Ant Design (ascend = ascending, descend = descending)
+                    Texto completo (ascend = ascendente, descend = descendente)
                   </Select.Option>
                 </Select>
               </Form.Item>
 
               <Alert
-                message="Example Query"
+                message="Exemplo de Consulta"
                 description={
                   <div>
                     <Text code>
@@ -329,7 +329,7 @@ alert('Name: ' + record.name + '\\nEmail: ' + record.email);
                     </Text>
                     <br />
                     <Text type="secondary" style={{ fontSize: '12px' }}>
-                      Parameters are only added when a column is sorted. They are removed when sorting is cleared.
+                      Os parâmetros são adicionados apenas quando uma coluna é ordenada. Eles são removidos quando a ordenação é limpa.
                     </Text>
                   </div>
                 }
@@ -342,8 +342,8 @@ alert('Name: ' + record.name + '\\nEmail: ' + record.email);
 
           {sortingConfig.mode === 'client' && (
             <Alert
-              message="Client-Side Sorting"
-              description="Data will be sorted directly in the browser. This works well for small datasets but may be slow for large tables. No API calls are made when sorting."
+              message="Ordenação do Lado do Cliente"
+              description="Os dados serão ordenados diretamente no navegador. Isso funciona bem para pequenos conjuntos de dados, mas pode ser lento para tabelas grandes. Nenhuma chamada de API é feita ao ordenar."
               type="info"
               showIcon
             />
@@ -351,8 +351,8 @@ alert('Name: ' + record.name + '\\nEmail: ' + record.email);
 
           {sortingConfig.mode === 'disabled' && (
             <Alert
-              message="Sorting Disabled"
-              description="Users will not be able to sort columns. Column headers will not be clickable for sorting."
+              message="Ordenação Desabilitada"
+              description="Os usuários não poderão ordenar colunas. Os cabeçalhos das colunas não serão clicáveis para ordenação."
               type="warning"
               showIcon
             />
@@ -360,13 +360,6 @@ alert('Name: ' + record.name + '\\nEmail: ' + record.email);
         </Space>
       </Card>
 
-      {/* Future Events Placeholder */}
-      <Alert
-        message="More Events Coming Soon"
-        description="Future versions will support additional events like cell click, double-click, hover, and more!"
-        type="info"
-        showIcon
-      />
     </Space>
   );
 };

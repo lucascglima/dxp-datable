@@ -180,7 +180,7 @@ export const testConnection = async (endpoint, token = '', apiConfig = {}, testP
         return {
           success: false,
           status: 0,
-          message: `URL parameter error: ${urlResult.errors.join(', ')}`,
+          message: `Erro no parâmetro URL: ${urlResult.errors.join(', ')}`,
           error: {
             code: 'URL_PARAM_ERROR',
             message: urlResult.errors.join(', '),
@@ -211,14 +211,14 @@ export const testConnection = async (endpoint, token = '', apiConfig = {}, testP
       success: true,
       status: response.status,
       sampleData: data,
-      message: 'Connection successful',
+      message: 'Conexão bem-sucedida',
       fullResponse: response.data, // Include full response for debugging
     };
   } catch (error) {
     return {
       success: false,
       status: error.response?.status || 0,
-      message: error.response?.data?.message || error.message || 'Connection failed',
+      message: error.response?.data?.message || error.message || 'Conexão falhou',
       error: {
         code: error.code,
         message: error.message,
@@ -283,7 +283,7 @@ export const parseResponseStructure = (data, dataPath = '') => {
       suggestedColumns,
     };
   } catch (error) {
-    console.error('Error parsing response structure:', error);
+    console.error('Erro ao analisar estrutura da resposta:', error);
     return {
       fields: [],
       sampleData: null,

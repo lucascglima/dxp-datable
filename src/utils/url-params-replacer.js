@@ -63,7 +63,7 @@ export const replaceUrlParams = (url, urlParams = []) => {
     missing,
     unused,
     errors: missing.length > 0
-      ? [`Missing values for URL parameters: ${missing.join(', ')}`]
+      ? [`Faltando valores para os parâmetros da URL: ${missing.join(', ')}`]
       : [],
   };
 };
@@ -101,21 +101,21 @@ export const validateUrlParams = (url, urlParams = []) => {
   variables.forEach(varName => {
     const param = urlParams.find(p => p.key === varName);
     if (!param || !param.value || param.value.trim() === '') {
-      errors.push(`Missing value for URL parameter: :${varName}`);
+      errors.push(`Faltando valor para o parâmetro da URL: :${varName}`);
     }
   });
 
   // Check for unused parameters
   urlParams.forEach(param => {
     if (param.key && !variables.includes(param.key)) {
-      warnings.push(`URL parameter "${param.key}" is defined but not used in the URL`);
+      warnings.push(`Parâmetro da URL "${param.key}" está definido mas não é utilizado na URL`);
     }
   });
 
   // Check for empty keys
   urlParams.forEach((param, index) => {
     if (!param.key || param.key.trim() === '') {
-      warnings.push(`URL parameter at index ${index} has empty key`);
+      warnings.push(`Parâmetro da URL no índice ${index} tem chave vazia`);
     }
   });
 
