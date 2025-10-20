@@ -91,6 +91,7 @@ This is where you define what data to show in your table.
 
 **💡 Pro Tip:** Use Step 4 (Preview & Test) to see available fields from your API!
 
+
 ---
 
 ### Step 3: Pagination Settings
