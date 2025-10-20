@@ -27,6 +27,7 @@ import DxpTable from '../components/dxp-table';
 import { SearchInputParam } from '../components/dynamic-params';
 import { loadConfiguration, hasConfiguration, updateConfiguration } from '../services/config-storage';
 import { fetchData } from '../services/external-api';
+import { createColumnRenderer } from '../utils/column-renderers/index.jsx';
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -309,30 +310,55 @@ const DataTablePage = () => {
   };
 
   /**
-   * Processes columns to add click handlers for clickable columns
+   * Processes columns to add custom renderers and click handlers
    */
   const getProcessedColumns = () => {
     if (!config || !config.columns) return [];
 
     return config.columns.map((column) => {
-      if (column.clickable) {
-        return {
-          ...column,
-          render: (text) => (
-            <span
-              
-              style={{
-                cursor: 'pointer',
-                color: '#1890ff',
-                textDecoration: 'underline',
-              }}
-            >
-              {text}
-            </span>
-          ),
-        };
+      const processedColumn = { ...column };
+
+      // Apply custom renderer if configured
+      if (column.render && column.render.type) {
+        const customRenderer = createColumnRenderer(column.render);
+
+        // If column is also clickable, wrap the renderer with clickable styling
+        if (column.clickable) {
+          processedColumn.render = (text, record, index) => {
+            const renderedContent = customRenderer(text, record, index);
+            return (
+              <span
+                style={{
+                  cursor: 'pointer',
+                  color: '#1890ff',
+                  textDecoration: 'underline',
+                }}
+              >
+                {renderedContent}
+              </span>
+            );
+          };
+        } else {
+          // Use custom renderer as-is
+          processedColumn.render = customRenderer;
+        }
+      } else if (column.clickable) {
+        // Only clickable (no custom renderer)
+        processedColumn.render = (text) => (
+          <span
+            style={{
+              cursor: 'pointer',
+              color: '#1890ff',
+              textDecoration: 'underline',
+            }}
+          >
+            {text}
+          </span>
+        );
       }
-      return column;
+      // If neither custom renderer nor clickable, return column as-is
+
+      return processedColumn;
     });
   };
 

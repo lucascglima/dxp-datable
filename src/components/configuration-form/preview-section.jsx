@@ -69,6 +69,11 @@ const PreviewSection = ({
       setEnableMapping(true);
       setDataPath(responseDataPath.dataKey || '');
       setTotalPath(responseDataPath.totalKey || '');
+    } else if (responseDataPath === null) {
+      // If explicitly set to null, reset the mapping
+      setEnableMapping(false);
+      setDataPath('');
+      setTotalPath('');
     }
   }, [responseDataPath]);
 
@@ -90,12 +95,25 @@ const PreviewSection = ({
     const enabled = e.target.checked;
     setEnableMapping(enabled);
 
-    // Notify parent and clear validation
+    if (!onResponseMappingChange) return;
+
     if (!enabled) {
+      // When disabling mapping, clear everything and notify parent
       setDataPath('');
       setTotalPath('');
       setMappingValidation(null);
-      if (onResponseMappingChange) {
+      onResponseMappingChange(null);
+    } else {
+      // When enabling mapping, if we have valid dataPath, update parent
+      if (dataPath.trim()) {
+        const mappingConfig = {
+          dataKey: dataPath.trim(),
+          totalKey: totalPath.trim() || '',
+          totalSource: 'body'
+        };
+        onResponseMappingChange(mappingConfig);
+      } else {
+        // If no dataPath, send null (will be filled by user)
         onResponseMappingChange(null);
       }
     }
@@ -112,6 +130,14 @@ const PreviewSection = ({
       return;
     }
 
+    // If mapping is enabled but dataPath is empty, send null
+    if (!dataPath.trim()) {
+      if (onResponseMappingChange) {
+        onResponseMappingChange(null);
+      }
+      return;
+    }
+
     const mappingConfig = {
       dataKey: dataPath.trim(),
       totalKey: totalPath.trim() || '',
@@ -119,6 +145,51 @@ const PreviewSection = ({
     };
 
     if (onResponseMappingChange) {
+      onResponseMappingChange(mappingConfig);
+    }
+  };
+
+  /**
+   * Handles dataPath input change
+   */
+  const handleDataPathChange = (e) => {
+    const newValue = e.target.value;
+    setDataPath(newValue);
+
+    // Update parent configuration immediately
+    if (!onResponseMappingChange) return;
+
+    if (enableMapping) {
+      if (newValue.trim()) {
+        const mappingConfig = {
+          dataKey: newValue.trim(),
+          totalKey: totalPath.trim() || '',
+          totalSource: 'body'
+        };
+        onResponseMappingChange(mappingConfig);
+      } else {
+        // If dataPath is cleared, send null
+        onResponseMappingChange(null);
+      }
+    }
+  };
+
+  /**
+   * Handles totalPath input change
+   */
+  const handleTotalPathChange = (e) => {
+    const newValue = e.target.value;
+    setTotalPath(newValue);
+
+    // Update parent configuration immediately
+    if (!onResponseMappingChange) return;
+
+    if (enableMapping && dataPath.trim()) {
+      const mappingConfig = {
+        dataKey: dataPath.trim(),
+        totalKey: newValue.trim() || '',
+        totalSource: 'body'
+      };
       onResponseMappingChange(mappingConfig);
     }
   };
@@ -341,7 +412,7 @@ const PreviewSection = ({
                 <Input
                   placeholder='Caminho em notação dot, ex.: "data.items", "results"'
                   value={dataPath}
-                  onChange={(e) => setDataPath(e.target.value)}
+                  onChange={handleDataPathChange}
                   style={{ marginTop: 4 }}
                 />
                 <Text type="secondary" style={{ fontSize: 12 }}>
@@ -354,7 +425,7 @@ const PreviewSection = ({
                 <Input
                   placeholder='ex.: "data.pagination.total", "total", deixe em branco se não estiver disponível'
                   value={totalPath}
-                  onChange={(e) => setTotalPath(e.target.value)}
+                  onChange={handleTotalPathChange}
                   style={{ marginTop: 4 }}
                 />
                 <Text type="secondary" style={{ fontSize: 12 }}>
