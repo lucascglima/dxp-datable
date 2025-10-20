@@ -21,6 +21,7 @@ import {
   Modal,
   Select,
   message,
+  Divider,
 } from 'antd';
 import {
   PlusOutlined,
@@ -29,8 +30,13 @@ import {
   ColumnHeightOutlined,
   ImportOutlined,
   ExportOutlined,
-  SmileOutlined,
+  FormatPainterOutlined,
 } from '@ant-design/icons';
+import {
+  getAvailableRenderers,
+  getRendererFields,
+  getRendererDefaultConfig,
+} from '../../utils/column-renderers/index.jsx';
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -78,6 +84,10 @@ const ColumnsConfigSection = ({ value = [], onChange }) => {
       width: undefined,
       icon: undefined,
       iconClickable: false,
+      render: {
+        type: 'default',
+        config: {},
+      },
     };
 
     onChange([...value, newColumn]);
@@ -109,6 +119,49 @@ const ColumnsConfigSection = ({ value = [], onChange }) => {
         }
 
         return updated;
+      }
+      return col;
+    });
+
+    onChange(newColumns);
+  };
+
+  /**
+   * Handles render type change for a column
+   */
+  const handleRenderTypeChange = (index, renderType) => {
+    const newColumns = value.map((col, i) => {
+      if (i === index) {
+        return {
+          ...col,
+          render: {
+            type: renderType,
+            config: getRendererDefaultConfig(renderType),
+          },
+        };
+      }
+      return col;
+    });
+
+    onChange(newColumns);
+  };
+
+  /**
+   * Handles render config change for a column
+   */
+  const handleRenderConfigChange = (index, configField, configValue) => {
+    const newColumns = value.map((col, i) => {
+      if (i === index) {
+        return {
+          ...col,
+          render: {
+            ...col.render,
+            config: {
+              ...col.render.config,
+              [configField]: configValue,
+            },
+          },
+        };
       }
       return col;
     });
@@ -189,6 +242,10 @@ const ColumnsConfigSection = ({ value = [], onChange }) => {
         width: col.width,
         icon: col.icon,
         iconClickable: col.iconClickable || false,
+        render: col.render || {
+          type: 'default',
+          config: {},
+        },
       }));
 
       onChange(columnsWithIds);
@@ -206,6 +263,84 @@ const ColumnsConfigSection = ({ value = [], onChange }) => {
   const handleCopyJson = () => {
     navigator.clipboard.writeText(jsonText);
     message.success('JSON copiado para a área de transferência');
+  };
+
+  /**
+   * Renders configuration fields for the selected renderer type
+   */
+  const renderConfigFields = (column, columnIndex) => {
+    const renderType = column.render?.type || 'default';
+    const fields = getRendererFields(renderType);
+    const config = column.render?.config || {};
+
+    return fields.map((field) => {
+      // Check if field should be shown (conditional rendering)
+      if (field.showWhen && !field.showWhen(config)) {
+        return null;
+      }
+
+      // Render based on field type
+      switch (field.type) {
+        case 'text':
+          return (
+            <Form.Item
+              key={field.name}
+              label={field.label}
+              required={field.required}
+              help={field.helpText}
+            >
+              <Input
+                value={config[field.name] ?? field.defaultValue}
+                onChange={(e) =>
+                  handleRenderConfigChange(columnIndex, field.name, e.target.value)
+                }
+                placeholder={field.placeholder}
+              />
+            </Form.Item>
+          );
+
+        case 'checkbox':
+          return (
+            <Form.Item key={field.name} help={field.helpText}>
+              <Checkbox
+                checked={config[field.name] ?? field.defaultValue}
+                onChange={(e) =>
+                  handleRenderConfigChange(columnIndex, field.name, e.target.checked)
+                }
+              >
+                {field.label}
+              </Checkbox>
+            </Form.Item>
+          );
+
+        case 'select':
+          return (
+            <Form.Item
+              key={field.name}
+              label={field.label}
+              required={field.required}
+              help={field.helpText}
+            >
+              <Select
+                value={config[field.name] ?? field.defaultValue}
+                onChange={(value) =>
+                  handleRenderConfigChange(columnIndex, field.name, value)
+                }
+                placeholder={field.placeholder}
+              >
+                {field.options?.map((option) => (
+                  <Option key={option.value} value={option.value}>
+                    {option.label}
+                  </Option>
+                ))}
+              </Select>
+            </Form.Item>
+          );
+
+        default:
+          return null;
+      }
+    });
   };
 
   return (
@@ -349,6 +484,61 @@ const ColumnsConfigSection = ({ value = [], onChange }) => {
                   </Form.Item>
                 </Col>
               </Row>
+
+              <Divider orientation="left">
+                <Space>
+                  <FormatPainterOutlined />
+                  Customização de Renderização
+                </Space>
+              </Divider>
+
+              <Row gutter={16}>
+                <Col span={12}>
+                  <Form.Item
+                    label={
+                      <Space>
+                        Tipo de Renderização
+                        <Tooltip title="Escolha como os valores desta coluna serão exibidos">
+                          <InfoCircleOutlined style={{ color: '#1890ff' }} />
+                        </Tooltip>
+                      </Space>
+                    }
+                  >
+                    <Select
+                      value={column.render?.type || 'default'}
+                      onChange={(value) => handleRenderTypeChange(index, value)}
+                      placeholder="Selecione o tipo"
+                    >
+                      {getAvailableRenderers().map((renderer) => (
+                        <Option key={renderer.value} value={renderer.value}>
+                          <Space direction="vertical" size={0}>
+                            <span>{renderer.label}    <span style={{ fontSize: '12px', color: '#888' }}>
+                              {renderer.description}
+                            </span></span>
+                         
+                          </Space>
+                        </Option>
+                      ))}
+                    </Select>
+                  </Form.Item>
+                </Col>
+              </Row>
+
+              {/* Render-specific configuration fields */}
+              {column.render?.type && column.render.type !== 'default' && (
+                <Card size="small" style={{ background: '#fafafa', marginBottom: 16 }}>
+                  <Space direction="vertical" size="middle" style={{ width: '100%' }}>
+                    <Alert
+                      message={`Configuração de ${getAvailableRenderers().find(r => r.value === column.render.type)?.label}`}
+                      type="info"
+                      showIcon
+                      style={{ marginBottom: 8 }}
+                    />
+
+                    {renderConfigFields(column, index)}
+                  </Space>
+                </Card>
+              )}
 
               {hasErrors && (
                 <Alert

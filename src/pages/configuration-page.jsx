@@ -86,6 +86,8 @@ const ConfigurationPage = () => {
     },
   });
 
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
+
   /**
    * Load existing configuration on mount
    */
@@ -142,7 +144,19 @@ const ConfigurationPage = () => {
       setConfig(configWithEvents);
       message.info('Configuração existente carregada');
     }
+    setIsInitialLoad(false);
   }, []);
+
+  /**
+   * Auto-save configuration to localStorage when it changes
+   * (except on initial load to avoid overwriting with defaults)
+   */
+  useEffect(() => {
+    if (!isInitialLoad && config.apiEndpoint) {
+      // Save to localStorage automatically
+      saveConfiguration(config);
+    }
+  }, [config, isInitialLoad]);
 
   /**
    * Handles API configuration change
