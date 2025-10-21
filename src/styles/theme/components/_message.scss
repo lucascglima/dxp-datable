@@ -1,0 +1,53 @@
+// ============================================
+// COMPONENTE - MESSAGE
+// ============================================
+// Customizações completas do componente Message do Ant Design.
+// Documentação: https://ant.design/components/message
+
+@import '../../tokens/index';
+
+// ============================================
+// MESSAGE COLORS - Cores do Message
+// ============================================
+
+$message-bg: $color-bg-primary;
+$message-text-color: $color-text-primary;
+
+// ============================================
+// MESSAGE SPACING - Espaçamento
+// ============================================
+
+$message-notice-content-padding-vertical: 10px;
+$message-notice-content-padding-horizontal: 16px;
+
+// ============================================
+// MESSAGE SHADOWS - Sombras
+// ============================================
+
+$message-shadow: $shadow-dropdown;
+
+// ============================================
+// MESSAGE BORDERS - Bordas
+// ============================================
+
+$message-border-radius: $border-radius-md;
+
+// ============================================
+// EXPORTAÇÃO PARA CSS CUSTOM PROPERTIES
+// ============================================
+
+:export {
+  // Colors
+  messageBg: $message-bg;
+  messageTextColor: $message-text-color;
+
+  // Spacing
+  messageNoticeContentPaddingVertical: $message-notice-content-padding-vertical;
+  messageNoticeContentPaddingHorizontal: $message-notice-content-padding-horizontal;
+
+  // Shadows
+  messageShadow: $message-shadow;
+
+  // Borders
+  messageBorderRadius: $message-border-radius;
+}

@@ -1,0 +1,79 @@
+// ============================================
+// COMPONENTE - BUTTON
+// ============================================
+// Customizações específicas do componente Button do Ant Design.
+
+@import '../../tokens/index';
+
+// Button Colors - Cores do botão
+$button-primary-color: $color-primary-600;
+$button-primary-hover-color: $color-primary-500;
+$button-primary-active-color: $color-primary-700;
+
+$button-danger-color: $color-error-600;
+$button-danger-hover-color: $color-error-500;
+$button-danger-active-color: $color-error-700;
+
+$button-default-color: $color-text-primary;
+$button-default-bg: $color-bg-primary;
+$button-default-border: $color-border-primary;
+
+// Button Sizes - Tamanhos do botão
+$button-height-base: $control-height-md;
+$button-height-lg: $control-height-lg;
+$button-height-sm: $control-height-sm;
+
+$button-padding-horizontal-base: $padding-md;
+$button-padding-horizontal-lg: $padding-lg;
+$button-padding-horizontal-sm: $padding-sm;
+
+// Button Typography - Tipografia do botão
+$button-font-size-base: $font-size-base;
+$button-font-size-lg: $font-size-lg;
+$button-font-size-sm: $font-size-sm;
+$button-font-weight: $font-weight-normal;
+
+// Button Border - Bordas do botão
+$button-border-width: $border-width-thin;
+$button-border-radius: $border-radius-md;
+$button-border-radius-sm: $border-radius-sm;
+$button-border-radius-lg: $border-radius-lg;
+
+// Button States - Estados do botão
+$button-disabled-opacity: 0.4;
+
+// ============================================
+// EXPORTAÇÃO PARA CSS CUSTOM PROPERTIES
+// ============================================
+:export {
+  // Colors
+  buttonPrimaryColor: $button-primary-color;
+  buttonPrimaryHoverColor: $button-primary-hover-color;
+  buttonPrimaryActiveColor: $button-primary-active-color;
+  buttonDangerColor: $button-danger-color;
+  buttonDangerHoverColor: $button-danger-hover-color;
+  buttonDangerActiveColor: $button-danger-active-color;
+  buttonDefaultColor: $button-default-color;
+  buttonDefaultBg: $button-default-bg;
+  buttonDefaultBorder: $button-default-border;
+  
+  // Sizes
+  buttonHeightBase: $button-height-base;
+  buttonHeightLG: $button-height-lg;
+  buttonHeightSM: $button-height-sm;
+  buttonPaddingHorizontalBase: $button-padding-horizontal-base;
+  buttonPaddingHorizontalLG: $button-padding-horizontal-lg;
+  buttonPaddingHorizontalSM: $button-padding-horizontal-sm;
+  
+  // Typography
+  buttonFontSizeBase: $button-font-size-base;
+  buttonFontSizeLG: $button-font-size-lg;
+  buttonFontSizeSM: $button-font-size-sm;
+  buttonFontWeight: $button-font-weight;
+  
+  // Border
+  buttonBorderWidth: $button-border-width;
+  buttonBorderRadius: $button-border-radius;
+  buttonBorderRadiusSM: $button-border-radius-sm;
+  buttonBorderRadiusLG: $button-border-radius-lg;
+}

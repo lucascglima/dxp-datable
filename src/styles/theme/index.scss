@@ -1,0 +1,15 @@
+
+// ============================================
+// TEMA ANT DESIGN - INDEX PRINCIPAL
+// ============================================
+// Este é o arquivo principal que importa todo o sistema de tema.
+// Importe este arquivo no seu projeto para ter acesso a todos os tokens e configurações.
+
+// 1. Importar tokens base (variáveis fundamentais)
+@import '../tokens/index';
+
+// 2. Importar configurações globais do tema
+@import './global/index';
+
+// 3. Importar customizações de componentes
+@import './components/index';

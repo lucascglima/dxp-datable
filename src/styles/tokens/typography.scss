@@ -1,0 +1,172 @@
+// ============================================
+// TOKENS DE TIPOGRAFIA
+// ============================================
+// Este arquivo define o sistema tipográfico completo do projeto.
+// A tipografia é fundamental para hierarquia visual e legibilidade.
+
+// ============================================
+// FONT FAMILIES - Famílias de Fontes
+// ============================================
+// A fonte primária é usada para todo o texto do sistema.
+// Incluímos uma pilha de fontes seguras para garantir boa renderização
+// em diferentes sistemas operacionais (macOS, Windows, Linux, Android, iOS).
+
+$font-family-primary: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 
+                      'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 
+                      'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 
+                      'Noto Color Emoji';
+
+// A fonte monoespaçada é usada para código, números de referência e dados técnicos.
+// Monoespaçadas garantem alinhamento vertical perfeito em tabelas de dados.
+$font-family-monospace: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, 
+                        Courier, monospace;
+
+// Use esta fonte especificamente para títulos se quiser diferenciá-los do corpo de texto.
+// Por padrão, usamos a mesma fonte primária para manter consistência.
+$font-family-heading: $font-family-primary;
+
+// ============================================
+// FONT SIZES - Tamanhos de Fonte
+// ============================================
+// Seguimos uma escala tipográfica baseada em múltiplos harmônicos.
+// O tamanho base (14px) é otimizado para leitura em telas modernas.
+
+// Tamanhos extra pequenos - Use para labels secundárias, metadados, timestamps
+$font-size-xs: 12px;
+
+// Tamanho pequeno - Use para texto auxiliar, placeholders, descrições
+$font-size-sm: 14px;
+
+// Tamanho base - Este é o tamanho padrão para todo o corpo de texto
+$font-size-base: 14px;
+
+// Tamanho médio - Use para texto que precisa de mais destaque que o padrão
+$font-size-md: 16px;
+
+// Tamanho grande - Use para introduções, leads de artigos, chamadas
+$font-size-lg: 16px;
+
+// Tamanho extra grande - Use para títulos de seções importantes
+$font-size-xl: 20px;
+
+// Tamanho extra extra grande - Use para títulos de páginas principais
+$font-size-xxl: 24px;
+
+// ============================================
+// HEADING SIZES - Tamanhos de Títulos
+// ============================================
+// Hierarquia clara de títulos usando escala modular (razão ~1.25).
+// H1 deve ser usado apenas uma vez por página (título principal).
+// H2-H5 criam hierarquia de seções e subseções.
+
+// H1 - Título principal da página (Hero titles, page headers)
+$font-size-h1: 38px;
+
+// H2 - Títulos de seções principais (Section headers)
+$font-size-h2: 30px;
+
+// H3 - Títulos de subseções (Subsection headers)
+$font-size-h3: 24px;
+
+// H4 - Títulos de componentes e cards (Component titles)
+$font-size-h4: 20px;
+
+// H5 - Títulos menores e labels destacados (Minor headings)
+$font-size-h5: 16px;
+
+// ============================================
+// FONT WEIGHTS - Pesos de Fonte
+// ============================================
+// Diferentes pesos criam hierarquia e ênfase visual.
+// Nem todas as fontes suportam todos os pesos - teste sua fonte escolhida.
+
+// Light (300) - Use com moderação, apenas para textos grandes e em fundos claros
+$font-weight-light: 300;
+
+// Normal (400) - Peso padrão para todo o corpo de texto
+$font-weight-normal: 400;
+
+// Medium (500) - Use para texto que precisa de leve destaque sem ser negrito
+$font-weight-medium: 500;
+
+// Semibold (600) - Use para labels, botões e elementos de navegação
+$font-weight-semibold: 600;
+
+// Bold (700) - Use para títulos e elementos que precisam de forte ênfase
+$font-weight-bold: 700;
+
+// ============================================
+// LINE HEIGHTS - Alturas de Linha
+// ============================================
+// Line height (altura de linha) afeta legibilidade e densidade visual.
+// Texto maior precisa de menos espaçamento proporcional que texto menor.
+
+// Tight (1.2) - Use para títulos grandes onde queremos densidade
+// Evita muito espaço branco entre linhas de títulos multi-linha
+$line-height-tight: 1.2;
+
+// Base (1.5715) - Perfeito para corpo de texto, oferece boa legibilidade
+// Este é o valor do Ant Design e funciona bem para textos de 14-16px
+$line-height-base: 1.5715;
+
+// Relaxed (1.8) - Use para textos longos e artigos onde legibilidade é crítica
+// Mais espaço entre linhas reduz fadiga em leitura prolongada
+$line-height-relaxed: 1.8;
+
+// Heading (1.35) - Específico para títulos, balance entre compacto e legível
+$line-height-heading: 1.35;
+
+// ============================================
+// LETTER SPACING - Espaçamento entre Letras
+// ============================================
+// Letter spacing (tracking) afeta a densidade e legibilidade do texto.
+// Use com cuidado - muito espaçamento pode prejudicar a leitura.
+
+// Normal (0) - Padrão para a maioria dos textos
+$letter-spacing-normal: 0;
+
+// Wide (0.025em) - Use para textos em caixa alta (UPPERCASE) ou títulos
+// Textos em maiúsculas sempre precisam de mais espaçamento para legibilidade
+$letter-spacing-wide: 0.025em;
+
+// Wider (0.05em) - Use para textos muito pequenos ou logos
+$letter-spacing-wider: 0.05em;
+
+// Tight (-0.025em) - Use raramente, apenas para títulos muito grandes
+// Pode criar efeito mais compacto e moderno
+$letter-spacing-tight: -0.025em;
+
+// ============================================
+// TEXT DECORATION - Decorações de Texto
+// ============================================
+
+// Underline offset - Distância da linha sob o texto
+// Importante para links ficarem mais legíveis
+$text-underline-offset: 2px;
+
+// Text decoration thickness - Espessura da linha de decoração
+$text-decoration-thickness: 1px;
+
+// ============================================
+// OBSERVAÇÕES DE USO
+// ============================================
+// 
+// 1. ACESSIBILIDADE:
+//    - Contraste mínimo texto/fundo: 4.5:1 para texto normal, 3:1 para texto grande
+//    - Texto grande = 18px+ ou 14px+ em negrito
+//    - Nunca use texto menor que 12px para conteúdo importante
+//
+// 2. RESPONSIVIDADE:
+//    - Em telas pequenas, considere aumentar tamanhos de fonte em 1-2px
+//    - Títulos podem precisar ser reduzidos em mobile (H1: 30px ao invés de 38px)
+//
+// 3. HIERARQUIA:
+//    - Use no máximo 3 tamanhos diferentes em uma mesma tela
+//    - Combine tamanho + peso + cor para criar hierarquia visual
+//    - Ex: Título = grande + bold + escuro, Subtítulo = médio + normal + cinza
+//
+// 4. PERFORMANCE:
+//    - Prefira fontes do sistema (system fonts) para carregar mais rápido
+//    - Se usar fontes customizadas, carregue apenas os pesos necessários
+//    - Use font-display: swap para evitar FOIT (Flash of Invisible Text)
+//

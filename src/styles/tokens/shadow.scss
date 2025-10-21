@@ -1,0 +1,201 @@
+// ============================================
+// TOKENS DE SOMBRAS E ELEVAÇÕES
+// ============================================
+// Este arquivo define o sistema de elevação através de sombras.
+// Sombras criam hierarquia visual e profundidade, simulando como objetos
+// flutuam em diferentes alturas sobre a superfície da página.
+//
+// CONCEITO: Material Design usa o conceito de "elevação" (elevation)
+// onde elementos em alturas maiores projetam sombras maiores e mais suaves.
+// Quanto mais alto o elemento, mais distante ele parece da superfície base.
+
+// ============================================
+// BOX SHADOWS - Sombras de Elevação
+// ============================================
+// Seguimos uma escala de 3 níveis de elevação, cada uma com propósito específico.
+// Cada sombra é composta de múltiplas camadas para criar efeito mais realista:
+// - Camada 1: Sombra direcional (simula luz vindo de cima)
+// - Camada 2: Sombra ambiente (simula luz difusa ao redor)
+// - Camada 3: Sombra de penumbra (transição suave nas bordas)
+
+// SHADOW 1 - Elevação Baixa (2-4dp)
+// Use para: Cards padrão, inputs, chips, elementos que estão ligeiramente elevados
+// Percepção: Elemento flutua minimamente sobre a superfície
+// Altura simulada: ~2-4px
+$shadow-1: 
+  0 1px 2px 0 rgba(0, 0, 0, 0.03),    // Sombra direcional sutil
+  0 1px 6px -1px rgba(0, 0, 0, 0.02), // Sombra ambiente mínima
+  0 2px 4px 0 rgba(0, 0, 0, 0.02);    // Penumbra suave
+
+// SHADOW 2 - Elevação Média (6-12dp)
+// Use para: Dropdowns, popovers, tooltips, cards com hover, menus
+// Percepção: Elemento claramente flutua, mas não domina visualmente
+// Altura simulada: ~6-12px
+$shadow-2: 
+  0 3px 6px -4px rgba(0, 0, 0, 0.12), // Sombra direcional moderada
+  0 6px 16px 0 rgba(0, 0, 0, 0.08),   // Sombra ambiente média
+  0 9px 28px 8px rgba(0, 0, 0, 0.05); // Penumbra ampla
+
+// SHADOW 3 - Elevação Alta (16-24dp)
+// Use para: Modais, drawers, elementos que devem estar "na frente de tudo"
+// Percepção: Elemento claramente no topo da hierarquia, dominante
+// Altura simulada: ~16-24px
+$shadow-3: 
+  0 6px 16px 0 rgba(0, 0, 0, 0.08),   // Sombra direcional forte
+  0 3px 6px -4px rgba(0, 0, 0, 0.12), // Sombra ambiente adicional
+  0 9px 28px 8px rgba(0, 0, 0, 0.05); // Penumbra muito ampla
+
+// ============================================
+// COMPONENT-SPECIFIC SHADOWS - Sombras Específicas
+// ============================================
+// Alguns componentes precisam de sombras customizadas para funcionar melhor
+// em seus contextos específicos de uso.
+
+// DROPDOWN SHADOWS - Sombras para Menus Dropdown
+// Dropdowns aparecem sobre conteúdo e precisam de sombra média-alta
+// para se destacar claramente do conteúdo abaixo
+$shadow-dropdown: 
+  0 6px 16px 0 rgba(0, 0, 0, 0.08),
+  0 3px 6px -4px rgba(0, 0, 0, 0.12),
+  0 9px 28px 8px rgba(0, 0, 0, 0.05);
+
+// MODAL SHADOWS - Sombras para Modais
+// Modais são os elementos de maior elevação, ficam acima de tudo
+// incluindo overlay semi-transparente
+$shadow-modal: 
+  0 6px 16px 0 rgba(0, 0, 0, 0.08),
+  0 3px 6px -4px rgba(0, 0, 0, 0.12),
+  0 9px 28px 8px rgba(0, 0, 0, 0.05);
+
+// CARD SHADOWS - Sombras para Cards
+// Cards em estado padrão têm elevação mínima
+$shadow-card: 
+  0 1px 2px 0 rgba(0, 0, 0, 0.03),
+  0 1px 6px -1px rgba(0, 0, 0, 0.02),
+  0 2px 4px 0 rgba(0, 0, 0, 0.02);
+
+// CARD HOVER SHADOWS - Sombras para Cards em Hover
+// Quando o usuário passa o mouse, o card "levanta" mais
+// criando feedback visual de interatividade
+$shadow-card-hover: 
+  0 1px 2px -2px rgba(0, 0, 0, 0.16),
+  0 3px 6px 0 rgba(0, 0, 0, 0.12),
+  0 5px 12px 4px rgba(0, 0, 0, 0.09);
+
+// POPOVER SHADOWS - Sombras para Popovers e Tooltips
+// Similar ao dropdown, mas pode ser ligeiramente mais sutil
+// pois popovers geralmente são menores
+$shadow-popover: 
+  0 3px 6px -4px rgba(0, 0, 0, 0.12),
+  0 6px 16px 0 rgba(0, 0, 0, 0.08),
+  0 9px 28px 8px rgba(0, 0, 0, 0.05);
+
+// DRAWER SHADOWS - Sombras para Drawers/Sidebars
+// Drawers deslizam de fora da tela, precisam de sombra forte
+// para indicar que estão "acima" do conteúdo principal
+$shadow-drawer: 
+  -6px 0 16px 0 rgba(0, 0, 0, 0.08),
+  -3px 0 6px -4px rgba(0, 0, 0, 0.12),
+  -9px 0 28px 8px rgba(0, 0, 0, 0.05);
+
+// BUTTON SHADOWS - Sombras para Botões Elevados
+// Alguns botões (FAB - Floating Action Button) precisam parecer elevados
+$shadow-button: 
+  0 2px 0 rgba(0, 0, 0, 0.016);
+
+// BUTTON HOVER SHADOWS - Sombras para Botões em Hover
+// Feedback visual quando usuário interage com botão elevado
+$shadow-button-hover: 
+  0 4px 4px rgba(0, 0, 0, 0.08);
+
+// TABLE SHADOWS - Sombras para Cabeçalho Fixo de Tabelas
+// Quando o header da tabela fica fixo no scroll, precisa de sombra
+// para indicar que está "flutuando" sobre as linhas
+$shadow-table-header: 
+  0 2px 4px 0 rgba(0, 0, 0, 0.06);
+
+// ============================================
+// INNER SHADOWS - Sombras Internas
+// ============================================
+// Sombras internas criam efeito de "recesso" ou "pressionado"
+// ao invés de elevação. Use para inputs, áreas de texto, elementos deprimidos.
+
+// INSET SHADOW - Sombra interna padrão
+// Use para: Inputs, text areas, elementos que parecem "afundados"
+$shadow-inset: 
+  inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+
+// INSET SHADOW STRONG - Sombra interna forte
+// Use para: Elementos muito deprimidos, áreas de "wells"
+$shadow-inset-strong: 
+  inset 0 3px 6px 0 rgba(0, 0, 0, 0.12);
+
+// ============================================
+// GLOW EFFECTS - Efeitos de Brilho
+// ============================================
+// Não são sombras tradicionais, mas usam box-shadow para criar
+// efeitos de brilho e destaque, geralmente com cores.
+
+// FOCUS GLOW - Brilho de foco (ring) para acessibilidade
+// Use para: Indicar foco de teclado em elementos interativos
+// NOTA: A cor deve ser definida dinamicamente baseada no tema
+$shadow-focus: 
+  0 0 0 4px rgba(24, 144, 255, 0.2);
+
+// PRIMARY GLOW - Brilho da cor primária
+// Use para: Destacar elementos importantes ou CTAs
+$shadow-primary-glow: 
+  0 0 16px rgba(24, 144, 255, 0.3);
+
+// SUCCESS GLOW - Brilho de sucesso
+// Use para: Feedback visual positivo, confirmações
+$shadow-success-glow: 
+  0 0 16px rgba(82, 196, 26, 0.3);
+
+// ERROR GLOW - Brilho de erro
+// Use para: Indicar erros de validação, estados de erro
+$shadow-error-glow: 
+  0 0 16px rgba(245, 34, 45, 0.3);
+
+// ============================================
+// OBSERVAÇÕES DE USO
+// ============================================
+//
+// 1. HIERARQUIA DE ELEVAÇÃO:
+//    - Use elevação para criar ordem visual (z-index lógico)
+//    - Elementos mais importantes = maior elevação
+//    - Não abuse: muitos elementos elevados criam confusão visual
+//    - Regra geral: máximo 3 níveis de elevação em uma mesma tela
+//
+// 2. PERFORMANCE:
+//    - Box-shadows podem impactar performance em animações
+//    - Para animações, considere usar transform em vez de animar a sombra
+//    - Prefira mudar opacidade da sombra ao invés de recalcular sombras complexas
+//
+// 3. DARK MODE:
+//    - Em tema escuro, sombras devem ser mais sutis ou até invertidas
+//    - Considere usar borders ou overlays claros ao invés de sombras escuras
+//    - A elevação pode ser indicada por mudança de cor de fundo ao invés de sombra
+//
+// 4. ACESSIBILIDADE:
+//    - Sombras NÃO devem ser o único indicador de interatividade
+//    - Sempre combine com mudanças de cor, borda ou posição
+//    - Para foco de teclado, sempre use outline ou shadow-focus claramente visível
+//
+// 5. COMPOSIÇÃO:
+//    - Você pode combinar múltiplas sombras separando com vírgula
+//    - Útil para criar efeitos mais complexos e realistas
+//    - Exemplo: box-shadow: $shadow-card, $shadow-focus;
+//
+// 6. DIREÇÃO DA LUZ:
+//    - Todas as sombras assumem luz vindo de cima (Y positivo)
+//    - Isso cria consistência visual em todo o sistema
+//    - Sombras laterais (drawer) são exceção, adaptadas ao contexto
+//    - Mantenha essa convenção para coesão visual
+//
+// 7. QUANDO NÃO USAR SOMBRAS:
+//    - Em designs minimalistas ou flat
+//    - Quando bordas já criam separação suficiente
+//    - Em elementos que não precisam indicar elevação
+//    - Em impressão (sombras raramente imprimem bem)
+//

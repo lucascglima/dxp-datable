@@ -1,0 +1,79 @@
+// ============================================
+// TOKENS DE ESPAÇAMENTO
+// ============================================
+// Sistema de espaçamento baseado em múltiplos de 4px/8px
+// Garante consistência visual e facilita alinhamento em qualquer densidade de pixel
+
+// ============================================
+// BASE UNIT
+// ============================================
+$spacing-unit: 8px;
+
+// ============================================
+// SPACING SCALE
+// ============================================
+$spacing-xxs: 4px;   // 0.5 unidades
+$spacing-xs: 8px;    // 1 unidade
+$spacing-sm: 12px;   // 1.5 unidades
+$spacing-md: 16px;   // 2 unidades - PADRÃO
+$spacing-lg: 24px;   // 3 unidades
+$spacing-xl: 32px;   // 4 unidades
+$spacing-xxl: 48px;  // 6 unidades
+$spacing-xxxl: 64px; // 8 unidades
+
+// ============================================
+// CONTROL HEIGHTS
+// ============================================
+$control-height-xs: 24px;
+$control-height-sm: 32px;
+$control-height-md: 40px; // PADRÃO
+$control-height-lg: 48px;
+
+// ============================================
+// PADDING
+// ============================================
+$padding-xs: 8px;
+$padding-sm: 12px;
+$padding-md: 16px;  // PADRÃO
+$padding-lg: 24px;
+$padding-xl: 32px;
+
+// Padding de conteúdo
+$padding-content-horizontal: 24px;
+$padding-content-vertical: 16px;
+$padding-content-horizontal-sm: 16px;
+$padding-content-vertical-sm: 12px;
+
+// ============================================
+// MARGIN
+// ============================================
+$margin-xs: 8px;
+$margin-sm: 12px;
+$margin-md: 16px;  // PADRÃO
+$margin-lg: 24px;
+$margin-xl: 32px;
+$margin-xxl: 48px;
+
+// ============================================
+// CONTAINER WIDTHS
+// ============================================
+$container-max-width-sm: 576px;
+$container-max-width-md: 768px;
+$container-max-width-lg: 992px;
+$container-max-width-xl: 1200px;
+$container-max-width-xxl: 1600px;
+
+// ============================================
+// GRID GUTTER
+// ============================================
+$grid-gutter: 16px;
+$grid-gutter-sm: 8px;
+$grid-gutter-lg: 24px;
+
+// ============================================
+// SECTION SPACING
+// ============================================
+$section-spacing-sm: 32px;
+$section-spacing-md: 48px;
+$section-spacing-lg: 64px;
+$section-spacing-xl: 96px;

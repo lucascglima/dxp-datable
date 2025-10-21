@@ -1,0 +1,203 @@
+// ============================================
+// TOKENS DE BORDAS
+// ============================================
+// Este arquivo define o sistema de bordas do projeto.
+// Bordas criam separação, definem limites e estruturam layouts.
+// Border radius (curvatura) influencia a personalidade do design.
+
+// ============================================
+// BORDER WIDTHS - Larguras de Borda
+// ============================================
+// A largura da borda afeta o peso visual e a ênfase do elemento.
+
+// NONE (0) - Sem borda
+$border-width-none: 0;
+
+// THIN (1px) - Borda fina - MAIS COMUM
+// Use para: Maioria dos casos - cards, inputs, dividers
+$border-width-thin: 1px;
+
+// MEDIUM (2px) - Borda média
+// Use para: Elementos que precisam de mais destaque, estados ativos
+$border-width-medium: 2px;
+
+// THICK (4px) - Borda grossa
+// Use para: Indicadores visuais fortes, estados de destaque máximo
+$border-width-thick: 4px;
+
+// ============================================
+// BORDER RADIUS - Raios de Curvatura
+// ============================================
+// O border-radius define o quanto os cantos são arredondados.
+
+// NONE (0) - Sem curvatura (cantos retos 90°)
+// Use para: Designs ultra-modernos, minimalistas ou técnicos
+$border-radius-none: 0;
+
+// XS (2px) - Curvatura extra pequena
+// Use para: Pequenos elementos onde 4px seria muito arredondado
+$border-radius-xs: 2px;
+
+// SM (4px) - Curvatura pequena
+// Use para: Botões compactos, inputs pequenos, tags
+$border-radius-sm: 4px;
+
+// MD (6px) - Curvatura média - PADRÃO RECOMENDADO
+// Use para: Maioria dos componentes - botões, inputs, cards
+$border-radius-md: 6px;
+
+// LG (8px) - Curvatura grande
+// Use para: Cards maiores, modais, drawers, containers importantes
+$border-radius-lg: 8px;
+
+// XL (12px) - Curvatura extra grande
+// Use para: Elementos hero, cards de destaque, CTAs importantes
+$border-radius-xl: 12px;
+
+// XXL (16px) - Curvatura extra extra grande
+// Use para: Elementos grandes que precisam de muito destaque
+$border-radius-xxl: 16px;
+
+// CIRCLE (50%) - Círculo perfeito
+// Use para: Avatares, botões FAB (Floating Action Button)
+// Funciona apenas em elementos quadrados (width = height)
+$border-radius-circle: 50%;
+
+// FULL (9999px) - Pílula/Capsule
+// Use para: Botões em formato de pílula, tags alongadas
+$border-radius-full: 9999px;
+
+// ============================================
+// BORDER RADIUS ESPECÍFICOS - Casos Especiais
+// ============================================
+// Alguns componentes precisam de curvatura apenas em cantos específicos
+
+// TOP ONLY - Arredondamento apenas no topo
+// Use para: Cabeçalhos de modais, topos de cards, headers de seções
+$border-radius-top-xs: $border-radius-xs $border-radius-xs 0 0;
+$border-radius-top-sm: $border-radius-sm $border-radius-sm 0 0;
+$border-radius-top-md: $border-radius-md $border-radius-md 0 0;
+$border-radius-top-lg: $border-radius-lg $border-radius-lg 0 0;
+$border-radius-top-xl: $border-radius-xl $border-radius-xl 0 0;
+
+// BOTTOM ONLY - Arredondamento apenas na base
+// Use para: Rodapés de modais, partes inferiores de dropdowns
+$border-radius-bottom-xs: 0 0 $border-radius-xs $border-radius-xs;
+$border-radius-bottom-sm: 0 0 $border-radius-sm $border-radius-sm;
+$border-radius-bottom-md: 0 0 $border-radius-md $border-radius-md;
+$border-radius-bottom-lg: 0 0 $border-radius-lg $border-radius-lg;
+$border-radius-bottom-xl: 0 0 $border-radius-xl $border-radius-xl;
+
+// LEFT ONLY - Arredondamento apenas à esquerda
+// Use para: Drawers que aparecem da direita, elementos edge-aligned
+$border-radius-left-xs: $border-radius-xs 0 0 $border-radius-xs;
+$border-radius-left-sm: $border-radius-sm 0 0 $border-radius-sm;
+$border-radius-left-md: $border-radius-md 0 0 $border-radius-md;
+$border-radius-left-lg: $border-radius-lg 0 0 $border-radius-lg;
+$border-radius-left-xl: $border-radius-xl 0 0 $border-radius-xl;
+
+// RIGHT ONLY - Arredondamento apenas à direita
+// Use para: Drawers que aparecem da esquerda
+$border-radius-right-xs: 0 $border-radius-xs $border-radius-xs 0;
+$border-radius-right-sm: 0 $border-radius-sm $border-radius-sm 0;
+$border-radius-right-md: 0 $border-radius-md $border-radius-md 0;
+$border-radius-right-lg: 0 $border-radius-lg $border-radius-lg 0;
+$border-radius-right-xl: 0 $border-radius-xl $border-radius-xl 0;
+
+// ============================================
+// BORDER STYLES - Estilos de Borda
+// ============================================
+// O estilo define como a linha da borda é desenhada.
+
+// NONE - Sem borda visível
+$border-style-none: none;
+
+// SOLID - Linha sólida contínua - MAIS COMUM
+// O estilo padrão e mais comum
+$border-style-solid: solid;
+
+// DASHED - Linha tracejada com espaços
+// Use para: Elementos em rascunho, áreas de drag-and-drop
+$border-style-dashed: dashed;
+
+// DOTTED - Linha pontilhada
+// Use para: Separadores muito sutis, linhas de corte
+$border-style-dotted: dotted;
+
+// ============================================
+// BORDER COMPOSITIONS - Bordas Compostas
+// ============================================
+// Combinações pré-definidas de width e style
+// Nota: cor deve vir dos tokens de cor
+
+// BORDER DEFAULT - Borda padrão (thin solid)
+$border-default: $border-width-thin $border-style-solid;
+
+// BORDER MEDIUM - Borda média (medium solid)
+$border-medium: $border-width-medium $border-style-solid;
+
+// BORDER THICK - Borda grossa (thick solid)
+$border-thick: $border-width-thick $border-style-solid;
+
+// BORDER DASHED - Borda tracejada padrão
+$border-dashed: $border-width-thin $border-style-dashed;
+
+// BORDER DOTTED - Borda pontilhada padrão
+$border-dotted: $border-width-thin $border-style-dotted;
+
+// ============================================
+// OUTLINE PROPERTIES - Propriedades de Contorno
+// ============================================
+// Outline é diferente de border: não afeta o layout
+// Usado principalmente para indicadores de foco (acessibilidade)
+
+// OUTLINE WIDTH - Largura do contorno
+$outline-width: 2px;
+
+// OUTLINE OFFSET - Distância entre elemento e outline
+$outline-offset: 2px;
+
+// OUTLINE STYLE - Estilo do contorno
+$outline-style: solid;
+
+// OUTLINE FOCUS - Contorno de foco completo
+// CRÍTICO para acessibilidade
+$outline-focus: $outline-width $outline-style;
+
+// ============================================
+// DIVIDER PROPERTIES - Propriedades de Divisores
+// ============================================
+// Divisores são linhas que separam seções de conteúdo
+
+// DIVIDER WIDTH - Largura padrão de divisores
+$divider-width: 1px;
+
+// DIVIDER STYLE - Estilo do divisor
+$divider-style: $border-style-solid;
+
+// DIVIDER THICKNESS VARIANTS - Variações de espessura
+$divider-width-thin: 1px;
+$divider-width-medium: 2px;
+$divider-width-thick: 4px;
+
+// ============================================
+// OBSERVAÇÕES DE USO
+// ============================================
+//
+// 1. CONSISTÊNCIA:
+//    - Escolha um radius principal (MD ou LG) e use 90% do tempo
+//    - Use variações apenas quando houver razão específica
+//
+// 2. HIERARQUIA:
+//    - Borda + sombra = hierarquia mais clara
+//    - Borda grossa = mais destaque que borda fina
+//
+// 3. ACESSIBILIDADE:
+//    - Outline de foco NUNCA deve ser removido sem substituição
+//    - Use outline ou box-shadow para indicar foco de teclado
+//    - Contraste mínimo de 3:1 entre borda e fundo
+//
+// 4. PERFORMANCE:
+//    - Border-radius em elementos grandes pode impactar performance
+//    - Em animações, prefira transform ao animar border
+//

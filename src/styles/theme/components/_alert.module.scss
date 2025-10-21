@@ -1,0 +1,81 @@
+// ============================================
+// COMPONENTE - ALERT
+// ============================================
+// Customizações completas do componente Alert do Ant Design.
+// Documentação: https://ant.design/components/alert
+
+@import '../../tokens/index';
+
+// ============================================
+// ALERT COLORS - Cores do Alert
+// ============================================
+
+// Success Alert
+$alert-success-bg: $color-success-100;
+$alert-success-border: $color-success-300;
+$alert-success-icon-color: $color-success-600;
+
+// Info Alert
+$alert-info-bg: $color-info-100;
+$alert-info-border: $color-info-300;
+$alert-info-icon-color: $color-info-600;
+
+// Warning Alert
+$alert-warning-bg: $color-warning-100;
+$alert-warning-border: $color-warning-300;
+$alert-warning-icon-color: $color-warning-600;
+
+// Error Alert
+$alert-error-bg: $color-error-100;
+$alert-error-border: $color-error-300;
+$alert-error-icon-color: $color-error-600;
+
+// ============================================
+// ALERT SPACING - Espaçamento
+// ============================================
+
+$alert-padding: $spacing-md;
+$alert-padding-vertical: $spacing-sm;
+$alert-padding-horizontal: $spacing-md;
+
+// ============================================
+// ALERT BORDERS - Bordas
+// ============================================
+
+$alert-border-radius: $border-radius-md;
+$alert-border-width: $border-width-thin;
+
+// ============================================
+// EXPORTAÇÃO PARA CSS CUSTOM PROPERTIES
+// ============================================
+
+:export {
+  // Success
+  alertSuccessBg: $alert-success-bg;
+  alertSuccessBorder: $alert-success-border;
+  alertSuccessIconColor: $alert-success-icon-color;
+
+  // Info
+  alertInfoBg: $alert-info-bg;
+  alertInfoBorder: $alert-info-border;
+  alertInfoIconColor: $alert-info-icon-color;
+
+  // Warning
+  alertWarningBg: $alert-warning-bg;
+  alertWarningBorder: $alert-warning-border;
+  alertWarningIconColor: $alert-warning-icon-color;
+
+  // Error
+  alertErrorBg: $alert-error-bg;
+  alertErrorBorder: $alert-error-border;
+  alertErrorIconColor: $alert-error-icon-color;
+
+  // Spacing
+  alertPadding: $alert-padding;
+  alertPaddingVertical: $alert-padding-vertical;
+  alertPaddingHorizontal: $alert-padding-horizontal;
+
+  // Borders
+  alertBorderRadius: $alert-border-radius;
+  alertBorderWidth: $alert-border-width;
+}

@@ -12,7 +12,7 @@ import {
   Steps,
   Button,
   Space,
-  message,
+  App,
   Typography,
   Divider,
   Modal,
@@ -45,6 +45,7 @@ const { Title, Paragraph } = Typography;
 
 const ConfigurationPage = () => {
   const navigate = useNavigate();
+  const { message } = App.useApp();
   const [currentStep, setCurrentStep] = useState(0);
   const [config, setConfig] = useState({
     apiEndpoint: '',

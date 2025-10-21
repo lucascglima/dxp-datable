@@ -1,0 +1,64 @@
+// ============================================
+// COMPONENTE - SWITCH
+// ============================================
+// Customizações completas do componente Switch do Ant Design.
+// Documentação: https://ant.design/components/switch
+
+@import '../../tokens/index';
+
+// ============================================
+// SWITCH SIZES - Tamanhos do Switch
+// ============================================
+
+// Default size
+$switch-height: 22px;
+$switch-min-width: 44px;
+
+// Small size
+$switch-sm-height: 16px;
+$switch-sm-min-width: 28px;
+
+// ============================================
+// SWITCH COLORS - Cores do Switch
+// ============================================
+
+// Unchecked state
+$switch-bg: $color-text-quaternary;
+
+// Checked state
+$switch-checked-bg: $color-primary-600;
+
+// Handle (círculo interno)
+$switch-handle-bg: $color-bg-primary;
+
+// Disabled state
+$switch-disabled-opacity: 0.4;
+
+// ============================================
+// SWITCH BORDERS - Bordas
+// ============================================
+
+$switch-border-radius: 100px; // Círculo completo
+
+// ============================================
+// EXPORTAÇÃO PARA CSS CUSTOM PROPERTIES
+// ============================================
+
+:export {
+  // Sizes - Default
+  switchHeight: $switch-height;
+  switchMinWidth: $switch-min-width;
+
+  // Sizes - Small
+  switchSMHeight: $switch-sm-height;
+  switchSMMinWidth: $switch-sm-min-width;
+
+  // Colors
+  switchBg: $switch-bg;
+  switchCheckedBg: $switch-checked-bg;
+  switchHandleBg: $switch-handle-bg;
+  switchDisabledOpacity: $switch-disabled-opacity;
+
+  // Borders
+  switchBorderRadius: $switch-border-radius;
+}

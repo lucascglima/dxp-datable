@@ -1,0 +1,54 @@
+// ============================================
+// TEMA GLOBAL - TIPOGRAFIA
+// ============================================
+// Este arquivo mapeia os tokens de tipografia para as variáveis do Ant Design.
+
+@import '../../tokens/typography';
+
+// Font Family - Família de fontes
+$theme-font-family: $font-family-primary;
+$theme-font-family-code: $font-family-monospace;
+
+// Font Sizes - Tamanhos de fonte
+$theme-font-size: $font-size-base;
+$theme-font-size-sm: $font-size-sm;
+$theme-font-size-lg: $font-size-lg;
+$theme-font-size-xl: $font-size-xl;
+
+// Heading Sizes - Tamanhos de títulos
+$theme-font-size-heading-1: $font-size-h1;
+$theme-font-size-heading-2: $font-size-h2;
+$theme-font-size-heading-3: $font-size-h3;
+$theme-font-size-heading-4: $font-size-h4;
+$theme-font-size-heading-5: $font-size-h5;
+
+// Font Weights - Pesos de fonte
+$theme-font-weight-strong: $font-weight-semibold;
+
+// Line Heights - Alturas de linha
+$theme-line-height: $line-height-base;
+$theme-line-height-sm: $line-height-tight;
+$theme-line-height-lg: $line-height-relaxed;
+$theme-line-height-heading: $line-height-heading;
+
+// ============================================
+// EXPORTAÇÃO PARA CSS CUSTOM PROPERTIES
+// ============================================
+:export {
+  fontFamily: $theme-font-family;
+  fontFamilyCode: $theme-font-family-code;
+  fontSize: $theme-font-size;
+  fontSizeSM: $theme-font-size-sm;
+  fontSizeLG: $theme-font-size-lg;
+  fontSizeXL: $theme-font-size-xl;
+  fontSizeHeading1: $theme-font-size-heading-1;
+  fontSizeHeading2: $theme-font-size-heading-2;
+  fontSizeHeading3: $theme-font-size-heading-3;
+  fontSizeHeading4: $theme-font-size-heading-4;
+  fontSizeHeading5: $theme-font-size-heading-5;
+  fontWeightStrong: $theme-font-weight-strong;
+  lineHeight: $theme-line-height;
+  lineHeightSM: $theme-line-height-sm;
+  lineHeightLG: $theme-line-height-lg;
+  lineHeightHeading: $theme-line-height-heading;
+}
