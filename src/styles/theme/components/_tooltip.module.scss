@@ -1,0 +1,65 @@
+// ============================================
+// COMPONENTE - TOOLTIP
+// ============================================
+// Customizações completas do componente Tooltip do Ant Design.
+// Documentação: https://ant.design/components/tooltip
+
+@import '../../tokens/index';
+
+// ============================================
+// TOOLTIP COLORS - Cores do Tooltip
+// ============================================
+
+// Background e texto
+$tooltip-bg: rgba(0, 0, 0, 0.85);
+$tooltip-color: #fff;
+
+// ============================================
+// TOOLTIP SPACING - Espaçamento
+// ============================================
+
+$tooltip-padding-horizontal: $spacing-xs;
+$tooltip-padding-vertical: 6px;
+
+// ============================================
+// TOOLTIP DIMENSIONS - Dimensões
+// ============================================
+
+$tooltip-max-width: 250px;
+$tooltip-arrow-width: 8px;
+
+// ============================================
+// TOOLTIP BORDERS - Bordas
+// ============================================
+
+$tooltip-border-radius: $border-radius-md;
+
+// ============================================
+// TOOLTIP SHADOWS - Sombras
+// ============================================
+
+$tooltip-shadow: $shadow-popover;
+
+// ============================================
+// EXPORTAÇÃO PARA CSS CUSTOM PROPERTIES
+// ============================================
+
+:export {
+  // Colors
+  tooltipBg: $tooltip-bg;
+  tooltipColor: $tooltip-color;
+
+  // Spacing
+  tooltipPaddingHorizontal: $tooltip-padding-horizontal;
+  tooltipPaddingVertical: $tooltip-padding-vertical;
+
+  // Dimensions
+  tooltipMaxWidth: $tooltip-max-width;
+  tooltipArrowWidth: $tooltip-arrow-width;
+
+  // Borders
+  tooltipBorderRadius: $tooltip-border-radius;
+
+  // Shadows
+  tooltipShadow: $tooltip-shadow;
+}

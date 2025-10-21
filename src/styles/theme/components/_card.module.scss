@@ -1,0 +1,105 @@
+// ============================================
+// COMPONENTE - CARD
+// ============================================
+// Customizações específicas do componente Card do Ant Design.
+// Documentação: https://ant.design/components/card
+
+@import '../../tokens/index.scss';
+
+// ============================================
+// CARD COLORS - Cores do Card
+// ============================================
+
+// Background
+$card-bg: $color-bg-primary;
+$card-head-bg: transparent;
+$card-skeleton-bg: $color-bg-secondary;
+$card-actions-bg: $color-bg-tertiary;
+
+// Text
+$card-head-color: $color-text-primary;
+$card-head-color-hover: $color-primary-600;
+
+// Borders
+$card-border-color: $color-border-secondary;
+
+// ============================================
+// CARD SPACING - Espaçamentos do Card
+// ============================================
+
+// Padding
+$card-padding: $spacing-lg;
+$card-padding-sm: $spacing-md;
+$card-padding-lg: $spacing-xl;
+
+$card-head-padding: $spacing-md;
+$card-inner-head-padding: $spacing-sm;
+
+$card-actions-padding: $spacing-sm $spacing-md;
+
+// ============================================
+// CARD TYPOGRAPHY - Tipografia do Card
+// ============================================
+
+$card-head-font-size: $font-size-lg;
+$card-head-font-size-sm: $font-size-base;
+$card-head-font-weight: $font-weight-semibold;
+
+// ============================================
+// CARD DIMENSIONS - Dimensões do Card
+// ============================================
+
+$card-head-height: 48px;
+$card-head-height-sm: 36px;
+
+// ============================================
+// CARD BORDERS & SHADOWS - Bordas e Sombras
+// ============================================
+
+$card-border-radius: $border-radius-lg;
+$card-border-width: $border-width-thin;
+
+$card-shadow: $shadow-card;
+$card-hover-shadow: $shadow-card-hover;
+
+// ============================================
+// CARD COVER - Configurações de Imagem Cover
+// ============================================
+
+$card-cover-border-radius: $border-radius-lg $border-radius-lg 0 0;
+
+// ============================================
+// EXPORTAÇÃO PARA CSS CUSTOM PROPERTIES
+// ============================================
+// Estas variáveis serão importadas no JavaScript através do :export
+// e aplicadas no ConfigProvider do Ant Design.
+
+:export {
+  // Colors
+  cardBg: $card-bg;
+  cardHeadBg: $card-head-bg;
+  cardSkeletonBg: $card-skeleton-bg;
+  cardActionsBg: $card-actions-bg;
+  cardHeadColor: $card-head-color;
+  cardBorderColor: $card-border-color;
+  
+  // Spacing
+  cardPadding: $card-padding;
+  cardPaddingSM: $card-padding-sm;
+  cardPaddingLG: $card-padding-lg;
+  cardHeadPadding: $card-head-padding;
+  cardInnerHeadPadding: $card-inner-head-padding;
+  
+  // Typography
+  cardHeadFontSize: $card-head-font-size;
+  cardHeadFontSizeSM: $card-head-font-size-sm;
+  cardHeadFontWeight: $card-head-font-weight;
+  
+  // Dimensions
+  cardHeadHeight: $card-head-height;
+  cardHeadHeightSM: $card-head-height-sm;
+  
+  // Borders & Shadows
+  cardBorderRadius: $card-border-radius;
+  cardShadow: $card-shadow;
+}

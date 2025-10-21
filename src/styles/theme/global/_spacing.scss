@@ -1,0 +1,65 @@
+// ============================================
+// TEMA GLOBAL - ESPAÇAMENTO
+// ============================================
+// Este arquivo mapeia os tokens de espaçamento para as variáveis do Ant Design.
+
+@import '../../tokens/spacing';
+
+// Size Steps - Tamanhos escalonados (usado para componentes como Steps, Progress)
+$theme-size-xxs: $spacing-xxs;
+$theme-size-xs: $spacing-xs;
+$theme-size-sm: $spacing-sm;
+$theme-size-md: $spacing-md;
+$theme-size-lg: $spacing-lg;
+$theme-size-xl: $spacing-xl;
+$theme-size-xxl: $spacing-xxl;
+
+// Control Heights - Alturas de controles
+$theme-control-height: $control-height-md;
+$theme-control-height-sm: $control-height-sm;
+$theme-control-height-xs: $control-height-xs;
+$theme-control-height-lg: $control-height-lg;
+
+// Padding - Espaçamentos internos
+$theme-padding: $padding-md;
+$theme-padding-xs: $padding-xs;
+$theme-padding-sm: $padding-sm;
+$theme-padding-lg: $padding-lg;
+$theme-padding-content-horizontal: $padding-content-horizontal;
+$theme-padding-content-vertical: $padding-content-vertical;
+
+// Margin - Espaçamentos externos
+$theme-margin: $margin-md;
+$theme-margin-xs: $margin-xs;
+$theme-margin-sm: $margin-sm;
+$theme-margin-lg: $margin-lg;
+$theme-margin-xl: $margin-xl;
+
+// ============================================
+// EXPORTAÇÃO PARA CSS CUSTOM PROPERTIES
+// ============================================
+:export {
+  sizeXXS: $theme-size-xxs;
+  sizeXS: $theme-size-xs;
+  sizeSM: $theme-size-sm;
+  sizeMD: $theme-size-md;
+  size: $theme-size-md;
+  sizeLG: $theme-size-lg;
+  sizeXL: $theme-size-xl;
+  sizeXXL: $theme-size-xxl;
+  controlHeight: $theme-control-height;
+  controlHeightSM: $theme-control-height-sm;
+  controlHeightXS: $theme-control-height-xs;
+  controlHeightLG: $theme-control-height-lg;
+  padding: $theme-padding;
+  paddingXS: $theme-padding-xs;
+  paddingSM: $theme-padding-sm;
+  paddingLG: $theme-padding-lg;
+  paddingContentHorizontal: $theme-padding-content-horizontal;
+  paddingContentVertical: $theme-padding-content-vertical;
+  margin: $theme-margin;
+  marginXS: $theme-margin-xs;
+  marginSM: $theme-margin-sm;
+  marginLG: $theme-margin-lg;
+  marginXL: $theme-margin-xl;
+}

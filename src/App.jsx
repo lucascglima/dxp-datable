@@ -7,10 +7,11 @@
 
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { ConfigProvider, Layout } from 'antd';
+import { ConfigProvider, Layout, App as AntdApp } from 'antd';
 import NavigationMenu from './components/navigation/navigation-menu';
 import ConfigurationPage from './pages/configuration-page';
 import DataTablePage from './pages/datatable-page';
+import { antdTheme } from './styles/config/antd-theme';
 
 const { Header, Content } = Layout;
 
@@ -20,18 +21,10 @@ const { Header, Content } = Layout;
  * Root component with navigation and routing
  */
 const App = () => {
-  // Ant Design theme configuration
-  const theme = {
-    token: {
-      colorPrimary: '#1890ff',
-      borderRadius: 4,
-      fontSize: 14,
-    },
-  };
-
   return (
-    <ConfigProvider theme={theme}>
-      <Router>
+    <ConfigProvider theme={antdTheme}>
+      <AntdApp>
+        <Router>
         <Layout style={{ minHeight: '100vh' }}>
           {/* Navigation Header */}
           <Header
@@ -64,6 +57,7 @@ const App = () => {
           </Content>
         </Layout>
       </Router>
+      </AntdApp>
     </ConfigProvider>
   );
 };

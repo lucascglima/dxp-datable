@@ -21,6 +21,14 @@ export default defineConfig({
       },
     },
   },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        // Não usar additionalData para evitar conflitos com :export
+        // Os imports são feitos diretamente nos arquivos que precisam
+      }
+    }
+  },
   server: {
     port: 3000,
     open: true,

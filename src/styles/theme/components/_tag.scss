@@ -1,0 +1,58 @@
+// ============================================
+// COMPONENTE - TAG
+// ============================================
+// Customizações completas do componente Tag do Ant Design.
+// Documentação: https://ant.design/components/tag
+
+@import '../../tokens/index';
+
+// ============================================
+// TAG COLORS - Cores do Tag
+// ============================================
+
+// Default tag
+$tag-default-bg: $color-bg-tertiary;
+$tag-default-color: $color-text-primary;
+$tag-default-border-color: $color-border-secondary;
+
+// ============================================
+// TAG TYPOGRAPHY - Tipografia
+// ============================================
+
+$tag-font-size: $font-size-sm;
+$tag-line-height: 20px;
+
+// ============================================
+// TAG SPACING - Espaçamento
+// ============================================
+
+$tag-padding-horizontal: $spacing-xs;
+$tag-padding-vertical: 2px;
+
+// ============================================
+// TAG BORDERS - Bordas
+// ============================================
+
+$tag-border-radius: $border-radius-sm;
+
+// ============================================
+// EXPORTAÇÃO PARA CSS CUSTOM PROPERTIES
+// ============================================
+
+:export {
+  // Colors
+  tagDefaultBg: $tag-default-bg;
+  tagDefaultColor: $tag-default-color;
+  tagDefaultBorderColor: $tag-default-border-color;
+
+  // Typography
+  tagFontSize: $tag-font-size;
+  tagLineHeight: $tag-line-height;
+
+  // Spacing
+  tagPaddingHorizontal: $tag-padding-horizontal;
+  tagPaddingVertical: $tag-padding-vertical;
+
+  // Borders
+  tagBorderRadius: $tag-border-radius;
+}

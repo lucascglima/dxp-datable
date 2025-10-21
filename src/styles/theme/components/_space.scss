@@ -1,0 +1,36 @@
+// ============================================
+// COMPONENTE - SPACE
+// ============================================
+// Customizações completas do componente Space do Ant Design.
+// O Space é usado para criar espaçamento consistente entre elementos.
+// Documentação: https://ant.design/components/space
+
+@import '../../tokens/index';
+
+// ============================================
+// SPACE SIZES - Tamanhos de Espaçamento
+// ============================================
+
+// Default size
+$space-size: $spacing-xs;
+
+// Small size
+$space-size-sm: $spacing-xxs;
+
+// Medium size
+$space-size-md: $spacing-md;
+
+// Large size
+$space-size-lg: $spacing-lg;
+
+// ============================================
+// EXPORTAÇÃO PARA CSS CUSTOM PROPERTIES
+// ============================================
+
+:export {
+  // Sizes
+  spaceSize: $space-size;
+  spaceSizeSM: $space-size-sm;
+  spaceSizeMD: $space-size-md;
+  spaceSizeLG: $space-size-lg;
+}

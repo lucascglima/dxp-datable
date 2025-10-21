@@ -1,0 +1,82 @@
+// ============================================
+// TEMA GLOBAL - CORES
+// ============================================
+// Este arquivo mapeia os tokens de cores para as variáveis do Ant Design.
+// Essas variáveis serão exportadas para JavaScript e aplicadas no ConfigProvider.
+
+@import '../../tokens/colors';
+
+// Primary Color - Cor primária do tema
+$theme-color-primary: $color-primary-600;
+
+// Success Color - Cor de sucesso
+$theme-color-success: $color-success-600;
+
+// Warning Color - Cor de aviso
+$theme-color-warning: $color-warning-600;
+
+// Error Color - Cor de erro
+$theme-color-error: $color-error-600;
+
+// Info Color - Cor informativa
+$theme-color-info: $color-info-600;
+
+// Text Colors - Cores de texto para o tema
+$theme-color-text: $color-text-primary;
+$theme-color-text-secondary: $color-text-secondary;
+$theme-color-text-tertiary: $color-text-tertiary;
+$theme-color-text-quaternary: $color-text-quaternary;
+
+// Background Colors - Cores de fundo para o tema
+$theme-color-bg-base: $color-bg-primary;
+$theme-color-bg-container: $color-bg-primary;
+$theme-color-bg-elevated: $color-bg-elevated;
+$theme-color-bg-layout: $color-bg-secondary;
+$theme-color-bg-spotlight: $color-neutral-1300;
+$theme-color-bg-mask: $color-bg-overlay;
+
+// Border Colors - Cores de borda para o tema
+$theme-color-border: $color-border-primary;
+$theme-color-border-secondary: $color-border-secondary;
+
+// Fill Colors - Cores de preenchimento (usado em elementos como Skeleton)
+$theme-color-fill: rgba(0, 0, 0, 0.15);
+$theme-color-fill-secondary: rgba(0, 0, 0, 0.06);
+$theme-color-fill-tertiary: rgba(0, 0, 0, 0.04);
+$theme-color-fill-quaternary: rgba(0, 0, 0, 0.02);
+
+// Link Colors - Cores de links
+$theme-color-link: $color-link-default;
+$theme-color-link-hover: $color-link-hover;
+$theme-color-link-active: $color-link-active;
+
+// ============================================
+// EXPORTAÇÃO PARA CSS CUSTOM PROPERTIES
+// ============================================
+// Estas variáveis CSS podem ser usadas diretamente no JavaScript
+:export {
+  colorPrimary: $theme-color-primary;
+  colorSuccess: $theme-color-success;
+  colorWarning: $theme-color-warning;
+  colorError: $theme-color-error;
+  colorInfo: $theme-color-info;
+  colorText: $theme-color-text;
+  colorTextSecondary: $theme-color-text-secondary;
+  colorTextTertiary: $theme-color-text-tertiary;
+  colorTextQuaternary: $theme-color-text-quaternary;
+  colorBgBase: $theme-color-bg-base;
+  colorBgContainer: $theme-color-bg-container;
+  colorBgElevated: $theme-color-bg-elevated;
+  colorBgLayout: $theme-color-bg-layout;
+  colorBgSpotlight: $theme-color-bg-spotlight;
+  colorBgMask: $theme-color-bg-mask;
+  colorBorder: $theme-color-border;
+  colorBorderSecondary: $theme-color-border-secondary;
+  colorFill: $theme-color-fill;
+  colorFillSecondary: $theme-color-fill-secondary;
+  colorFillTertiary: $theme-color-fill-tertiary;
+  colorFillQuaternary: $theme-color-fill-quaternary;
+  colorLink: $theme-color-link;
+  colorLinkHover: $theme-color-link-hover;
+  colorLinkActive: $theme-color-link-active;
+}
