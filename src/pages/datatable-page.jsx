@@ -27,7 +27,7 @@ import DxpTable from '../components/dxp-table';
 import { SearchInputParam } from '../components/dynamic-params';
 import { loadConfiguration, hasConfiguration, updateConfiguration } from '../services/config-storage';
 import { fetchData } from '../services/external-api';
-import { createColumnRenderer } from '../utils/column-renderers/index.jsx';
+import { createColumnRenderer } from '../features/columns/renderers';
 
 const { Title, Text, Paragraph } = Typography;
 

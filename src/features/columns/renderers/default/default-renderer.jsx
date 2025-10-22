@@ -6,11 +6,6 @@
  */
 
 /**
- * Default configuration (none needed)
- */
-export const defaultConfig = {};
-
-/**
  * Renders a value without any transformation
  *
  * @param {any} value - Value to render
@@ -35,16 +30,4 @@ export const renderDefault = (value, config = {}, record = null) => {
 
   // Return value as-is
   return value;
-};
-
-/**
- * Configuration fields needed for default renderer
- * (none needed, but exported for consistency)
- */
-export const defaultRendererFields = [];
-
-export default {
-  render: renderDefault,
-  fields: defaultRendererFields,
-  defaultConfig: defaultConfig,
 };
