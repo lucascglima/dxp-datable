@@ -78,7 +78,7 @@
             "serverConfig": {
                 "columnParam": "sort",
                 "orderParam": "order",
-                "orderFormat": "text",
+                "orderFormat": "asc-desc",
                 "orderValues": {
                     "ascend": "asc",
                     "descend": "desc"

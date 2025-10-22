@@ -1,11 +1,11 @@
 /**
- * Configuration Page
+ * Configuration Page (Refactored)
  *
  * Visual no-code interface for configuring the DxpTable component.
- * Allows users to set up API endpoints, columns, and pagination without code.
+ * Reduced from 519 lines to ~250 lines using hooks and composition.
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Card,
@@ -18,14 +18,8 @@ import {
   Modal,
 } from 'antd';
 import {
-  ApiOutlined,
-  TableOutlined,
-  SettingOutlined,
-  ThunderboltOutlined,
-  EyeOutlined,
   SaveOutlined,
   ClearOutlined,
-  SearchOutlined,
 } from '@ant-design/icons';
 import ApiConfigSection from '../components/configuration-form/api-config-section';
 import ColumnsConfigSection from '../components/configuration-form/columns-config-section';
@@ -33,258 +27,47 @@ import PaginationConfigSection from '../components/configuration-form/pagination
 import EventsConfigSection from '../components/configuration-form/events-config.section';
 import DynamicParamsConfigSection from '../components/configuration-form/dynamic-params-config-section';
 import PreviewSection from '../components/configuration-form/preview-section';
-import {
-  saveConfiguration,
-  loadConfiguration,
-  clearConfiguration,
-  getExampleConfiguration,
-} from '../services/config-storage';
-import { validateUrl } from '../utils/api-validator';
+import { ErrorBoundary } from '../components/error-boundary';
+import { getExampleConfiguration } from '../services/config-storage';
+import { validateConfiguration } from '../core/validators/config-validator';
+import { useConfigurationState } from '../core/hooks/use-configuration-state';
+import { useConfigurationWizard } from '../features/configuration/hooks/use-configuration-wizard.jsx';
 
 const { Title, Paragraph } = Typography;
 
 const ConfigurationPage = () => {
   const navigate = useNavigate();
   const { message } = App.useApp();
-  const [currentStep, setCurrentStep] = useState(0);
-  const [config, setConfig] = useState({
-    apiEndpoint: '',
-    authToken: '',
-    urlParams: [], // URL path variables like :version, :userId
-    defaultQueryParams: [], // Default query params with enabled flag
-    testQueryParams: [], // Test query params (saved for convenience)
-    columns: [],
-    pagination: {
-      pageSize: 20,
-      showPagination: true,
-    },
-    responseDataPath: null, // Optional response mapping configuration
-    events: {
-      onRowClick: {
-        enabled: false,
-        code: "console.log('Row clicked:', record);",
-      },
-      sorting: {
-        mode: 'server',
-        serverConfig: {
-          columnParam: '_columnSort',
-          orderParam: '_sort',
-          orderFormat: 'numeric',
-          orderValues: {
-            ascend: '1',
-            descend: '-1',
-          },
-        },
-      },
-    },
-    dynamicParams: {
-      searchInput: {
-        enabled: false,
-        queryParamName: 'search',
-        placeholder: 'Search...',
-        currentValue: '',
-      },
-    },
-  });
 
-  const [isInitialLoad, setIsInitialLoad] = useState(true);
+  // Use configuration state hook
+  const configState = useConfigurationState();
 
-  /**
-   * Load existing configuration on mount
-   */
-  useEffect(() => {
-    const existing = loadConfiguration();
-    if (existing) {
-      // Ensure events property exists (backward compatibility)
-      const configWithEvents = {
-        ...existing,
-        events: existing.events || {
-          onRowClick: {
-            enabled: false,
-            code: "console.log('Row clicked:', record);",
-          },
-          sorting: {
-            mode: 'server',
-            serverConfig: {
-              columnParam: '_columnSort',
-              orderParam: '_sort',
-              orderFormat: 'numeric',
-              orderValues: {
-                ascend: '1',
-                descend: '-1',
-              },
-            },
-          },
-        },
-        dynamicParams: existing.dynamicParams || {
-          searchInput: {
-            enabled: false,
-            queryParamName: 'search',
-            placeholder: 'Search...',
-            currentValue: '',
-          },
-        },
-      };
-
-      // Ensure sorting exists in events (backward compatibility)
-      if (configWithEvents.events && !configWithEvents.events.sorting) {
-        configWithEvents.events.sorting = {
-          mode: 'server',
-          serverConfig: {
-            columnParam: '_columnSort',
-            orderParam: '_sort',
-            orderFormat: 'numeric',
-            orderValues: {
-              ascend: '1',
-              descend: '-1',
-            },
-          },
-        };
-      }
-
-      setConfig(configWithEvents);
-      message.info('Configuração existente carregada');
-    }
-    setIsInitialLoad(false);
-  }, []);
-
-  /**
-   * Auto-save configuration to localStorage when it changes
-   * (except on initial load to avoid overwriting with defaults)
-   */
-  useEffect(() => {
-    if (!isInitialLoad && config.apiEndpoint) {
-      // Save to localStorage automatically
-      saveConfiguration(config);
-    }
-  }, [config, isInitialLoad]);
-
-  /**
-   * Handles API configuration change
-   */
-  const handleApiConfigChange = (apiConfig) => {
-    setConfig({
-      ...config,
-      apiEndpoint: apiConfig.apiEndpoint,
-      authToken: apiConfig.authToken,
-      urlParams: apiConfig.urlParams || [],
-      defaultQueryParams: apiConfig.defaultQueryParams || [],
-    });
-  };
-
-  /**
-   * Handles test query params change
-   */
-  const handleTestQueryParamsChange = (testQueryParams) => {
-    setConfig({
-      ...config,
-      testQueryParams,
-    });
-  };
-
-  /**
-   * Handles columns configuration change
-   */
-  const handleColumnsChange = (columns) => {
-    setConfig({
-      ...config,
-      columns,
-    });
-  };
-
-  /**
-   * Handles pagination configuration change
-   */
-  const handlePaginationChange = (pagination) => {
-    setConfig({
-      ...config,
-      pagination,
-    });
-  };
-
-  /**
-   * Handles events configuration change
-   */
-  const handleEventsChange = (events) => {
-    setConfig({
-      ...config,
-      events,
-    });
-  };
-
-  /**
-   * Handles dynamic parameters configuration change
-   */
-  const handleDynamicParamsChange = (dynamicParams) => {
-    setConfig({
-      ...config,
-      dynamicParams,
-    });
-  };
-
-  /**
-   * Handles response mapping configuration change
-   */
-  const handleResponseMappingChange = (responseDataPath) => {
-    setConfig({
-      ...config,
-      responseDataPath,
-    });
-  };
+  // Use wizard navigation hook
+  const wizard = useConfigurationWizard();
 
   /**
    * Applies suggested columns from preview
+   * Memoized to prevent unnecessary re-renders
    */
-  const handleSuggestColumns = (suggestedColumns) => {
-    setConfig({
-      ...config,
-      columns: suggestedColumns,
-    });
+  const handleSuggestColumns = useCallback((suggestedColumns) => {
+    configState.updateColumns(suggestedColumns);
     message.success(`Aplicadas ${suggestedColumns.length} colunas sugeridas`);
-    setCurrentStep(2); // Move to columns step
-  };
-
-  /**
-   * Validates current configuration
-   */
-  const validateConfiguration = () => {
-    const errors = [];
-
-    // Validate API endpoint
-    const urlValidation = validateUrl(config.apiEndpoint);
-    if (!urlValidation.valid) {
-      errors.push('O endpoint de API válido é obrigatório');
-    }
-
-    // Validate columns
-    if (config.columns.length === 0) {
-      errors.push('Pelo menos uma coluna deve ser configurada');
-    }
-
-    config.columns.forEach((col, index) => {
-      if (!col.title || !col.title.trim()) {
-        errors.push(`Coluna ${index + 1}: O Título é obrigatório`);
-      }
-      if (!col.dataIndex || !col.dataIndex.trim()) {
-        errors.push(`Coluna ${index + 1}: O Campo de dados é obrigatório`);
-      }
-    });
-
-    return errors;
-  };
+    wizard.goToStep(2); // Move to columns step
+  }, [configState, message, wizard]);
 
   /**
    * Saves configuration and navigates to datatable
+   * Memoized to prevent unnecessary re-renders
    */
-  const handleSaveConfiguration = () => {
-    const errors = validateConfiguration();
+  const handleSaveConfiguration = useCallback(() => {
+    const validation = validateConfiguration(configState.config);
 
-    if (errors.length > 0) {
+    if (!validation.valid) {
       Modal.error({
         title: 'Configuração Incompleta',
         content: (
           <ul>
-            {errors.map((error, index) => (
+            {validation.errors.map((error, index) => (
               <li key={index}>{error}</li>
             ))}
           </ul>
@@ -293,7 +76,7 @@ const ConfigurationPage = () => {
       return;
     }
 
-    const success = saveConfiguration(config);
+    const success = configState.saveConfig();
 
     if (success) {
       message.success('✅ Configuração salva com sucesso! Redirecionando...', 2);
@@ -303,148 +86,141 @@ const ConfigurationPage = () => {
     } else {
       message.error('Falha ao salvar a configuração');
     }
-  };
+  }, [configState, message, navigate]);
 
   /**
    * Clears all configuration
+   * Memoized to prevent unnecessary re-renders
    */
-  const handleClearAll = () => {
+  const handleClearAll = useCallback(() => {
     Modal.confirm({
       title: 'Limpar Toda a Configuração?',
-      content: 'Isso removerá todas as suas configurações atuais. Esta ação não pode ser desfeita.',
+      content:
+        'Isso removerá todas as suas configurações atuais. Esta ação não pode ser desfeita.',
       okText: 'Sim, Limpar Tudo',
       okType: 'danger',
       cancelText: 'Cancelar',
       onOk: () => {
-        clearConfiguration();
-        setConfig({
-          apiEndpoint: '',
-          authToken: '',
-          urlParams: [],
-          defaultQueryParams: [],
-          testQueryParams: [],
-          columns: [],
-          pagination: {
-            pageSize: 20,
-            showPagination: true,
-          },
-          responseDataPath: null,
-          events: {
-            onRowClick: {
-              enabled: false,
-              code: "console.log('Row clicked:', record);",
-            },
-            sorting: {
-              mode: 'server',
-              serverConfig: {
-                columnParam: '_columnSort',
-                orderParam: '_sort',
-                orderFormat: 'numeric',
-                orderValues: {
-                  ascend: '1',
-                  descend: '-1',
-                },
-              },
-            },
-          },
-          dynamicParams: {
-            searchInput: {
-              enabled: false,
-              queryParamName: 'search',
-              placeholder: 'Search...',
-              currentValue: '',
-            },
-          },
-        });
-        setCurrentStep(0);
-        message.success('Configuração limpa');
+        configState.clearConfig();
+        wizard.resetWizard();
       },
     });
-  };
+  }, [configState, wizard]);
 
   /**
    * Loads example configuration
+   * Memoized to prevent unnecessary re-renders
    */
-  const handleLoadExample = () => {
+  const handleLoadExample = useCallback(() => {
     const example = getExampleConfiguration();
-    setConfig(example);
+    configState.replaceConfig(example);
     message.success('Configuração de exemplo carregada');
-  };
+  }, [configState, message]);
 
-  const steps = [
+  /**
+   * Step definitions with components (wrapped with ErrorBoundary)
+   * Memoized to prevent unnecessary re-creation of step array
+   */
+  const steps = useMemo(() => [
     {
-      title: 'API',
-      icon: <ApiOutlined />,
+      ...wizard.stepDefinitions[0],
       content: (
-        <ApiConfigSection
-          value={{
-            apiEndpoint: config.apiEndpoint,
-            authToken: config.authToken,
-            urlParams: config.urlParams,
-            defaultQueryParams: config.defaultQueryParams,
-          }}
-          onChange={handleApiConfigChange}
-        />
+        <ErrorBoundary>
+          <ApiConfigSection
+            value={{
+              apiEndpoint: configState.config.apiEndpoint,
+              authToken: configState.config.authToken,
+              urlParams: configState.config.urlParams,
+              defaultQueryParams: configState.config.defaultQueryParams,
+            }}
+            onChange={configState.updateApiConfig}
+          />
+        </ErrorBoundary>
       ),
     },
     {
-      title: 'Preview e Teste',
-      icon: <EyeOutlined />,
+      ...wizard.stepDefinitions[1],
       content: (
-        <PreviewSection
-          apiEndpoint={config.apiEndpoint}
-          authToken={config.authToken}
-          urlParams={config.urlParams}
-          defaultQueryParams={config.defaultQueryParams}
-          testQueryParams={config.testQueryParams}
-          responseDataPath={config.responseDataPath}
-          onTestQueryParamsChange={handleTestQueryParamsChange}
-          onSuggestColumns={handleSuggestColumns}
-          onResponseMappingChange={handleResponseMappingChange}
-        />
+        <ErrorBoundary>
+          <PreviewSection
+            apiEndpoint={configState.config.apiEndpoint}
+            authToken={configState.config.authToken}
+            urlParams={configState.config.urlParams}
+            defaultQueryParams={configState.config.defaultQueryParams}
+            testQueryParams={configState.config.testQueryParams}
+            responseDataPath={configState.config.responseDataPath}
+            onTestQueryParamsChange={configState.updateTestQueryParams}
+            onSuggestColumns={handleSuggestColumns}
+            onResponseMappingChange={configState.updateResponseMapping}
+          />
+        </ErrorBoundary>
       ),
     },
     {
-      title: 'Colunas',
-      icon: <TableOutlined />,
+      ...wizard.stepDefinitions[2],
       content: (
-        <ColumnsConfigSection
-          value={config.columns}
-          onChange={handleColumnsChange}
-        />
+        <ErrorBoundary>
+          <ColumnsConfigSection
+            value={configState.config.columns}
+            onChange={configState.updateColumns}
+          />
+        </ErrorBoundary>
       ),
     },
     {
-      title: 'Paginação',
-      icon: <SettingOutlined />,
+      ...wizard.stepDefinitions[3],
       content: (
-        <PaginationConfigSection
-          value={config.pagination}
-          onChange={handlePaginationChange}
-        />
+        <ErrorBoundary>
+          <PaginationConfigSection
+            value={configState.config.pagination}
+            onChange={configState.updatePagination}
+          />
+        </ErrorBoundary>
       ),
     },
     {
-      title: 'Eventos',
-      icon: <ThunderboltOutlined />,
+      ...wizard.stepDefinitions[4],
       content: (
-        <EventsConfigSection
-          value={config.events}
-          onChange={handleEventsChange}
-        />
+        <ErrorBoundary>
+          <EventsConfigSection
+            value={configState.config.events}
+            onChange={configState.updateEvents}
+          />
+        </ErrorBoundary>
       ),
     },
     {
-      title: 'Inputs dinâmicos',
-      icon: <SearchOutlined />,
+      ...wizard.stepDefinitions[5],
       content: (
-        <DynamicParamsConfigSection
-          value={config.dynamicParams}
-          onChange={handleDynamicParamsChange}
-        />
+        <ErrorBoundary>
+          <DynamicParamsConfigSection
+            value={configState.config.dynamicParams}
+            onChange={configState.updateDynamicParams}
+          />
+        </ErrorBoundary>
       ),
     },
-  ];
+  ], [
+    wizard.stepDefinitions,
+    configState.config.apiEndpoint,
+    configState.config.authToken,
+    configState.config.urlParams,
+    configState.config.defaultQueryParams,
+    configState.config.testQueryParams,
+    configState.config.responseDataPath,
+    configState.config.columns,
+    configState.config.pagination,
+    configState.config.events,
+    configState.config.dynamicParams,
+    configState.updateApiConfig,
+    configState.updateTestQueryParams,
+    configState.updateResponseMapping,
+    configState.updateColumns,
+    configState.updatePagination,
+    configState.updateEvents,
+    configState.updateDynamicParams,
+    handleSuggestColumns,
+  ]);
 
   return (
     <div style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto' }}>
@@ -454,15 +230,15 @@ const ConfigurationPage = () => {
           <div>
             <Title level={2}>Configure sua Tabela</Title>
             <Paragraph type="secondary">
-              Configure sua tabela em 5 passos simples. Não é necessário codificar!
+              Configure sua tabela em 5 passos simples.
             </Paragraph>
           </div>
 
           {/* Steps Navigation */}
           <Steps
-            current={currentStep}
-            onChange={setCurrentStep}
-            items={steps.map((step) => ({
+            current={wizard.currentStep}
+            onChange={wizard.goToStep}
+            items={wizard.stepDefinitions.map((step) => ({
               title: step.title,
               icon: step.icon,
             }))}
@@ -471,7 +247,7 @@ const ConfigurationPage = () => {
           <Divider />
 
           {/* Current Step Content */}
-          <div style={{ minHeight: '400px' }}>{steps[currentStep].content}</div>
+          <div style={{ minHeight: '400px' }}>{steps[wizard.currentStep].content}</div>
 
           <Divider />
 
@@ -488,17 +264,15 @@ const ConfigurationPage = () => {
             </Space>
 
             <Space>
-              {currentStep > 0 && (
-                <Button onClick={() => setCurrentStep(currentStep - 1)}>
-                  Anterior
-                </Button>
+              {!wizard.isFirstStep && (
+                <Button onClick={wizard.previousStep}>Anterior</Button>
               )}
-              {currentStep < steps.length - 1 && (
-                <Button type="primary" onClick={() => setCurrentStep(currentStep + 1)}>
+              {!wizard.isLastStep && (
+                <Button type="primary" onClick={wizard.nextStep}>
                   Próximo
                 </Button>
               )}
-              {currentStep === steps.length - 1 && (
+              {wizard.isLastStep && (
                 <Button
                   type="primary"
                   icon={<SaveOutlined />}

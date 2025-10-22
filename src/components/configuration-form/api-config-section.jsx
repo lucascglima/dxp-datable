@@ -9,8 +9,7 @@ import React, { useState } from 'react';
 import { Form, Input, Button, Alert, Space, Divider } from 'antd';
 import { EyeInvisibleOutlined, EyeOutlined, LinkOutlined } from '@ant-design/icons';
 import { validateUrl } from '../../utils/api-validator';
-import UrlParamsEditor from './url-params-editor';
-import DefaultQueryParamsEditor from './default-query-params-editor';
+import { UrlParamsEditor, DefaultQueryParamsEditor } from '../shared';
 
 const ApiConfigSection = ({ value = {}, onChange }) => {
   const [showToken, setShowToken] = useState(false);

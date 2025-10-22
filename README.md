@@ -1,45 +1,130 @@
-# DxpTable Component
+# DxpTable Component - Visual Configuration Platform
 
-A reusable DataTable component built with React and Ant Design, with full Liferay Custom Element integration.
+A reusable, no-code DataTable component built with React and Ant Design, featuring a visual configuration interface and full Liferay Custom Element integration. Built following **Clean Architecture** and **Clean Code** principles.
 
-## Features
+## 🎯 Features
 
-- Fully controlled/stateless component
-- Column sorting support
-- Custom pagination with page size selection
-- Row click handling
-- Record count display
-- Liferay Headless API integration
-- Custom element support for Liferay DXP
-- Debounced data fetching
-- Error handling and loading states
-- Simple and clean API
+### Core Features
+- **Visual No-Code Configuration** - Configure tables through an intuitive wizard interface
+- **Clean Architecture** - Separation of concerns with core, features, and components layers
+- **Fully Controlled Component** - Complete control over table state and behavior
+- **Column Sorting** - Client-side and server-side sorting support
+- **Custom Pagination** - Flexible pagination with page size selection
+- **Dynamic Parameters** - Search inputs and filters that update the table
+- **Event Handling** - Row click events with custom JavaScript code
+- **Response Mapping** - Handle complex API responses with custom paths
+- **Liferay Integration** - Ready for Liferay DXP Custom Element deployment
 
-## Project Structure
+### Configuration Features
+- API endpoint configuration with authentication
+- URL parameters and query parameters support
+- Column configuration with custom renderers (boolean, date, custom)
+- Pagination settings (client/server-side)
+- Event configuration (row clicks, sorting)
+- Response mapping for nested data structures
+- Test and preview API responses before saving
+- Column suggestions from API response
+- JSON import/export for column configurations
+
+## 📚 Documentation
+
+- **[QUICKSTART.md](QUICKSTART.md)** - Quick start guide for users
+- **[NO-CODE-GUIDE.md](NO-CODE-GUIDE.md)** - No-code configuration guide
+- **[ARCHITECTURE.md](ARCHITECTURE.md)** - Detailed architecture documentation
+- **[HOOKS.md](HOOKS.md)** - Custom hooks reference
+- **[COMPONENTS.md](COMPONENTS.md)** - Components documentation
+- **[VALIDATORS.md](VALIDATORS.md)** - Validation utilities
+- **[REFACTORING-SUMMARY.md](REFACTORING-SUMMARY.md)** - Refactoring summary and metrics
+- **[CONTRIBUTING.md](CONTRIBUTING.md)** - Contributing guidelines
+- **[IMPROVEMENTS.md](IMPROVEMENTS.md)** - Future improvements
+
+## 🏗️ Project Structure (Clean Architecture)
 
 ```
 /src
-  /components
-    /dxp-table
-      ├── dxp-table.jsx              # Main table orchestrator
-      ├── dxp-table-header.jsx       # Column management
-      ├── dxp-table-footer.jsx       # Pagination and footer
-      ├── dxp-table.types.js         # PropTypes definitions
-      └── index.js                   # Exports
-  /config
-    └── liferay-config.js            # Liferay context reader
-  /services
-    └── liferay-api.js               # API service with axios
-  /hooks
-    └── use-table-data.js            # Custom hook for data management
-  /pages
-    └── example-page.jsx             # Example usage page
-  ├── App.jsx                        # Main app component
-  ├── main.jsx                       # Entry point & custom element
-  └── index.css                      # Global styles
+  /core                           # Core business logic (framework-independent)
+    /hooks                        # Shared custom hooks
+      ├── use-configuration-state.js
+      └── use-column-manager.js
+    /validators                   # Business rules validators
+      ├── config-validator.js
+      ├── column-validator.js
+      └── mapping-validator.js
+    /models                       # Types and constants
+      └── configuration.types.js
+
+  /features                       # Feature modules (use cases)
+    /configuration
+      /hooks
+        └── use-configuration-wizard.jsx
+      /components
+        ├── configuration-wizard.jsx
+        └── step-navigation.jsx
+    /preview
+      /components
+        ├── api-test-panel.jsx
+        ├── response-mapper-panel.jsx
+        └── column-suggestions-panel.jsx
+      /hooks
+        ├── use-api-test.js
+        └── use-response-mapping.js
+    /columns
+      /components
+        ├── column-list.jsx
+        ├── column-editor.jsx
+        ├── column-json-modal.jsx
+        └── render-config-form.jsx
+    /events
+      /components
+        ├── row-click-event-section.jsx
+        └── sorting-config-section.jsx
+
+  /components                     # Reusable UI components
+    /dxp-table                    # Main table component
+      ├── dxp-table.jsx
+      ├── dxp-table-header.jsx
+      ├── dxp-table-footer.jsx
+      └── dxp-table.types.js
+    /shared                       # Shared components
+      ├── query-params-editor.jsx
+      ├── url-params-editor.jsx
+      └── default-query-params-editor.jsx
+    /configuration-form           # Configuration sections
+      ├── api-config-section.jsx
+      ├── columns-config-section.jsx
+      ├── pagination-config-section.jsx
+      ├── events-config.section.jsx
+      ├── dynamic-params-config-section.jsx
+      └── preview-section.jsx
+
+  /services                       # External services
+    ├── config-storage.js         # localStorage management
+    ├── liferay-api.js           # Liferay API client
+    └── external-api.js          # External API client
+
+  /utils                          # Utility functions
+    ├── api-validator.js
+    ├── query-string-parser.js
+    ├── url-params-replacer.js
+    └── column-renderers/
+        ├── index.jsx
+        ├── boolean-renderer.jsx
+        ├── date-renderer.jsx
+        └── default-renderer.jsx
+
+  /pages                          # Application pages
+    ├── configuration-page.jsx    # Configuration wizard
+    └── datatable-page.jsx        # Table display
+
+  /config                         # Configuration files
+    └── liferay-config.js
+
+  /styles                         # Styles
+    ├── main.scss
+    └── theme/
 ```
 
-## Installation
+## 🚀 Installation
 
 ### 1. Install Dependencies
 
@@ -68,9 +153,22 @@ npm run dev
 npm run build
 ```
 
-## Usage
+## 💡 Quick Start
 
-### Basic Usage with useTableData Hook
+### Option 1: Visual Configuration (No Code)
+
+1. Run the development server: `npm run dev`
+2. Navigate to the configuration page
+3. Follow the 6-step wizard:
+   - **Step 1**: Configure API endpoint and authentication
+   - **Step 2**: Test API and preview response structure
+   - **Step 3**: Configure columns (or use suggestions)
+   - **Step 4**: Configure pagination
+   - **Step 5**: Configure events (row clicks, sorting)
+   - **Step 6**: Configure dynamic parameters (search, filters)
+4. Save and view your configured table
+
+### Option 2: Code-Based Usage
 
 ```javascript
 import DxpTable from './components/dxp-table';
@@ -85,7 +183,6 @@ function MyComponent() {
     handleSort,
   } = useTableData('/o/headless-admin-user/v1.0/user-accounts', {
     initialPageSize: 10,
-    debounceDelay: 300,
   });
 
   const columns = [
@@ -109,9 +206,40 @@ function MyComponent() {
 }
 ```
 
-## Props
+## 🎨 Architecture Highlights
 
-### DxpTable
+### Clean Architecture Principles
+
+1. **Separation of Concerns**: Business logic (core) is separated from UI (components)
+2. **Dependency Rule**: Dependencies point inward (components → features → core)
+3. **Single Responsibility**: Each module has one reason to change
+4. **Reusability**: Hooks and validators can be used independently
+5. **Testability**: Isolated components and hooks are easy to test
+
+### Key Design Patterns
+
+- **Custom Hooks Pattern**: Encapsulate stateful logic
+- **Composition Pattern**: Small, focused components composed together
+- **Factory Pattern**: Column renderers creation
+- **Observer Pattern**: Event handling and callbacks
+- **Strategy Pattern**: Different sorting modes (server/client/disabled)
+
+## 📊 Refactoring Results
+
+The project was recently refactored following Clean Architecture principles:
+
+| Metric | Before | After | Improvement |
+|--------|--------|-------|-------------|
+| **Total Lines** | 2,167 | ~620 | **-71%** |
+| **Largest File** | 645 lines | ~250 lines | **-61%** |
+| **Files >600 lines** | 3 | 0 | **-100%** |
+| **Responsibilities/File** | 3-4 | 1-2 | **-50%** |
+
+See [REFACTORING-SUMMARY.md](REFACTORING-SUMMARY.md) for details.
+
+## 🔧 API Reference
+
+### DxpTable Component
 
 | Prop | Type | Required | Description |
 |------|------|----------|-------------|
@@ -133,45 +261,18 @@ function MyComponent() {
 | dataIndex | String | Yes | Key in data object |
 | sortable | Boolean | No | Enable sorting for this column |
 | width | String/Number | No | Column width |
-| align | String | No | Text alignment (left, center, right) |
-| render | Function | No | Custom render function for cells |
+| render | Object | No | Custom render configuration (type, config) |
 
-## API Reference
+### Custom Hooks
 
-### useTableData Hook
+- **[useConfigurationState](HOOKS.md#useconfigurationstate)** - Manage configuration state
+- **[useColumnManager](HOOKS.md#usecolumnmanager)** - CRUD operations for columns
+- **[useConfigurationWizard](HOOKS.md#useconfigurationwizard)** - Wizard navigation
+- **[useApiTest](HOOKS.md#useapitest)** - API connection testing
+- **[useResponseMapping](HOOKS.md#useresponsemapping)** - Response mapping configuration
+- **[useTableData](HOOKS.md#usetabledata)** - Table data management
 
-Custom hook that manages table state and data fetching.
-
-**Parameters:**
-- `endpoint` (string): Liferay API endpoint
-- `options` (object):
-  - `initialPageSize` (number): Initial page size (default: 10)
-  - `debounceDelay` (number): Debounce delay in ms (default: 300)
-  - `initialFilters` (object): Initial filter values
-  - `autoFetch` (boolean): Auto-fetch data on mount (default: true)
-
-**Returns:**
-- `data` (array): Current page data
-- `loading` (boolean): Loading state
-- `error` (object): Error object if request fails
-- `pagination` (object): Pagination state
-- `handlePaginationChange` (function): Pagination change handler
-- `handleSort` (function): Sort change handler
-- `handleFilterChange` (function): Filter change handler
-- `refetch` (function): Manually trigger data refetch
-- `reset` (function): Reset table state
-
-### Liferay API Service
-
-The `liferay-api.js` service provides these methods:
-
-- `getTableData(endpoint, params)` - GET request with pagination/sorting
-- `postData(endpoint, data)` - POST request
-- `putData(endpoint, data)` - PUT request
-- `deleteData(endpoint)` - DELETE request
-- `getById(endpoint, id)` - GET single item by ID
-
-## Liferay Custom Element Integration
+## 🌐 Liferay Custom Element Integration
 
 ### Deployment to Liferay
 
@@ -188,15 +289,9 @@ The component is registered as a custom element:
 <dxp-datatable></dxp-datatable>
 ```
 
-Liferay automatically provides configuration via `window.Liferay` object containing:
-- Authentication token
-- API base URL
-- User context
-- Theme information
+Liferay automatically provides configuration via `window.Liferay` object.
 
 ### Client Extension Configuration
-
-Create a `client-extension.yaml` for Liferay deployment:
 
 ```yaml
 assemble:
@@ -218,24 +313,7 @@ dxp-datatable-custom-element:
   useESM: true
 ```
 
-## Components
-
-- **dxp-table.jsx** - Main component that orchestrates the table
-- **dxp-table-header.jsx** - Manages columns and header configuration
-- **dxp-table-footer.jsx** - Manages pagination and footer information
-- **dxp-table.types.js** - PropTypes definitions
-- **liferay-config.js** - Liferay context configuration reader
-- **liferay-api.js** - API service with axios and interceptors
-- **use-table-data.js** - Custom hook for data management
-
-## Common Liferay Endpoints
-
-- User Accounts: `/o/headless-admin-user/v1.0/user-accounts`
-- Blog Posts: `/o/headless-delivery/v1.0/sites/{siteId}/blog-postings`
-- Structured Content: `/o/headless-delivery/v1.0/sites/{siteId}/structured-contents`
-- Documents: `/o/headless-delivery/v1.0/sites/{siteId}/documents`
-
-## Development
+## 🧪 Development
 
 ### Run Development Server
 
@@ -261,6 +339,30 @@ npm run preview
 npm run lint
 ```
 
-## License
+## 📝 Common Liferay Endpoints
+
+- User Accounts: `/o/headless-admin-user/v1.0/user-accounts`
+- Blog Posts: `/o/headless-delivery/v1.0/sites/{siteId}/blog-postings`
+- Structured Content: `/o/headless-delivery/v1.0/sites/{siteId}/structured-contents`
+- Documents: `/o/headless-delivery/v1.0/sites/{siteId}/documents`
+
+## 🤝 Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on:
+- Adding new components following the architecture
+- Creating new hooks
+- Code conventions and naming patterns
+- How to add validators
+
+## 📄 License
 
 MIT
+
+## 🙏 Acknowledgments
+
+Built with:
+- [React](https://reactjs.org/)
+- [Ant Design](https://ant.design/)
+- [Vite](https://vitejs.dev/)
+- [Axios](https://axios-http.com/)
+- [date-fns](https://date-fns.org/)
