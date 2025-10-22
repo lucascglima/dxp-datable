@@ -213,7 +213,7 @@ export const testConnection = async (endpoint, token = '', apiConfig = {}, testP
       success: true,
       status: response.status,
       sampleData: data,
-      message: 'Conexão bem-sucedida',
+      message: 'A requisição foi concluída corretamente. Confira abaixo a sugestão de configuração das colunas.',
       fullResponse: response.data, // Include full response for debugging
     };
   } catch (error) {

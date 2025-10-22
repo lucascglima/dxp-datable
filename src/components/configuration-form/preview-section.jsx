@@ -5,7 +5,7 @@
  * Reduced from 645 lines to ~180 lines using composition.
  */
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect  } from 'react';
 import { Space, Alert } from 'antd';
 import { ApiOutlined } from '@ant-design/icons';
 import { parseResponseStructure } from '../../services/external-api';
@@ -30,19 +30,31 @@ const PreviewSection = ({
 }) => {
   const [parsedStructure, setParsedStructure] = useState(null);
 
-  // Query parameters for testing
-  const [queryParams, setQueryParams] = useState(
-    testQueryParams.length > 0
-      ? testQueryParams
-      : [
-          { key: 'page', value: '1' },
-          { key: 'pageSize', value: '20' },
-        ]
-  );
+  // Query parameters for testing - load from saved config or use defaults
+  const [queryParams, setQueryParams] = useState(() => {
+    // If we have saved testQueryParams, use them
+    if (testQueryParams && testQueryParams.length > 0) {
+      return testQueryParams;
+    }
+    // Otherwise use sensible defaults
+    return [
+      { key: 'page', value: '1' },
+      { key: 'pageSize', value: '20' },
+    ];
+  });
 
   // Use custom hooks
   const apiTest = useApiTest();
   const mapping = useResponseMapping(responseDataPath, onResponseMappingChange);
+
+  /**
+   * Sync local state with props when testQueryParams changes from parent
+   */
+  useEffect(() => {
+    if (testQueryParams && testQueryParams.length > 0) {
+      setQueryParams(testQueryParams);
+    }
+  }, [testQueryParams]);
 
   /**
    * Handles query params change from editor
@@ -119,8 +131,8 @@ const PreviewSection = ({
       <Alert
         message="Testar e Pré-visualizar"
         description="Configure parâmetros de teste, defina o mapeamento de resposta, se necessário, e pré-visualize a estrutura de dados da sua API."
-        type="info"
-        showIcon
+        type='info'
+        
         icon={<ApiOutlined />}
       />
 

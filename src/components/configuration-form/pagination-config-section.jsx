@@ -70,9 +70,9 @@ const PaginationConfigSection = ({ value = {}, onChange }) => {
       <Alert
         message="Configurações de Paginação"
         description="Configure o comportamento da paginação: desabilite-a, use paginação do lado do cliente ou envie parâmetros de paginação para sua API."
-        type="info"
-        showIcon
-        icon={<SettingOutlined />}
+        closable
+        style={{ backgroundColor: '#f0f5ff', border: '1px solid #4B67A2' }}
+        
       />
 
       {/* Show Pagination Toggle */}
@@ -150,8 +150,7 @@ const PaginationConfigSection = ({ value = {}, onChange }) => {
                 message="Nomes de Parâmetros de API Personalizados"
                 description="Configure os nomes dos parâmetros de consulta que serão enviados para sua API para paginação."
                 type="info"
-                showIcon
-                style={{ marginBottom: 16 }}
+                style={{marginBottom: 16}}  
               />
 
               <Form.Item
@@ -215,7 +214,8 @@ const PaginationConfigSection = ({ value = {}, onChange }) => {
         <Alert
           message="Tamanho de Página Grande"
           description="Exibir muitos itens por página pode afetar o desempenho da página."
-          type="info"
+          style={{ backgroundColor: '#f0f5ff', border: '1px solid #4B67A2' }}
+          closable
           showIcon
         />
       )}

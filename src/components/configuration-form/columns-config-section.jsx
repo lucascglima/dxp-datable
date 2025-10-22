@@ -58,9 +58,7 @@ const ColumnsConfigSection = ({ value = [], onChange }) => {
       <Alert
         message="Configuração das Colunas da Tabela"
         description="Defina quais colunas serão exibidas na sua tabela. Você pode configurar visualmente ou importar via JSON."
-        type="info"
-        showIcon
-        icon={<ColumnHeightOutlined />}
+        type='info'
       />
 
       <Space>

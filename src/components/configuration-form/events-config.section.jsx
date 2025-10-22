@@ -66,8 +66,6 @@ const EventsConfigSection = ({ value = {}, onChange }) => {
         message="Configuração de Eventos"
         description="Configure manipuladores de eventos personalizados para sua tabela. Use JavaScript para definir o que acontece quando os usuários interagem com seus dados."
         type="info"
-        showIcon
-        icon={<ThunderboltOutlined />}
       />
 
       <ErrorBoundary>

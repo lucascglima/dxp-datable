@@ -115,56 +115,19 @@ const UrlParamsEditor = ({ value = [], onChange, currentUrl = '' }) => {
     notifyChange(newParams);
   };
 
-  /**
-   * Auto-detects and suggests parameters from URL
-   */
-  const handleAutoDetect = () => {
-    if (!currentUrl) return;
-
-    const variables = extractUrlVariables(currentUrl);
-    const newParams = [];
-
-    variables.forEach((varName) => {
-      // Check if param already exists
-      const existing = params.find((p) => p.key === varName);
-      if (existing) {
-        newParams.push(existing);
-      } else {
-        newParams.push({ key: varName, value: '' });
-      }
-    });
-
-    setParams(newParams);
-    updateValidation(newParams);
-    notifyChange(newParams);
-  };
 
   // Check if URL has variables
   const hasVariables = currentUrl && hasUrlVariables(currentUrl);
   const detectedVariables = hasVariables ? extractUrlVariables(currentUrl) : [];
 
   return (
-    <Card title="Parâmetros de URL (Variáveis de Caminho)" size="small">
+    <Card title="Parâmetros personalizáveis da URL" size="small">
       <Space direction="vertical" size="middle" style={{ width: '100%' }}>
         <Alert
-          message="Configure variáveis de caminho na sua URL"
-          description="Variáveis de caminho como :version ou :userId serão substituídas pelos valores que você definir aqui. Exemplo: https://api.com/:version/users → https://api.com/2.3/users"
+          message="Configure variáveis da URL"
+          description="Por exemplo, variáveis como :version ou :userId serão trocadas pelos valores configurados. Exemplo: https://api.com/:version/users → https://api.com/2.3/users"          
           type="info"
-          showIcon
-          icon={<InfoCircleOutlined />}
         />
-
-    
-
-        {!hasVariables && currentUrl && (
-          <Alert
-            message="Nenhuma variável de caminho detectada na URL"
-            description="Variáveis de caminho começam com ':' (ex.: :version, :userId). Sua URL não contém nenhuma."
-            type="info"
-            showIcon
-          />
-        )}
-
         {/* Parameters editor */}
         {params.length > 0 && (
           <>
@@ -216,11 +179,11 @@ const UrlParamsEditor = ({ value = [], onChange, currentUrl = '' }) => {
         </Button>
 
         {/* Validation messages */}
-        {validation.errors.length ==  0 && validation.warnings.length == 0 && (
+        {validation?.errors?.length ==  0 && validation?.warnings?.length == 0 && (
           <Space direction="vertical" size="small" style={{ width: '100%' }}>
             {validation.valid && (
               <Alert
-                message="Todos os parâmetros de URL estão configurados corretamente"
+                message="Parâmetros de URL estão configurados corretamente"
                 type="success"
                 showIcon
                 icon={<CheckCircleOutlined />}

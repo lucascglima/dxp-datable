@@ -10,7 +10,7 @@
  * - Used in both table data fetching and test requests
  */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import {
   Card,
   Input,
@@ -19,7 +19,7 @@ import {
   Alert,
   Typography,
   Checkbox,
-  
+
 } from 'antd';
 import {
   PlusOutlined,
@@ -31,27 +31,31 @@ const { Text } = Typography;
 
 const DefaultQueryParamsEditor = ({ value = [], onChange }) => {
   const [params, setParams] = useState(value);
-  const [isUpdating, setIsUpdating] = useState(false);
+
+  // Track update source to prevent circular updates
+  const updateSourceRef = useRef(null);
 
   /**
-   * Initialize from props
+   * Notifies parent of changes with source tracking
    */
-  useEffect(() => {
-    if (!isUpdating && value) {
-      setParams(value);
-    }
-  }, [value, isUpdating]);
-
-  /**
-   * Notifies parent of changes
-   */
-  const notifyChange = (newParams) => {
-    setIsUpdating(true);
+  const notifyChange = useCallback((newParams, source = 'visual') => {
+    updateSourceRef.current = source;
     if (onChange) {
       onChange(newParams);
     }
-    setTimeout(() => setIsUpdating(false), 0);
-  };
+  }, [onChange]);
+
+  /**
+   * Initialize from props only when coming from parent
+   */
+  useEffect(() => {
+    // Only update if the change came from parent (not from internal edits)
+    if (updateSourceRef.current === null || updateSourceRef.current === 'parent') {
+      setParams(value);
+    }
+    // Reset source after processing
+    updateSourceRef.current = null;
+  }, [value]);
 
   /**
    * Handles parameter changes
@@ -85,9 +89,9 @@ const DefaultQueryParamsEditor = ({ value = [], onChange }) => {
         <Alert
           message="Parâmetros de consultas estáticas (Query)"
           description="Esses parâmetros serão enviados com todas as requisições da API (tanto para os dados da tabela quanto para os testes). Use a caixa de seleção para ativar/desativar cada parâmetro."
-          type="info"
-          showIcon
+          type="info"          
           icon={<InfoCircleOutlined />}
+          
         />
 
         {/* Parameters editor */}
@@ -143,15 +147,6 @@ const DefaultQueryParamsEditor = ({ value = [], onChange }) => {
           </>
         )}
 
-        {params.length === 0 && (
-          <Alert
-            message="Nenhum parâmetro de consulta padrão configurado"
-            description="Adicione parâmetros de consulta que devem ser enviados com cada requisição da API. Você pode ativar ou desativar cada um individualmente."
-            type="info"
-            showIcon
-          />
-        )}
-
         <Button
           type="dashed"
           icon={<PlusOutlined />}
@@ -175,9 +170,8 @@ const DefaultQueryParamsEditor = ({ value = [], onChange }) => {
                 </Text>
               </div>
             }
-            type="info"
-            showIcon={false}
-            style={{ backgroundColor: '#f0f5ff', border: '1px solid #adc6ff' }}
+        
+          
           />
         )}
       </Space>

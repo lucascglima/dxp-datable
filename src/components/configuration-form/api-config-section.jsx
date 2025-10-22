@@ -75,9 +75,9 @@ const ApiConfigSection = ({ value = {}, onChange }) => {
     <Space direction="vertical" size="large" style={{ width: '100%' }}>
       <Alert
         message="Configuração da API"
-        description="Configure o endpoint da API externa de onde você deseja buscar os dados. Você pode usar qualquer API REST que retorne dados em JSON."
+        description="Configure o endpoint da API de onde você deseja buscar os dados. Você pode usar qualquer API REST que retorne dados em JSON."
         type="info"
-        showIcon
+       
       />
 
       <Form.Item
