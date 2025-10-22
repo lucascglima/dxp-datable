@@ -8,7 +8,7 @@ import { renderDefault } from './default-renderer';
 
 export default {
   label: 'Padrão',
-  description: 'Exibe o valor sem customização',
+  description: 'texto simples sem formatação',
   render: renderDefault,
   fields: [], // No configuration fields needed
   defaultConfig: {}, // No default config needed

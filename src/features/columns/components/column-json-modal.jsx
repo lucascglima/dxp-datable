@@ -80,7 +80,6 @@ const ColumnJsonModal = ({ visible, columns, onClose, onImport }) => {
             </div>
           }
           type="info"
-          showIcon
         />
 
         {jsonError && (

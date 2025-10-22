@@ -26,7 +26,6 @@ import {
   DeleteOutlined,
   CheckCircleOutlined,
   WarningOutlined,
-  InfoCircleOutlined,
 } from '@ant-design/icons';
 import {
   extractUrlVariables,
@@ -156,13 +155,13 @@ const UrlParamsEditor = ({ value = [], onChange, currentUrl = '' }) => {
                     <Tag style={{padding: 8}} color="orange" icon={<WarningOutlined />}>
                       Não utilizado na URL
                     </Tag>
-                  )}
-                  <Button
-                    type="text"
-                    danger
-                    icon={<DeleteOutlined />}
-                    onClick={() => handleRemoveParam(index)}
-                  />
+                  )}               
+                    <Button                         
+                      type="text"       
+                      icon={<DeleteOutlined />}
+                      onClick={() => handleRemoveParam(index)}
+                    >            
+                    </Button>
                 </Space>
               );
             })}
@@ -175,11 +174,11 @@ const UrlParamsEditor = ({ value = [], onChange, currentUrl = '' }) => {
           onClick={handleAddParam}
           block
         >
-          Adicionar Parâmetro de URL
+          Adicionar parâmetro de URL
         </Button>
 
         {/* Validation messages */}
-        {validation?.errors?.length ==  0 && validation?.warnings?.length == 0 && (
+        {validation && (
           <Space direction="vertical" size="small" style={{ width: '100%' }}>
             {validation.valid && (
               <Alert
@@ -190,7 +189,7 @@ const UrlParamsEditor = ({ value = [], onChange, currentUrl = '' }) => {
               />
             )}
 
-            {validation.errors.length > 0 && (
+            {validation.errors?.length > 0 && (
               <Alert
                 message="Erros de configuração"
                 description={
@@ -205,7 +204,7 @@ const UrlParamsEditor = ({ value = [], onChange, currentUrl = '' }) => {
               />
             )}
 
-            {validation.warnings.length > 0 && (
+            {validation.warnings?.length > 0 && (
               <Alert
                 message="Avisos"
                 description={

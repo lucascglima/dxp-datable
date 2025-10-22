@@ -330,7 +330,7 @@ const DataTablePage = () => {
               <span
                 style={{
                   cursor: 'pointer',
-                  color: '#1890ff',
+                  color: '#4B67A2',
                   textDecoration: 'underline',
                 }}
               >
@@ -348,7 +348,7 @@ const DataTablePage = () => {
           <span
             style={{
               cursor: 'pointer',
-              color: '#1890ff',
+              color: '#4B67A2',
               textDecoration: 'underline',
             }}
           >

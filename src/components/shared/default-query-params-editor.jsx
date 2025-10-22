@@ -18,8 +18,7 @@ import {
   Space,
   Alert,
   Typography,
-  Checkbox,
-
+  Checkbox
 } from 'antd';
 import {
   PlusOutlined,
@@ -99,7 +98,7 @@ const DefaultQueryParamsEditor = ({ value = [], onChange }) => {
           <>
             {params.map((param, index) => (
               <div key={index}>
-                <Space style={{ width: '100%' }} align="start">
+                <Space style={{ width: '100%', gap: 24 }} align="start">
                   <Checkbox
                     checked={param.enabled !== false} // Default to true if undefined
                     onChange={(e) =>
@@ -111,20 +110,17 @@ const DefaultQueryParamsEditor = ({ value = [], onChange }) => {
                     placeholder="Chave (ex: site)"
                     value={param.key}
                     onChange={(e) => handleParamChange(index, 'key', e.target.value)}
-                    style={{ width: 150 }}
                     disabled={!param.enabled}
                   />
                   <Input
                     placeholder="Valor (ex: stackoverflow)"
                     value={param.value}
                     onChange={(e) => handleParamChange(index, 'value', e.target.value)}
-                    style={{ width: 200 }}
                     disabled={!param.enabled}
                   />
             
                   <Button
-                    type="text"
-                    danger
+                    type="text"                    
                     icon={<DeleteOutlined />}
                     onClick={() => handleRemoveParam(index)}
                   />
@@ -139,7 +135,7 @@ const DefaultQueryParamsEditor = ({ value = [], onChange }) => {
                   }}
                 >
                   {param.enabled
-                    ? `Será enviado: ?${param.key || '...'}=${param.value || '...'}`
+                    ? `Campo na query: ?${param.key || '...'}=${param.value || '...'}`
                     : 'Desativado - não será enviado nas requisições'}
                 </Text>
               </div>
@@ -153,7 +149,7 @@ const DefaultQueryParamsEditor = ({ value = [], onChange }) => {
           onClick={handleAddParam}
           block
         >
-          Adicionar Parâmetro de Consulta Padrão
+          Adicionar parâmetro de consulta
         </Button>
 
         {/* Example section */}

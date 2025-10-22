@@ -228,9 +228,9 @@ const ConfigurationPage = () => {
         <Space direction="vertical" size="large" style={{ width: '100%' }}>
           {/* Header */}
           <div>
-            <Title level={2}>Configure sua Tabela</Title>
+            <Title level={2}>Configure da Tabela</Title>
             <Paragraph type="secondary">
-              Configure sua tabela em 5 passos simples.
+              Configure sua tabela em apenas 6 etapas.
             </Paragraph>
           </div>
 
@@ -257,9 +257,8 @@ const ConfigurationPage = () => {
             style={{ width: '100%', justifyContent: 'space-between' }}
           >
             <Space>
-              <Button onClick={handleLoadExample}>Carregar Exemplo</Button>
-              <Button danger icon={<ClearOutlined />} onClick={handleClearAll}>
-                Limpar Tudo
+              <Button icon={<ClearOutlined />} onClick={handleClearAll}>
+                Limpar configuração
               </Button>
             </Space>
 
@@ -276,10 +275,9 @@ const ConfigurationPage = () => {
                 <Button
                   type="primary"
                   icon={<SaveOutlined />}
-                  onClick={handleSaveConfiguration}
-                  size="large"
+                  onClick={handleSaveConfiguration}                  
                 >
-                  Salvar Configuração e Visualizar Tabela
+                  Salvar configuração e ir para a Tabela
                 </Button>
               )}
             </Space>

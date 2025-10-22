@@ -53,7 +53,7 @@ export const useConfigurationWizard = () => {
     },
     {
       key: 'dynamicParams',
-      title: 'Inputs dinâmicos',
+      title: 'Filtros',
       icon: <SearchOutlined />,
     },
   ];

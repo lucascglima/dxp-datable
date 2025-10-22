@@ -75,7 +75,7 @@ alert('Name: ' + record.name + '\\nEmail: ' + record.email);
       title={
         <Space>
           <CodeOutlined />
-          <Text strong>Evento de Clique na Linha</Text>
+          <Text strong>Evento de clique na Linha</Text>
         </Space>
       }
       extra={
@@ -116,22 +116,15 @@ alert('Name: ' + record.name + '\\nEmail: ' + record.email);
             </Form.Item>
 
             <Alert
-              message="Variáveis Disponíveis"
+              message="Variável disponível"
               description={
                 <ul style={{ marginBottom: 0, paddingLeft: '20px' }}>
                   <li>
                     <code>record</code> - Objeto contendo todos os dados da linha clicada
-                  </li>
-                  <li>
-                    <code>console</code> - Use console.log() para depurar
-                  </li>
-                  <li>
-                    <code>alert()</code> - Mostrar caixas de diálogo de alerta
-                  </li>
+                  </li>                  
                 </ul>
               }
-              type="info"
-              showIcon
+              type="info"              
             />
 
             <div style={{ display: 'flex', gap: '8px' }}>

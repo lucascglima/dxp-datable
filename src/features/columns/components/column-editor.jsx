@@ -20,36 +20,39 @@ const ColumnEditor = ({ column, index, onUpdate, onRemove, onRenderTypeChange, o
   return (
     <Card
       key={column.id || index}
-      size="small"
+      type="inner"
       title={
-        <Space>
-          <span>Coluna {index + 1}</span>
-          {column.title && <span style={{ fontWeight: 'normal' }}> - {column.title}</span>}
+        <Space
+        >
+          <span>Coluna {index + 1}:</span>
+          {column.title && <span style={{ fontWeight: 'normal' }}>{column.title}</span>}
         </Space>
       }
       extra={
-        <Button
-          type="text"
-          danger
-          icon={<DeleteOutlined />}
-          onClick={() => onRemove(index)}
-        >
-          Remover
-        </Button>
+        <Tooltip title="Remover coluna">
+          <Button
+            type="primary"        
+            icon={<DeleteOutlined />}
+            onClick={() => onRemove(index)}
+          >            
+          </Button>
+        </Tooltip>
+            
       }
       style={{
         borderColor: hasErrors ? '#ff4d4f' : undefined,
       }}
     >
-      <Space direction="vertical" size="middle" style={{ width: '100%' }}>
+      
+      <Space direction="vertical" style={{ width: '100%' }}>
         <Row gutter={16}>
           <Col span={12}>
             <Form.Item
               label={
                 <Space>
-                  Nome da Coluna*
+                  Nome*
                   <Tooltip title="Texto exibido no título da coluna">
-                    <InfoCircleOutlined style={{ color: '#1890ff' }} />
+                    <InfoCircleOutlined style={{ color: '#4B67A2' }} />
                   </Tooltip>
                 </Space>
               }
@@ -68,9 +71,9 @@ const ColumnEditor = ({ column, index, onUpdate, onRemove, onRenderTypeChange, o
             <Form.Item
               label={
                 <Space>
-                  Campo de Dados*
+                  Campo de origem*
                   <Tooltip title="Nome exato da propriedade retornada pela sua API (case-sensitive)">
-                    <InfoCircleOutlined style={{ color: '#1890ff' }} />
+                    <InfoCircleOutlined style={{ color: '#4B67A2' }} />
                   </Tooltip>
                 </Space>
               }
@@ -85,27 +88,18 @@ const ColumnEditor = ({ column, index, onUpdate, onRemove, onRenderTypeChange, o
             </Form.Item>
           </Col>
         </Row>
-      
-        <Row gutter={16}>
-          <Col span={12}>
-            <Form.Item label=" " colon={false}>
-              <Checkbox
-                checked={column.sortable}
-                onChange={(e) => onUpdate(index, 'sortable', e.target.checked)}
-              >
-                Habilitar ordenação
-              </Checkbox>
-            </Form.Item>
-          </Col>
+
+        <Row gutter={16} justify={'flex'}>
+       
 
           {column.sortable && (
             <Col span={12}>
               <Form.Item
                 label={
                   <Space>
-                    Campo de Ordenação
+                    Campo de ordenação*
                     <Tooltip title="Nome do campo enviado para ordenação na API. Deixe vazio para usar o dataIndex">
-                      <InfoCircleOutlined style={{ color: '#1890ff' }} />
+                      <InfoCircleOutlined style={{ color: '#4B67A2' }} />
                     </Tooltip>
                   </Space>
                 }
@@ -118,13 +112,23 @@ const ColumnEditor = ({ column, index, onUpdate, onRemove, onRenderTypeChange, o
               </Form.Item>
             </Col>
           )}
+             <Col span={12} style={{ paddingLeft: 0 }}>
+            <Form.Item label=" " colon={false} >
+              <Checkbox
+                checked={column.sortable}
+                onChange={(e) => onUpdate(index, 'sortable', e.target.checked)}
+              >
+                Ativar ordenação
+              </Checkbox>
+            </Form.Item>
+          </Col>
         </Row>
 
 
         <Divider orientation="left">
           <Space>
             <FormatPainterOutlined />
-            Customização de Renderização
+            Renderização customizada 
           </Space>
         </Divider>
 
@@ -133,9 +137,9 @@ const ColumnEditor = ({ column, index, onUpdate, onRemove, onRenderTypeChange, o
             <Form.Item
               label={
                 <Space>
-                  Tipo de Renderização
+                  Tipo
                   <Tooltip title="Escolha como os valores desta coluna serão exibidos">
-                    <InfoCircleOutlined style={{ color: '#1890ff' }} />
+                    <InfoCircleOutlined style={{ color: '#4B67A2' }} />
                   </Tooltip>
                 </Space>
               }
@@ -151,7 +155,7 @@ const ColumnEditor = ({ column, index, onUpdate, onRemove, onRenderTypeChange, o
                       <span>
                         {renderer.label}{' '}
                         <span style={{ fontSize: '12px', color: '#888' }}>
-                          {renderer.description}
+                          ({renderer.description})
                         </span>
                       </span>
                     </Space>
@@ -162,11 +166,11 @@ const ColumnEditor = ({ column, index, onUpdate, onRemove, onRenderTypeChange, o
           </Col>
 
           <Col span={12}>
-            <Form.Item label="Largura (px)">
+            <Form.Item label="Largura">
               <InputNumber
                 value={column.width}
                 onChange={(val) => onUpdate(index, 'width', val)}
-                placeholder="Automático"
+                placeholder="Largura da coluna"
                 min={50}
                 max={1000}
                 addonAfter="px"
@@ -178,9 +182,8 @@ const ColumnEditor = ({ column, index, onUpdate, onRemove, onRenderTypeChange, o
 
         {/* Render-specific configuration fields */}
         {column.render?.type && column.render.type !== 'default' && (
-          <Card size="small" style={{ background: '#fafafa', marginBottom: 16 }}>
+          <Card size="small" type="inner" style={{ background: '#fafafa', marginBottom: 8, padding: 8 }}>
             <Space direction="vertical" size="middle" style={{ width: '100%' }}>
-
               <RenderConfigForm
                 renderType={column.render.type}
                 config={column.render.config || {}}

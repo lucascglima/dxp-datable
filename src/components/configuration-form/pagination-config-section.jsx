@@ -6,7 +6,7 @@
  */
 
 import { Form, Select, Checkbox, Alert, Space, Radio, Input, Divider } from 'antd';
-import { SettingOutlined, ApiOutlined, ThunderboltOutlined } from '@ant-design/icons';
+import { ApiOutlined, ThunderboltOutlined } from '@ant-design/icons';
 
 const { Option } = Select;
 
@@ -68,11 +68,9 @@ const PaginationConfigSection = ({ value = {}, onChange }) => {
   return (
     <Space direction="vertical" size="large" style={{ width: '100%' }}>
       <Alert
-        message="Configurações de Paginação"
+        message="Configurações de paginação"
         description="Configure o comportamento da paginação: desabilite-a, use paginação do lado do cliente ou envie parâmetros de paginação para sua API."
-        closable
-        style={{ backgroundColor: '#f0f5ff', border: '1px solid #4B67A2' }}
-        
+        type="info"
       />
 
       {/* Show Pagination Toggle */}
@@ -88,11 +86,11 @@ const PaginationConfigSection = ({ value = {}, onChange }) => {
       {/* Show additional options only if pagination is enabled */}
       {defaultPagination.showPagination && (
         <>
-          <Divider orientation="left">Modo de Paginação</Divider>
+          <Divider orientation="left">Modo de paginação</Divider>
 
           {/* Pagination Mode */}
           <Form.Item
-            label="Modo de Paginação"
+            label="Modo de paginação"
             help="Escolha como a paginação é tratada"
           >
             <Radio.Group
@@ -144,18 +142,18 @@ const PaginationConfigSection = ({ value = {}, onChange }) => {
           {/* API Parameter Names - Only show if mode is 'api' */}
           {defaultPagination.mode === 'api' && (
             <>
-              <Divider orientation="left">Parâmetros da API</Divider>
+              <Divider orientation="left">Parâmetros de paginação</Divider>
 
               <Alert
-                message="Nomes de Parâmetros de API Personalizados"
-                description="Configure os nomes dos parâmetros de consulta que serão enviados para sua API para paginação."
+                message="Configuração de paginação da API"
+                description="Defina os nomes dos parâmetros usados na requisição para controlar a paginação dos resultados."
                 type="info"
-                style={{marginBottom: 16}}  
+                style={{ marginBottom: 16 }}
               />
 
               <Form.Item
-                label="Nome do Parâmetro da Página"
-                help="Nome do parâmetro de consulta para o número da página (ex.: ?_page=1)"
+                label="Parâmetro de página"
+                help="Nome do parâmetro usado para indicar o número da página (ex.: ?_page=1)"
               >
                 <Input
                   value={defaultPagination.apiParamNames?.page || '_page'}
@@ -167,8 +165,8 @@ const PaginationConfigSection = ({ value = {}, onChange }) => {
               </Form.Item>
 
               <Form.Item
-                label="Nome do Parâmetro de Tamanho da Página"
-                help="Nome do parâmetro de consulta para o tamanho da página (ex.: ?_page_size=20)"
+                label="Parâmetro de Itens por Página"
+                help="Nome do parâmetro usado para indicar quantos itens devem ser retornados por página (ex.: ?_page_size=20)"
               >
                 <Input
                   value={defaultPagination.apiParamNames?.pageSize || '_page_size'}
@@ -180,9 +178,9 @@ const PaginationConfigSection = ({ value = {}, onChange }) => {
               </Form.Item>
 
               <Alert
-                message={`Exemplo de Chamada de API: ${defaultPagination.apiParamNames?.page || '_page'}=1&${defaultPagination.apiParamNames?.pageSize || '_page_size'}=${defaultPagination.pageSize}`}
-                type="success"
-                showIcon
+                message={`Exemplo de chamada à API: ${defaultPagination.apiParamNames?.page || '_page'}=1&${defaultPagination.apiParamNames?.pageSize || '_page_size'}=${defaultPagination.pageSize}`}
+                type="info"
+              
               />
             </>
           )}
@@ -190,10 +188,10 @@ const PaginationConfigSection = ({ value = {}, onChange }) => {
           {/* Client-side mode info */}
           {defaultPagination.mode === 'client' && (
             <Alert
-              message="Paginação do Lado do Cliente Ativa"
-              description="Todos os dados serão carregados da API uma vez. A paginação será tratada no navegador para melhor desempenho."
+              message="Paginação do lado do cliente ativa"            
+              description="Todos os dados serão carregados da API de uma só vez. A troca de páginas será feita localmente, no navegador, para evitar novas requisições e melhorar o desempenho."
               type="success"
-              showIcon
+              
             />
           )}
         </>
@@ -202,21 +200,10 @@ const PaginationConfigSection = ({ value = {}, onChange }) => {
       {/* Warning when pagination is disabled */}
       {!defaultPagination.showPagination && (
         <Alert
-          message="Paginação Desabilitada"
-          description="Todos os itens serão exibidos em uma única página sem controles de paginação. A API será chamada sem parâmetros de paginação para buscar todos os dados."
+          message="Paginação desativada"
+          description="Todos os itens serão exibidos em uma única página, sem controles de navegação. A API será chamada apenas uma vez, retornando todos os registros disponíveis."
           type="warning"
-          showIcon
-        />
-      )}
-
-      {/* Warning for large page sizes */}
-      {defaultPagination.showPagination && defaultPagination.pageSize > 50 && (
-        <Alert
-          message="Tamanho de Página Grande"
-          description="Exibir muitos itens por página pode afetar o desempenho da página."
-          style={{ backgroundColor: '#f0f5ff', border: '1px solid #4B67A2' }}
-          closable
-          showIcon
+          
         />
       )}
     </Space>

@@ -7,7 +7,6 @@
 
 import { useMemo, useCallback } from 'react';
 import { Space, Alert } from 'antd';
-import { ThunderboltOutlined } from '@ant-design/icons';
 import RowClickEventSection from '../../features/events/components/row-click-event-section';
 import SortingConfigSection from '../../features/events/components/sorting-config-section';
 import { ErrorBoundary } from '../error-boundary';

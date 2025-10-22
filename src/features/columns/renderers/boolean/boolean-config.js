@@ -9,7 +9,7 @@
  */
 export const BOOLEAN_RENDERER_META = {
   label: 'Booleano',
-  description: 'Converte true/false em textos customizados',
+  description: 'converte booleano para texto',
 };
 
 /**
@@ -30,27 +30,27 @@ export const defaultBooleanConfig = {
 export const booleanRendererFields = [
   {
     name: 'trueText',
-    label: 'Texto para Verdadeiro *',
+    label: 'Texto para verdadeiro*',
     type: 'text',
     placeholder: 'Sim',
     defaultValue: 'Sim',
   },
   {
     name: 'falseText',
-    label: 'Texto para Falso *',
+    label: 'Texto para falso*',
     type: 'text',
     placeholder: 'Não',
     defaultValue: 'Não',
   },
   {
     name: 'showAsTag',
-    label: 'Exibir como Tag colorida',
+    label: 'Exibir com tag',
     type: 'checkbox',
     defaultValue: true,
   },
   {
     name: 'trueColor',
-    label: 'Cor para Verdadeiro',
+    label: 'Cor para verdadeiro',
     type: 'select',
     defaultValue: 'green',
     options: [
@@ -63,7 +63,7 @@ export const booleanRendererFields = [
   },
   {
     name: 'falseColor',
-    label: 'Cor para Falso',
+    label: 'Cor para falso',
     type: 'select',
     defaultValue: 'red',
     options: [
