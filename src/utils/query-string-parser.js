@@ -90,9 +90,8 @@ export const toQueryString = (params) => {
     .filter((p) => p.key && p.key.trim())
     .map((p) => {
       const key = encodeURIComponent(p.key.trim());
-      const value = p.value !== undefined && p.value !== null
-        ? encodeURIComponent(String(p.value).trim())
-        : '';
+      const value =
+        p.value !== undefined && p.value !== null ? encodeURIComponent(String(p.value).trim()) : '';
       return value ? `${key}=${value}` : key;
     })
     .join('&');
@@ -139,8 +138,8 @@ export const detectFormat = (input) => {
   // Pattern: key=value or key1=value1&key2=value2
   if (
     /^[^=&]+=/.test(trimmed) || // Has at least one key=value
-    trimmed.includes('&') ||      // Has & separator
-    /^[^=&]+$/.test(trimmed)      // Single key without value
+    trimmed.includes('&') || // Has & separator
+    /^[^=&]+$/.test(trimmed) // Single key without value
   ) {
     return 'queryString';
   }
@@ -233,7 +232,9 @@ export const parseAny = (input) => {
       return {
         params: [],
         format: 'unknown',
-        errors: ['Não foi possível detectar o formato de entrada. Use a sequência de consulta (key=value&...) ou o formato de matriz JSON.'],
+        errors: [
+          'Não foi possível detectar o formato de entrada. Use a sequência de consulta (key=value&...) ou o formato de matriz JSON.',
+        ],
       };
     }
 
@@ -364,9 +365,7 @@ export const validateParamConflicts = (options = {}) => {
         return `${labelMap[loc.arrayIndex]} (value: "${loc.value}")`;
       });
 
-      errors.push(
-        ` Parâmetro duplicado "${key}" encontrado em: ${locations.join(', ')}`
-      );
+      errors.push(` Parâmetro duplicado "${key}" encontrado em: ${locations.join(', ')}`);
     });
   }
 

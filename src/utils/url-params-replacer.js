@@ -36,12 +36,12 @@ export const replaceUrlParams = (url, urlParams = []) => {
   const matches = [...url.matchAll(variablePattern)];
 
   // Replace each variable
-  matches.forEach(match => {
+  matches.forEach((match) => {
     const variableName = match[1]; // Get the variable name without ':'
     const fullMatch = match[0]; // Get the full match including ':'
 
     // Find the parameter value
-    const param = urlParams.find(p => p.key === variableName);
+    const param = urlParams.find((p) => p.key === variableName);
 
     if (param && param.value !== undefined && param.value !== null && param.value !== '') {
       // Replace the variable with its value
@@ -54,17 +54,16 @@ export const replaceUrlParams = (url, urlParams = []) => {
   });
 
   // Find unused parameters
-  const unused = urlParams
-    .filter(p => p.key && !usedParams.has(p.key))
-    .map(p => p.key);
+  const unused = urlParams.filter((p) => p.key && !usedParams.has(p.key)).map((p) => p.key);
 
   return {
     url: replacedUrl,
     missing,
     unused,
-    errors: missing.length > 0
-      ? [`Faltando valores para os parâmetros da URL: ${missing.join(', ')}`]
-      : [],
+    errors:
+      missing.length > 0
+        ? [`Faltando valores para os parâmetros da URL: ${missing.join(', ')}`]
+        : [],
   };
 };
 
@@ -82,7 +81,7 @@ export const extractUrlVariables = (url) => {
   const variablePattern = /:([a-zA-Z_][a-zA-Z0-9_]*)/g;
   const matches = [...url.matchAll(variablePattern)];
 
-  return matches.map(match => match[1]);
+  return matches.map((match) => match[1]);
 };
 
 /**
@@ -98,15 +97,15 @@ export const validateUrlParams = (url, urlParams = []) => {
   const warnings = [];
 
   // Check for missing values
-  variables.forEach(varName => {
-    const param = urlParams.find(p => p.key === varName);
+  variables.forEach((varName) => {
+    const param = urlParams.find((p) => p.key === varName);
     if (!param || !param.value || param.value.trim() === '') {
       errors.push(`Faltando valor para o parâmetro da URL: :${varName}`);
     }
   });
 
   // Check for unused parameters
-  urlParams.forEach(param => {
+  urlParams.forEach((param) => {
     if (param.key && !variables.includes(param.key)) {
       warnings.push(`Parâmetro da URL "${param.key}" está definido mas não é utilizado na URL`);
     }
@@ -137,9 +136,9 @@ export const suggestUrlParams = (url, existingParams = []) => {
   const variables = extractUrlVariables(url);
   const suggested = [];
 
-  variables.forEach(varName => {
+  variables.forEach((varName) => {
     // Check if param already exists
-    const existing = existingParams.find(p => p.key === varName);
+    const existing = existingParams.find((p) => p.key === varName);
 
     if (existing) {
       // Keep existing param

@@ -35,11 +35,11 @@ const ApiConfigSection = ({ value = {}, onChange }) => {
       authToken: e.target.value,
     });
   };
-  
+
   /**
    * Handles URL params change
    */
-    const handleUrlParamsChange = (urlParams) => {
+  const handleUrlParamsChange = (urlParams) => {
     onChange({
       ...value,
       urlParams,
@@ -71,22 +71,16 @@ const ApiConfigSection = ({ value = {}, onChange }) => {
   };
 
   return (
-    <Space direction="vertical" size="large" style={{ width: '100%' , gap: 12}}>
+    <Space direction="vertical" size="large" style={{ width: '100%', gap: 12 }}>
       <Alert
         message="Configuração da API"
         description="Configure o endpoint da API de onde você deseja buscar os dados. Você pode usar qualquer API REST que retorne dados em JSON."
         type="info"
       />
 
-      <Form.Item        
-        label="URL do Endpoint da API*"      
-        validateStatus={
-          urlValidation
-            ? urlValidation.valid
-              ? 'success'
-              : 'error'
-            : undefined
-        }
+      <Form.Item
+        label="URL do Endpoint da API*"
+        validateStatus={urlValidation ? (urlValidation.valid ? 'success' : 'error') : undefined}
         help={
           urlValidation?.error ||
           urlValidation?.warning ||
@@ -135,10 +129,10 @@ const ApiConfigSection = ({ value = {}, onChange }) => {
         label="Token de Autenticação (Opcional)"
         help="Deixe em branco se sua API não exigir autenticação. Use o formato Bearer para tokens JWT."
       >
-        <Input.Password          
+        <Input.Password
           value={value.authToken}
           onChange={handleTokenChange}
-          placeholder="Bearer seu-token-aqui ou deixe em branco"          
+          placeholder="Bearer seu-token-aqui ou deixe em branco"
         />
       </Form.Item>
 
@@ -149,12 +143,7 @@ const ApiConfigSection = ({ value = {}, onChange }) => {
         </span>
       </Form.Item>
 
-      <Button
-        type="dashed"
-        icon={<LinkOutlined />}
-        onClick={handleLoadExample}
-        block
-      >
+      <Button type="dashed" icon={<LinkOutlined />} onClick={handleLoadExample} block>
         Carregar API de Exemplo (Usuários do JSONPlaceholder)
       </Button>
     </Space>

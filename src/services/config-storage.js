@@ -116,9 +116,10 @@ export const getExampleConfiguration = () => {
     authToken: '',
     urlParams: [], // No URL params in this example (no :variables in URL)
     defaultQueryParams: [], // No default query params for this simple example
-    testQueryParams: [ // Pre-filled test params for convenience
+    testQueryParams: [
+      // Pre-filled test params for convenience
       { key: '_page', value: '1' },
-      { key: '_limit', value: '10' }
+      { key: '_limit', value: '10' },
     ],
     dynamicParams: {
       searchInput: {

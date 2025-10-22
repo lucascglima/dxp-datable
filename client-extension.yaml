@@ -1,9 +1,10 @@
 # Liferay Client Extension Configuration
 # This file configures the DxpTable component as a Liferay Custom Element
+# Compatible with Liferay 7.4 GA129+
 
 assemble:
   - from: dist
-    include: "**/*"
+    include: '**/*'
     into: static
 
 dxp-datatable-custom-element:
@@ -33,13 +34,9 @@ dxp-datatable-custom-element:
   urls:
     - main.js
 
-  # Use ES Modules
+  # Use ES Modules (required for modern React)
   useESM: true
 
-  # Properties that can be configured in Liferay
-  properties:
-    apiEndpoint:
-      default: /o/headless-admin-user/v1.0/user-accounts
-      name: API Endpoint
-      type: String
-      description: Liferay Headless API endpoint to fetch data from
+  # OAuth Application User Agent (REQUIRED for Liferay 7.4 GA129+)
+  # This identifies the client extension when making authenticated API calls
+  oAuthApplicationUserAgent: dxp-datatable-client-extension

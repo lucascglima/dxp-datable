@@ -11,34 +11,34 @@
 // ============================================
 
 // Header (Cabeçalho)
-$table-header-bg: $color-bg-tertiary;                    // Fundo do cabeçalho
-$table-header-color: $color-text-primary;                // Cor do texto do cabeçalho
-$table-header-sort-bg: $color-neutral-400;               // Fundo ao ordenar
-$table-header-sort-active-bg: $color-primary-100;        // Fundo da coluna ativa
-$table-header-cell-split-color: $color-border-primary;   // Divisor entre células
+$table-header-bg: $color-bg-tertiary; // Fundo do cabeçalho
+$table-header-color: $color-text-primary; // Cor do texto do cabeçalho
+$table-header-sort-bg: $color-neutral-400; // Fundo ao ordenar
+$table-header-sort-active-bg: $color-primary-100; // Fundo da coluna ativa
+$table-header-cell-split-color: $color-border-primary; // Divisor entre células
 
 // Body (Corpo)
-$table-body-bg: $color-bg-primary;                       // Fundo das linhas
-$table-row-hover-bg: $color-bg-tertiary;                 // Fundo ao passar mouse
-$table-row-selected-bg: $color-primary-100;              // Fundo da linha selecionada
-$table-row-selected-hover-bg: $color-primary-200;        // Fundo selecionada + hover
-$table-row-expand-bg: $color-bg-secondary;               // Fundo de linhas expandidas
+$table-body-bg: $color-bg-primary; // Fundo das linhas
+$table-row-hover-bg: $color-bg-tertiary; // Fundo ao passar mouse
+$table-row-selected-bg: $color-primary-100; // Fundo da linha selecionada
+$table-row-selected-hover-bg: $color-primary-200; // Fundo selecionada + hover
+$table-row-expand-bg: $color-bg-secondary; // Fundo de linhas expandidas
 
 // Borders (Bordas)
-$table-border-color: $color-border-secondary;            // Cor das bordas
-$table-border-radius: $border-radius-md;                 // Raio das bordas
+$table-border-color: $color-border-secondary; // Cor das bordas
+$table-border-radius: $border-radius-md; // Raio das bordas
 
 // Footer (Rodapé)
-$table-footer-bg: $color-bg-tertiary;                    // Fundo do rodapé
-$table-footer-color: $color-text-primary;                // Cor do texto do rodapé
+$table-footer-bg: $color-bg-tertiary; // Fundo do rodapé
+$table-footer-color: $color-text-primary; // Cor do texto do rodapé
 
 // Filters (Filtros)
-$table-filter-dropdown-bg: $color-bg-primary;            // Fundo do dropdown de filtro
-$table-filter-trigger-color: $color-text-tertiary;       // Cor do ícone de filtro
-$table-filter-trigger-active-color: $color-primary-600;  // Cor quando filtro ativo
+$table-filter-dropdown-bg: $color-bg-primary; // Fundo do dropdown de filtro
+$table-filter-trigger-color: $color-text-tertiary; // Cor do ícone de filtro
+$table-filter-trigger-active-color: $color-primary-600; // Cor quando filtro ativo
 
 // Sticky (Fixação)
-$table-sticky-scroll-bar-bg: $color-neutral-700;         // Cor da barra de scroll
+$table-sticky-scroll-bar-bg: $color-neutral-700; // Cor da barra de scroll
 $table-sticky-scroll-bar-border-radius: $border-radius-sm; // Raio da barra
 
 // ============================================
@@ -46,76 +46,76 @@ $table-sticky-scroll-bar-border-radius: $border-radius-sm; // Raio da barra
 // ============================================
 
 // Font Size
-$table-font-size: $font-size-base;                       // 14px - Tamanho padrão
-$table-font-size-sm: $font-size-sm;                      // 12px - Tabela small
-$table-font-size-md: $font-size-base;                    // 14px - Tabela middle
+$table-font-size: $font-size-base; // 14px - Tamanho padrão
+$table-font-size-sm: $font-size-sm; // 12px - Tabela small
+$table-font-size-md: $font-size-base; // 14px - Tabela middle
 
 // Header Font
-$table-header-font-size: $font-size-base;                // 14px
-$table-header-font-weight: $font-weight-semibold;        // 600 - Negrito no header
+$table-header-font-size: $font-size-base; // 14px
+$table-header-font-weight: $font-weight-semibold; // 600 - Negrito no header
 
 // ============================================
 // TABLE SPACING - Espaçamentos
 // ============================================
 
 // Padding Vertical (altura das células)
-$table-padding-vertical: $spacing-md;                    // 16px - Padrão
-$table-padding-vertical-sm: $spacing-xs;                 // 8px - Small
-$table-padding-vertical-md: $spacing-sm;                 // 12px - Middle
+$table-padding-vertical: $spacing-md; // 16px - Padrão
+$table-padding-vertical-sm: $spacing-xs; // 8px - Small
+$table-padding-vertical-md: $spacing-sm; // 12px - Middle
 
 // Padding Horizontal (largura das células)
-$table-padding-horizontal: $spacing-md;                  // 16px - Padrão
-$table-padding-horizontal-sm: $spacing-xs;               // 8px - Small
-$table-padding-horizontal-md: $spacing-sm;               // 12px - Middle
+$table-padding-horizontal: $spacing-md; // 16px - Padrão
+$table-padding-horizontal-sm: $spacing-xs; // 8px - Small
+$table-padding-horizontal-md: $spacing-sm; // 12px - Middle
 
 // Header Padding
-$table-header-padding-vertical: $spacing-md;             // 16px
-$table-header-padding-horizontal: $spacing-md;           // 16px
+$table-header-padding-vertical: $spacing-md; // 16px
+$table-header-padding-horizontal: $spacing-md; // 16px
 
 // Footer Padding
-$table-footer-padding-vertical: $spacing-md;             // 16px
-$table-footer-padding-horizontal: $spacing-md;           // 16px
+$table-footer-padding-vertical: $spacing-md; // 16px
+$table-footer-padding-horizontal: $spacing-md; // 16px
 
 // Expanded Row Padding
-$table-expanded-row-padding: $spacing-lg;                // 24px
+$table-expanded-row-padding: $spacing-lg; // 24px
 
 // ============================================
 // TABLE DIMENSIONS - Dimensões
 // ============================================
 
 // Row Height (altura das linhas)
-$table-row-height: 54px;                                 // Padrão
-$table-row-height-sm: 40px;                              // Small
-$table-row-height-md: 47px;                              // Middle
+$table-row-height: 54px; // Padrão
+$table-row-height-sm: 40px; // Small
+$table-row-height-md: 47px; // Middle
 
 // Header Height
-$table-header-height: 54px;                              // Altura do cabeçalho
+$table-header-height: 54px; // Altura do cabeçalho
 
 // ============================================
 // TABLE BORDERS - Bordas
 // ============================================
 
-$table-border-width: $border-width-thin;                 // 1px
-$table-border-style: $border-style-solid;                // solid
+$table-border-width: $border-width-thin; // 1px
+$table-border-style: $border-style-solid; // solid
 
 // ============================================
 // TABLE PAGINATION - Paginação (dentro da tabela)
 // ============================================
 
-$table-pagination-margin-top: $spacing-md;               // 16px
+$table-pagination-margin-top: $spacing-md; // 16px
 
 // ============================================
 // TABLE SELECTION - Seleção
 // ============================================
 
-$table-selection-column-width: 60px;                     // Largura da coluna de checkbox
+$table-selection-column-width: 60px; // Largura da coluna de checkbox
 
 // ============================================
 // TABLE EMPTY - Estado Vazio
 // ============================================
 
-$table-empty-padding: $spacing-xxl;                      // 48px
-$table-empty-color: $color-text-tertiary;                // Cor do texto "sem dados"
+$table-empty-padding: $spacing-xxl; // 48px
+$table-empty-color: $color-text-tertiary; // Cor do texto "sem dados"
 
 // ============================================
 // EXPORTAÇÃO PARA CSS CUSTOM PROPERTIES
@@ -139,14 +139,14 @@ $table-empty-color: $color-text-tertiary;                // Cor do texto "sem da
   tableFilterDropdownBg: $table-filter-dropdown-bg;
   tableFilterTriggerColor: $table-filter-trigger-color;
   tableFilterTriggerActiveColor: $table-filter-trigger-active-color;
-  
+
   // Typography
   tableFontSize: $table-font-size;
   tableFontSizeSM: $table-font-size-sm;
   tableFontSizeMD: $table-font-size-md;
   tableHeaderFontSize: $table-header-font-size;
   tableHeaderFontWeight: $table-header-font-weight;
-  
+
   // Spacing
   tablePaddingVertical: $table-padding-vertical;
   tablePaddingVerticalSM: $table-padding-vertical-sm;
@@ -159,23 +159,23 @@ $table-empty-color: $color-text-tertiary;                // Cor do texto "sem da
   tableFooterPaddingVertical: $table-footer-padding-vertical;
   tableFooterPaddingHorizontal: $table-footer-padding-horizontal;
   tableExpandedRowPadding: $table-expanded-row-padding;
-  
+
   // Dimensions
   tableRowHeight: $table-row-height;
   tableRowHeightSM: $table-row-height-sm;
   tableRowHeightMD: $table-row-height-md;
   tableHeaderHeight: $table-header-height;
-  
+
   // Borders
   tableBorderRadius: $table-border-radius;
   tableBorderWidth: $table-border-width;
-  
+
   // Pagination
   tablePaginationMarginTop: $table-pagination-margin-top;
-  
+
   // Selection
   tableSelectionColumnWidth: $table-selection-column-width;
-  
+
   // Empty
   tableEmptyPadding: $table-empty-padding;
   tableEmptyColor: $table-empty-color;

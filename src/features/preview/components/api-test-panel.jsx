@@ -8,12 +8,7 @@
 import { Button, Alert, Space } from 'antd';
 import { ApiOutlined, CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
 
-const ApiTestPanel = ({
-  apiEndpoint,
-  testing,
-  testResult,
-  onTest,
-}) => {
+const ApiTestPanel = ({ apiEndpoint, testing, testResult, onTest }) => {
   return (
     <Space direction="vertical" size="middle" style={{ width: '100%' }}>
       {/* Test Button */}
@@ -44,9 +39,7 @@ const ApiTestPanel = ({
         <Alert
           message={
             testResult.success ? (
-              <Space>                
-                Conexão bem-sucedida
-              </Space>
+              <Space>Conexão bem-sucedida</Space>
             ) : (
               <Space>
                 <CloseCircleOutlined />

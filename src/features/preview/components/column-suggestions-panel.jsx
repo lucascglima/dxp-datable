@@ -20,7 +20,7 @@ const ColumnSuggestionsPanel = ({ parsedStructure, onApplySuggestions, fullRespo
       <Space direction="vertical" size="middle" style={{ width: '100%' }}>
         <Alert
           message={`Encontrados ${parsedStructure.fields.length} campos na resposta da API`}
-          type="info"          
+          type="info"
           icon={<InfoCircleOutlined />}
         />
 
@@ -92,7 +92,7 @@ const ColumnSuggestionsPanel = ({ parsedStructure, onApplySuggestions, fullRespo
             <Alert
               message="Sugestões de colunas encontradas"
               description={`Identificamos ${parsedStructure.suggestedColumns.length} campos que podem ser usados como colunas da tabela. Clique abaixo para aplicá-los automaticamente.`}
-              type="info"              
+              type="info"
             />
 
             <Button type="primary" onClick={onApplySuggestions} block>
@@ -100,8 +100,8 @@ const ColumnSuggestionsPanel = ({ parsedStructure, onApplySuggestions, fullRespo
             </Button>
 
             <Paragraph type="secondary" style={{ fontSize: '12px', marginTop: 8 }}>
-              Isso substituirá sua configuração de coluna atual por colunas sugeridas com base
-              na resposta da API.
+              Isso substituirá sua configuração de coluna atual por colunas sugeridas com base na
+              resposta da API.
             </Paragraph>
           </>
         )}

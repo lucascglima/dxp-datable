@@ -3,41 +3,41 @@
  *
  * Top navigation menu for the application.
  * Shows all available pages with status indicators.
+ *
+ * REFACTORED: Removed react-router-dom Links.
+ * Now uses view state management for Liferay client extension compatibility.
  */
 
-
-import { Link, useLocation } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { Menu, Badge } from 'antd';
-import {
-  SettingOutlined,
-  TableOutlined,
-} from '@ant-design/icons';
+import { SettingOutlined, TableOutlined } from '@ant-design/icons';
 import { hasConfiguration } from '../../services/config-storage';
+import { VIEWS } from '../../hooks/use-view-manager';
 
-const NavigationMenu = () => {
-  const location = useLocation();
+const NavigationMenu = ({ currentView, onNavigate }) => {
   const configExists = hasConfiguration();
 
-  const items = [    
+  const handleMenuClick = ({ key }) => {
+    onNavigate(key);
+  };
+
+  const items = [
     {
-      key: '/configuration',
+      key: VIEWS.CONFIGURATION,
       icon: <SettingOutlined />,
       label: (
-        <Link to="/configuration">
+        <span>
           Configuração{' '}
           {!configExists && (
-            <Badge
-              count="Novo"
-              style={{ backgroundColor: '#52c41a', marginLeft: 8 }}
-            />
+            <Badge count="Novo" style={{ backgroundColor: '#52c41a', marginLeft: 8 }} />
           )}
-        </Link>
+        </span>
       ),
     },
     {
-      key: '/datatable',
+      key: VIEWS.DATATABLE,
       icon: <TableOutlined />,
-      label: <Link to="/datatable">Tabela configurada</Link>,
+      label: <span>Tabela configurada</span>,
       disabled: !configExists,
     },
   ];
@@ -45,14 +45,20 @@ const NavigationMenu = () => {
   return (
     <Menu
       mode="horizontal"
-      selectedKeys={[location.pathname]}
+      selectedKeys={[currentView]}
       items={items}
+      onClick={handleMenuClick}
       style={{
         marginBottom: 0,
         borderBottom: '1px solid #f0f0f0',
       }}
     />
   );
+};
+
+NavigationMenu.propTypes = {
+  currentView: PropTypes.string.isRequired,
+  onNavigate: PropTypes.func.isRequired,
 };
 
 export default NavigationMenu;

@@ -30,7 +30,7 @@ class ErrorBoundary extends React.Component {
       errorInfo: null,
     };
   }
- 
+
   componentDidCatch(error, errorInfo) {
     // Log error details for debugging
     console.error('ErrorBoundary caught an error:', error);
@@ -81,16 +81,10 @@ class ErrorBoundary extends React.Component {
             />
 
             <Space>
-              <Button
-                type="primary"
-                icon={<ReloadOutlined />}
-                onClick={this.handleReset}
-              >
+              <Button type="primary" icon={<ReloadOutlined />} onClick={this.handleReset}>
                 Tentar Novamente
               </Button>
-              <Button onClick={() => window.location.reload()}>
-                Recarregar Página
-              </Button>
+              <Button onClick={() => window.location.reload()}>Recarregar Página</Button>
             </Space>
 
             {/* Show error details in development mode */}
@@ -103,12 +97,14 @@ class ErrorBoundary extends React.Component {
                 <Space direction="vertical" size="small" style={{ width: '100%' }}>
                   <div>
                     <Text strong>Mensagem:</Text>
-                    <pre style={{
-                      background: '#f5f5f5',
-                      padding: '8px',
-                      borderRadius: '4px',
-                      overflow: 'auto'
-                    }}>
+                    <pre
+                      style={{
+                        background: '#f5f5f5',
+                        padding: '8px',
+                        borderRadius: '4px',
+                        overflow: 'auto',
+                      }}
+                    >
                       {this.state.error.toString()}
                     </pre>
                   </div>
@@ -116,13 +112,15 @@ class ErrorBoundary extends React.Component {
                   {this.state.errorInfo && (
                     <div>
                       <Text strong>Stack Trace:</Text>
-                      <pre style={{
-                        background: '#f5f5f5',
-                        padding: '8px',
-                        borderRadius: '4px',
-                        overflow: 'auto',
-                        maxHeight: '200px'
-                      }}>
+                      <pre
+                        style={{
+                          background: '#f5f5f5',
+                          padding: '8px',
+                          borderRadius: '4px',
+                          overflow: 'auto',
+                          maxHeight: '200px',
+                        }}
+                      >
                         {this.state.errorInfo.componentStack}
                       </pre>
                     </div>

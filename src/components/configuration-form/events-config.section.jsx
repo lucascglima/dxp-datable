@@ -16,24 +16,27 @@ const EventsConfigSection = ({ value = {}, onChange }) => {
    * Default events configuration
    * Memoized to prevent unnecessary object recreation
    */
-  const defaultEvents = useMemo(() => ({
-    onRowClick: {
-      enabled: false,
-      code: "console.log('Row clicked:', record);",
-    },
-    sorting: {
-      mode: 'server',
-      serverConfig: {
-        columnParam: '_columnSort',
-        orderParam: '_sort',
-        orderFormat: 'numeric',
-        orderValues: {
-          ascend: '1',
-          descend: '-1',
+  const defaultEvents = useMemo(
+    () => ({
+      onRowClick: {
+        enabled: false,
+        code: "console.log('Row clicked:', record);",
+      },
+      sorting: {
+        mode: 'server',
+        serverConfig: {
+          columnParam: '_columnSort',
+          orderParam: '_sort',
+          orderFormat: 'numeric',
+          orderValues: {
+            ascend: '1',
+            descend: '-1',
+          },
         },
       },
-    },
-  }), []);
+    }),
+    []
+  );
 
   const currentEvents = value || defaultEvents;
 
@@ -41,23 +44,29 @@ const EventsConfigSection = ({ value = {}, onChange }) => {
    * Handles row click event change
    * Memoized to prevent unnecessary re-renders
    */
-  const handleRowClickChange = useCallback((onRowClick) => {
-    onChange({
-      ...currentEvents,
-      onRowClick,
-    });
-  }, [currentEvents, onChange]);
+  const handleRowClickChange = useCallback(
+    (onRowClick) => {
+      onChange({
+        ...currentEvents,
+        onRowClick,
+      });
+    },
+    [currentEvents, onChange]
+  );
 
   /**
    * Handles sorting configuration change
    * Memoized to prevent unnecessary re-renders
    */
-  const handleSortingChange = useCallback((sorting) => {
-    onChange({
-      ...currentEvents,
-      sorting,
-    });
-  }, [currentEvents, onChange]);
+  const handleSortingChange = useCallback(
+    (sorting) => {
+      onChange({
+        ...currentEvents,
+        sorting,
+      });
+    },
+    [currentEvents, onChange]
+  );
 
   return (
     <Space direction="vertical" size="large" style={{ width: '100%' }}>

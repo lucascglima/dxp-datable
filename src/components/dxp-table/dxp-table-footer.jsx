@@ -86,7 +86,6 @@ const DxpTableFooter = ({
         showSizeChanger
         onChange={handlePaginationChange}
         onShowSizeChange={handlePaginationChange}
-
       />
     </Space>
   );
