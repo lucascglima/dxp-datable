@@ -23,6 +23,7 @@ import {
   Space,
   Alert,
   Typography,
+  Tooltip,
 } from 'antd';
 import {
   PlusOutlined,
@@ -172,37 +173,36 @@ const QueryParamsEditor = ({ value = [], onChange }) => {
       key: 'visual',
       label: 'Visual',
       children: (
-        <Space direction="vertical" size="middle" style={{ width: '100%' }}>
+        <Space direction="vertical"  style={{ width: '100%', gap: 16 }}>
           {params.map((param, index) => (
-            <Space key={index} style={{ width: '100%' }} align="start">
+            <Space key={index}  align="start" style={{gap: 12}}>
               <Input
                 placeholder="Chave (ex.: página)"
                 value={param.key}
                 onChange={(e) => handleParamChange(index, 'key', e.target.value)}
-                style={{ width: 150 }}
               />
               <Input
                 placeholder="Valor (ex.: 1)"
                 value={param.value}
                 onChange={(e) => handleParamChange(index, 'value', e.target.value)}
-                style={{ width: 200 }}
               />
-              <Button
-                type="text"
-                danger
+            <Tooltip title="Remover parâmetro">
+              <Button              
+                type="text"                
                 icon={<DeleteOutlined />}
                 onClick={() => handleRemoveParam(index)}
               />
+            </Tooltip>
             </Space>
           ))}
 
-          <Button
-            type="dashed"
+          <Button                  
+            variant="outlined"
             icon={<PlusOutlined />}
             onClick={handleAddParam}
             block
           >
-            Adicionar Parâmetro
+            Adicionar parâmetro para teste
           </Button>
         </Space>
       ),
@@ -217,7 +217,6 @@ const QueryParamsEditor = ({ value = [], onChange }) => {
             description="Formato: chave1=valor1&chave2=valor2. Sincroniza automaticamente com os formatos Visual e JSON."
             
           />
-
           <TextArea
             placeholder="page=1&pagesize=10&order=desc"
             value={queryStringInput}
@@ -225,7 +224,6 @@ const QueryParamsEditor = ({ value = [], onChange }) => {
             rows={6}
             style={{ fontFamily: 'monospace' }}
           />
-
           <Text type="secondary" style={{ fontSize: 12 }}>
             Caracteres especiais serão codificados em URL automaticamente ao serem enviados para a API.
           </Text>

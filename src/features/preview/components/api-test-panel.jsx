@@ -26,7 +26,7 @@ const ApiTestPanel = ({
         size="large"
         block
       >
-        {testing ? 'Testando Conexão...' : 'Testar Conexão com a API'}
+        {testing ? 'Testando Conexão...' : 'Testar conexão com a API'}
       </Button>
 
       {/* Warning when no endpoint */}

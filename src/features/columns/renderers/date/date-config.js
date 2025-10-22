@@ -9,7 +9,7 @@
  */
 export const DATE_RENDERER_META = {
   label: 'Data',
-  description: 'Formata datas ISO 8601 para formato legível',
+  description: 'formata datas ISO 8601',
 };
 
 /**

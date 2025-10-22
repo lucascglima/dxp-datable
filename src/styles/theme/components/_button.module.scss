@@ -42,6 +42,11 @@ $button-border-radius-lg: $border-radius-lg;
 // Button States - Estados do botão
 $button-disabled-opacity: 0.4;
 
+// Button Shadows - Sombras do botão
+$button-default-shadow: none;
+$button-primary-shadow: none;
+$button-danger-shadow: none;
+
 // ============================================
 // EXPORTAÇÃO PARA CSS CUSTOM PROPERTIES
 // ============================================
@@ -76,4 +81,9 @@ $button-disabled-opacity: 0.4;
   buttonBorderRadius: $button-border-radius;
   buttonBorderRadiusSM: $button-border-radius-sm;
   buttonBorderRadiusLG: $button-border-radius-lg;
+
+  // Shadows
+  buttonDefaultShadow: $button-default-shadow;
+  buttonPrimaryShadow: $button-primary-shadow;
+  buttonDangerShadow: $button-danger-shadow;
 }

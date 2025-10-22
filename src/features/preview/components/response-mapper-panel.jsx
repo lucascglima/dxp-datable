@@ -20,10 +20,10 @@ const ResponseMapperPanel = ({
   onTotalPathChange,
 }) => {
   return (
-    <Card title="Mapeamento da Resposta da API" size="small">
+    <Card title="Mapeamento da resposta da API" size="small">
       <Space direction="vertical" size="middle" style={{ width: '100%' }}>
         <Checkbox checked={enableMapping} onChange={(e) => onToggleMapping(e.target.checked)}>
-          Ativar mapeamento personalizado da resposta
+          Ativar mapeamento da resposta
         </Checkbox>
 
         {!enableMapping && (
@@ -35,13 +35,14 @@ const ResponseMapperPanel = ({
 
         {enableMapping && (
           <>
+        <Space direction="vertical" size="middle" style={{ width: '50%' }}>
             <div>
-              <Text strong>Local dos itens na resposta (obrigatório)</Text>
+              <Text strong>Local da lista de itens na resposta:</Text>
               <Input
                 placeholder='Exemplo: data.items ou results'
                 value={dataPath}
                 onChange={(e) => onDataPathChange(e.target.value)}
-                style={{ marginTop: 4 }}
+                style={{ marginTop: 4  }}
               />
               <Text type="secondary" style={{ fontSize: 12 }}>
                 Informe o caminho onde estão os dados da listagem.
@@ -49,7 +50,7 @@ const ResponseMapperPanel = ({
             </div>
 
             <div>
-              <Text strong>Local do total de registros (opcional)</Text>
+              <Text strong>Local do total de registros na resposta:</Text>
               <Input
                 placeholder='Exemplo: data.pagination.total ou total — deixe em branco se não houver'
                 value={totalPath}
@@ -57,9 +58,10 @@ const ResponseMapperPanel = ({
                 style={{ marginTop: 4 }}
               />
               <Text type="secondary" style={{ fontSize: 12 }}>
-                Use se a API informar a quantidade total de registros.
+                Use se a API informar a quantidade total de registros se houver.
               </Text>
             </div>
+            </Space>
 
             {mappingValidation && (
               <Space direction="vertical" size="small" style={{ width: '100%' }}>

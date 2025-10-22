@@ -28,7 +28,7 @@ const ColumnSuggestionsPanel = ({ parsedStructure, onApplySuggestions, fullRespo
           items={[
             {
               key: 'fields',
-              label: 'Campos Disponíveis',
+              label: 'Campos encontrados',
               children: (
                 <Space direction="vertical" style={{ width: '100%' }}>
                   {parsedStructure.fields.map((field) => (
@@ -69,7 +69,7 @@ const ColumnSuggestionsPanel = ({ parsedStructure, onApplySuggestions, fullRespo
             },
             fullResponse && {
               key: 'fullResponse',
-              label: 'Resposta Completa',
+              label: 'Resposta completa',
               children: (
                 <pre
                   style={{
@@ -90,13 +90,13 @@ const ColumnSuggestionsPanel = ({ parsedStructure, onApplySuggestions, fullRespo
         {parsedStructure.suggestedColumns && parsedStructure.suggestedColumns.length > 0 && (
           <>
             <Alert
-              message="Sugestões de Colunas encontradas"
+              message="Sugestões de colunas encontradas"
               description={`Identificamos ${parsedStructure.suggestedColumns.length} campos que podem ser usados como colunas da tabela. Clique abaixo para aplicá-los automaticamente.`}
               type="info"              
             />
 
             <Button type="primary" onClick={onApplySuggestions} block>
-              Aplicar Colunas Sugeridas ({parsedStructure.suggestedColumns.length})
+              Aplicar colunas sugeridas ({parsedStructure.suggestedColumns.length})
             </Button>
 
             <Paragraph type="secondary" style={{ fontSize: '12px', marginTop: 8 }}>

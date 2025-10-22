@@ -79,7 +79,7 @@ const SortingConfigSection = ({ value, onChange }) => {
       title={
         <Space>
           <SortAscendingOutlined />
-          <Text strong>Ordenação de Colunas</Text>
+          <Text strong>Ordenação de colunas</Text>
         </Space>
       }
     >
@@ -104,14 +104,14 @@ const SortingConfigSection = ({ value, onChange }) => {
         {currentValue.mode === 'server' && (
           <>
             <Alert
-              message="Ordenação do Lado do Servidor"
-              description="Os parâmetros de ordenação serão enviados para sua API como parâmetros de consulta. Seu backend deve lidar com esses parâmetros e retornar dados ordenados."
+              message="Ordenação no Servidor"
+              description="Os parâmetros de ordenação serão enviados na URL da requisição."
               type="info"              
             />
 
             <Form.Item
-              label="Nome do Parâmetro da Coluna"
-              help="O nome do parâmetro de consulta para a coluna a ser ordenada (ex.: 'sortBy', '_columnSort')"
+              label="Parâmetro da Coluna"
+              help="Nome do parâmetro que indica qual coluna será usada na ordenação (ex.: 'sortBy', '_columnSort')."    
             >
               <Input
                 value={currentValue.serverConfig.columnParam}
@@ -121,8 +121,8 @@ const SortingConfigSection = ({ value, onChange }) => {
             </Form.Item>
 
             <Form.Item
-              label="Nome do Parâmetro de Ordem"
-              help="O nome do parâmetro de consulta para a ordem de ordenação (ex.: 'order', '_sort')"
+              label="Parâmetro da Ordem"
+              help="Nome do parâmetro que define a direção da ordenação (ex.: 'order', '_sort')."
             >
               <Input
                 value={currentValue.serverConfig.orderParam}
@@ -132,8 +132,8 @@ const SortingConfigSection = ({ value, onChange }) => {
             </Form.Item>
 
             <Form.Item
-              label="Formato do Valor da Ordem"
-              help="Como a direção da ordenação deve ser representada na consulta"
+              label="Formato da Ordenação"
+              help="Escolha como a direção da ordenação será enviada para a API."
             >
               <Select
                 value={currentValue.serverConfig.orderFormat}
@@ -153,7 +153,7 @@ const SortingConfigSection = ({ value, onChange }) => {
             </Form.Item>
 
             <Alert
-              message="Exemplo de Consulta"
+              message="Exemplo de consulta"
               description={
                 <div>
                   <Text code>

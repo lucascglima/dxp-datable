@@ -68,7 +68,7 @@ const DynamicParamsConfigSection = ({ value = {}, onChange }) => {
   /**
    * Loads example configuration
    */
-  const handleLoadExample = () => {
+  const handleLoadExample = () => { 
     onChange({
       ...currentConfig,
       searchInput: {
@@ -83,10 +83,9 @@ const DynamicParamsConfigSection = ({ value = {}, onChange }) => {
   return (
     <Space direction="vertical" size="large" style={{ width: '100%' }}>
       <Alert
-        message="Configuração de Parâmetros Dinâmicos"
+        message="Filtros, parâmetros externos dinâmicos"
         description="Configure parâmetros dinâmicos de busca e filtros que aparecem acima da tabela. Esses parâmetros permitem que os usuários filtrem os dados em tempo real."
-        type="info"   
-  
+        type="info"
       />
 
       {/* Search Input Parameter Section */}
@@ -94,7 +93,7 @@ const DynamicParamsConfigSection = ({ value = {}, onChange }) => {
         title={
           <Space>
             <SearchOutlined />
-            <Text strong>Campo de Busca</Text>
+            <Text strong>Campo de busca</Text>
           </Space>
         }
         extra={
@@ -108,15 +107,14 @@ const DynamicParamsConfigSection = ({ value = {}, onChange }) => {
       >
         <Space direction="vertical" size="middle" style={{ width: '100%' }}>
           <Paragraph type="secondary" style={{ marginBottom: 0 }}>
-            Adicione um campo de busca acima da tabela. O valor digitado será enviado à sua API como um parâmetro de consulta após o usuário parar de digitar (1 segundo de atraso).
+          Adicione um campo de busca acima da tabela. O texto digitado será enviado para a API como parâmetro de consulta.
           </Paragraph>
 
           {currentConfig.searchInput?.enabled && (
             <>
               <Form.Item
-                label="Nome do Parâmetro de Consulta*"
-                help="Nome do parâmetro que será enviado à API (ex: 'search', 'q', 'filter')"
-                
+                label="Parâmetro de buscar*"
+                help="Nome da chave do parâmetro que será enviado à API (ex: 'search', 'q', 'filter')"
               >
                 <Input
                   value={currentConfig.searchInput?.queryParamName || ''}
@@ -175,10 +173,10 @@ const DynamicParamsConfigSection = ({ value = {}, onChange }) => {
 
           {!currentConfig.searchInput?.enabled && (
             <Alert
-              message="Campo de busca desativado"
-              description="Ative o interruptor acima para configurar um campo de busca que aparecerá acima da tabela."
+              message="Busca desativada"
+              description="Ative para adicionar um campo de busca à tabela."
               type="warning"
-              showIcon
+              
             />
           )}
         </Space>

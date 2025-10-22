@@ -71,17 +71,15 @@ const ApiConfigSection = ({ value = {}, onChange }) => {
   };
 
   return (
-    <Space direction="vertical" size="large" style={{ width: '100%' }}>
+    <Space direction="vertical" size="large" style={{ width: '100%' , gap: 12}}>
       <Alert
         message="Configuração da API"
         description="Configure o endpoint da API de onde você deseja buscar os dados. Você pode usar qualquer API REST que retorne dados em JSON."
         type="info"
       />
 
-      <Form.Item
-        
-        label="URL do Endpoint da API*"
-      
+      <Form.Item        
+        label="URL do Endpoint da API*"      
         validateStatus={
           urlValidation
             ? urlValidation.valid
