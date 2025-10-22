@@ -1,124 +1,143 @@
 {
-    "apiEndpoint": "https://api.stackexchange.com/:version/users",
-    "authToken": "",
-    "columns": [
-        {
-            "id": "col_1760968664571_0",
-            "key": "account_id",
-            "title": "Account id",
-            "dataIndex": "account_id",
-            "sortable": true,
-            "clickable": false
-        },
-        {
-            "id": "col_1760968664571_1",
-            "key": "is_employee",
-            "title": "Is employee",
-            "dataIndex": "is_employee",
-            "sortable": true,
-            "clickable": false
-        },
-        {
-            "id": "col_1760968664571_2",
-            "key": "last_modified_date",
-            "title": "Last modified date",
-            "dataIndex": "last_modified_date",
-            "sortable": true,
-            "clickable": false
-        },
-        {
-            "id": "col_1760968664571_3",
-            "key": "last_access_date",
-            "title": "Last access date",
-            "dataIndex": "last_access_date",
-            "sortable": true,
-            "clickable": false
-        },
-        {
-            "id": "col_1760968664571_6",
-            "key": "reputation",
-            "title": "Reputation",
-            "dataIndex": "reputation",
-            "sortable": true,
-            "clickable": false
-        },
-        {
-            "id": "col_1760968664571_14",
-            "key": "link",
-            "title": "Link",
-            "dataIndex": "link",
-            "sortable": true,
-            "clickable": false
-        },
-        {
-            "id": "col_1760968664571_16",
-            "key": "display_name",
-            "title": "Display name",
-            "dataIndex": "display_name",
-            "sortable": true,
-            "clickable": false
-        }
-    ],
-    "pagination": {
-        "pageSize": 20,
-        "showPagination": true,
-        "mode": "api",
-        "apiParamNames": {
-            "page": "page",
-            "pageSize": "pageSize"
-        }
-    },
-    "events": {
-        "onRowClick": {
-            "enabled": true,
-            "code": "const userId = record.user_id\nconst url = `https://api.stackexchange.com/2.3/users/${userId }?key=U4DMV*8nvpm3EOpvf69Rxw((&site=stackoverflow&page=1&pagesize=20&order=desc&sort=reputation&filter=default`;\n\nfetch(url)\n  .then(response => {\n    if (!response.ok) {\n      throw new Error(`HTTP error! status: ${response.status}`);\n    }\n    return response.json();\n  })\n  .then(data => {\n    console.log(\"Resposta da API:\", data);\n    // Você pode extrair os campos que quiser, por exemplo:\n    if (data.items && data.items.length > 0) {\n      const user = data.items[0];\n      console.log(\"Usuário:\", user.display_name);\n      console.log(\"Reputação:\", user.reputation);\n      console.log(\"Perfil:\", user.link);\n    } else {\n      console.log(\"Nenhum usuário encontrado.\");\n    }\n  })\n  .catch(err => {\n    console.error(\"Erro ao fazer requisição:\", err);\n  });\n"
-        },
-        "sorting": {
-            "mode": "client",
-            "serverConfig": {
-                "columnParam": "sort",
-                "orderParam": "order",
-                "orderFormat": "asc-desc",
-                "orderValues": {
-                    "ascend": "asc",
-                    "descend": "desc"
-                }
-            }
-        }
-    },
-    "createdAt": "2025-10-20T14:18:18.328Z",
-    "updatedAt": "2025-10-20T14:18:18.328Z",
-    "urlParams": [
-        {
-            "key": "version",
-            "value": "2.3"
-        }
-    ],
-    "defaultQueryParams": [
-        {
-            "key": "site",
-            "value": "stackoverflow",
-            "enabled": true
-        },
-        {
-            "key": "inname",
-            "value": "javascript",
-            "enabled": true
-        },
-        {
-            "key": "filter",
-            "value": "default",
-            "enabled": true
-        },
-        {
-            "key": "max",
-            "value": "300",
-            "enabled": true
-        }
-    ],
-    "responseDataPath": {
-        "dataKey": "items",
-        "totalKey": "quota_max",
-        "totalSource": "body"
+  "apiEndpoint": "https://api.stackexchange.com/:version/users",
+  "authToken": "",
+  "urlParams": [
+    {
+      "key": "version",
+      "value": "2.3"
     }
+  ],
+  "defaultQueryParams": [
+    {
+      "key": "site",
+      "value": "stackoverflow",
+      "enabled": true
+    },
+    {
+      "key": "inname",
+      "value": "javascript",
+      "enabled": true
+    },
+    {
+      "key": "filter",
+      "value": "default",
+      "enabled": true
+    },
+    {
+      "key": "max",
+      "value": "300",
+      "enabled": true
+    }
+  ],
+  "testQueryParams": [],
+  "columns": [
+    {
+      "id": "col_1760968664571_0",
+      "key": "account_id",
+      "title": "Account id",
+      "dataIndex": "account_id",
+      "sortable": true,
+      "clickable": false
+    },
+    {
+      "id": "col_1760968664571_1",
+      "key": "is_employee",
+      "title": "Is employee",
+      "dataIndex": "is_employee",
+      "sortable": true,
+      "clickable": false,
+      "render": {
+        "type": "boolean",
+        "config": {
+          "trueText": "Sim",
+          "falseText": "Não",
+          "showAsTag": false,
+          "trueColor": "green",
+          "falseColor": "red"
+        }
+      }
+    },
+    {
+      "id": "col_1760968664571_2",
+      "key": "last_modified_date",
+      "title": "Last modified date",
+      "dataIndex": "last_modified_date",
+      "sortable": true,
+      "clickable": false
+    },
+    {
+      "id": "col_1760968664571_3",
+      "key": "last_access_date",
+      "title": "Last access date",
+      "dataIndex": "last_access_date",
+      "sortable": true,
+      "clickable": false
+    },
+    {
+      "id": "col_1760968664571_6",
+      "key": "reputation",
+      "title": "Reputation",
+      "dataIndex": "reputation",
+      "sortable": true,
+      "clickable": false
+    },
+    {
+      "id": "col_1760968664571_14",
+      "key": "link",
+      "title": "Link",
+      "dataIndex": "link",
+      "sortable": true,
+      "clickable": false
+    },
+    {
+      "id": "col_1760968664571_16",
+      "key": "display_name",
+      "title": "Display name",
+      "dataIndex": "display_name",
+      "sortable": true,
+      "clickable": false
+    }
+  ],
+  "pagination": {
+    "pageSize": 20,
+    "showPagination": true,
+    "mode": "api",
+    "apiParamNames": {
+      "page": "page",
+      "pageSize": "pageSize"
+    }
+  },
+  "responseDataPath": {
+    "dataKey": "items",
+    "totalKey": "quota_max",
+    "totalSource": "body"
+  },
+  "events": {
+    "onRowClick": {
+      "enabled": true,
+      "code": "const userId = record.user_id\nconst url = `https://api.stackexchange.com/2.3/users/${userId }?key=U4DMV*8nvpm3EOpvf69Rxw((&site=stackoverflow&page=1&pagesize=20&order=desc&sort=reputation&filter=default`;\n\nfetch(url)\n  .then(response => {\n    if (!response.ok) {\n      throw new Error(`HTTP error! status: ${response.status}`);\n    }\n    return response.json();\n  })\n  .then(data => {\n    console.log(\"Resposta da API:\", data);\n    // Você pode extrair os campos que quiser, por exemplo:\n    if (data.items && data.items.length > 0) {\n      const user = data.items[0];\n      console.log(\"Usuário:\", user.display_name);\n      console.log(\"Reputação:\", user.reputation);\n      console.log(\"Perfil:\", user.link);\n    } else {\n      console.log(\"Nenhum usuário encontrado.\");\n    }\n  })\n  .catch(err => {\n    console.error(\"Erro ao fazer requisição:\", err);\n  });\n"
+    },
+    "sorting": {
+      "mode": "client",
+      "serverConfig": {
+        "columnParam": "sort",
+        "orderParam": "order",
+        "orderFormat": "asc-desc",
+        "orderValues": {
+          "ascend": "asc",
+          "descend": "desc"
+        }
+      }
+    }
+  },
+  "dynamicParams": {
+    "searchInput": {
+      "enabled": false,
+      "queryParamName": "search",
+      "placeholder": "Search...",
+      "currentValue": ""
+    }
+  },
+  "createdAt": "2025-10-22T13:11:56.485Z",
+  "updatedAt": "2025-10-22T13:11:56.485Z"
 }

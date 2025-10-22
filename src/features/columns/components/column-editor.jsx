@@ -7,7 +7,7 @@
 
 import { Card, Form, Input, InputNumber, Checkbox, Space, Button, Row, Col, Tooltip, Select, Alert, Divider } from 'antd';
 import { DeleteOutlined, InfoCircleOutlined, FormatPainterOutlined } from '@ant-design/icons';
-import { getAvailableRenderers, getRendererFields } from '../../../utils/column-renderers/index.jsx';
+import { getAvailableRenderers, getRendererFields } from '../renderers';
 import RenderConfigForm from './render-config-form';
 import { validateColumn } from '../../../core/validators/column-validator';
 
