@@ -75,14 +75,15 @@ const ApiConfigSection = ({ value = {}, onChange }) => {
     <Space direction="vertical" size="large" style={{ width: '100%' }}>
       <Alert
         message="Configuração da API"
-        description="Configure o endpoint da API externa de onde você deseja buscar os dados. Você pode usar qualquer API REST que retorne dados em JSON."
+        description="Configure o endpoint da API de onde você deseja buscar os dados. Você pode usar qualquer API REST que retorne dados em JSON."
         type="info"
-        showIcon
+       
       />
 
       <Form.Item
-        label="URL do Endpoint da API"
-        required
+        
+        label="URL do Endpoint da API*"
+      
         validateStatus={
           urlValidation
             ? urlValidation.valid
@@ -120,7 +121,7 @@ const ApiConfigSection = ({ value = {}, onChange }) => {
         )}
       </Form.Item>
 
-      <Divider orientation="left">Parâmetros de URL</Divider>
+      
 
       <UrlParamsEditor
         value={value.urlParams || []}
@@ -128,7 +129,7 @@ const ApiConfigSection = ({ value = {}, onChange }) => {
         currentUrl={value.apiEndpoint || ''}
       />
 
-      <Divider orientation="left">Parâmetros de Consulta (Query)</Divider>
+      
 
       <DefaultQueryParamsEditor
         value={value.defaultQueryParams || []}
@@ -138,27 +139,20 @@ const ApiConfigSection = ({ value = {}, onChange }) => {
       <Divider orientation="left">Autenticação</Divider>
 
       <Form.Item
+        layout="vertical"
         label="Token de Autenticação (Opcional)"
-        help="Deixe em branco se sua API não exigir autenticação. Inclua o prefixo 'Bearer' se necessário."
+        help="Deixe em branco se sua API não exigir autenticação. Use o formato Bearer para tokens JWT."
       >
-        <Input
+        <Input.Password
           type={showToken ? 'text' : 'password'}
           value={value.authToken}
           onChange={handleTokenChange}
-          placeholder="Bearer seu-token-aqui ou deixe em branco"
-          suffix={
-            <Button
-              type="text"
-              icon={showToken ? <EyeInvisibleOutlined /> : <EyeOutlined />}
-              onClick={() => setShowToken(!showToken)}
-            />
-          }
-          size="large"
+          placeholder="Bearer seu-token-aqui ou deixe em branco"          
         />
       </Form.Item>
 
-      <Form.Item label="Método da Requisição">
-        <Input value="GET" disabled size="large" />
+      <Form.Item layout="vertical" label="Método da Requisição">
+        <Input value="GET" disabled size="small" />
         <span style={{ fontSize: '12px', color: '#666' }}>
           Apenas requisições GET são suportadas nesta versão
         </span>

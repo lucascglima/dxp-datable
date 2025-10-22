@@ -85,9 +85,8 @@ const DynamicParamsConfigSection = ({ value = {}, onChange }) => {
       <Alert
         message="Configuração de Parâmetros Dinâmicos"
         description="Configure parâmetros dinâmicos de busca e filtros que aparecem acima da tabela. Esses parâmetros permitem que os usuários filtrem os dados em tempo real."
-        type="info"
-        showIcon
-        icon={<FilterOutlined />}
+        type="info"   
+  
       />
 
       {/* Search Input Parameter Section */}
@@ -115,9 +114,9 @@ const DynamicParamsConfigSection = ({ value = {}, onChange }) => {
           {currentConfig.searchInput?.enabled && (
             <>
               <Form.Item
-                label="Nome do Parâmetro de Consulta"
+                label="Nome do Parâmetro de Consulta*"
                 help="Nome do parâmetro que será enviado à API (ex: 'search', 'q', 'filter')"
-                required
+                
               >
                 <Input
                   value={currentConfig.searchInput?.queryParamName || ''}
@@ -164,7 +163,6 @@ const DynamicParamsConfigSection = ({ value = {}, onChange }) => {
                   </ul>
                 }
                 type="info"
-                showIcon
               />
 
               <div style={{ display: 'flex', gap: '8px' }}>

@@ -47,7 +47,6 @@ export const dateRendererFields = [
     type: 'select',
     placeholder: 'dd/MM/yyyy HH:mm',
     defaultValue: 'dd/MM/yyyy HH:mm',
-    required: true,
     options: commonDateFormats,
     allowCustom: true,
     helpText: 'Utilize os padrões de date-fns. Ex: dd/MM/yyyy HH:mm',

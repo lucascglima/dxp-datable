@@ -43,7 +43,7 @@ const ColumnSuggestionsPanel = ({ parsedStructure, onApplySuggestions, fullRespo
                           )}
                         </Space>
                         <Text type="secondary" style={{ fontSize: '12px' }}>
-                          Amostra: {JSON.stringify(field.sampleValue)}
+                          {JSON.stringify(field.sampleValue)}
                         </Text>
                       </Space>
                     </Card>
@@ -53,7 +53,7 @@ const ColumnSuggestionsPanel = ({ parsedStructure, onApplySuggestions, fullRespo
             },
             {
               key: 'json',
-              label: 'Dados de Amostra (JSON)',
+              label: 'Item retornado (JSON)',
               children: (
                 <pre
                   style={{
@@ -70,7 +70,7 @@ const ColumnSuggestionsPanel = ({ parsedStructure, onApplySuggestions, fullRespo
             },
             fullResponse && {
               key: 'fullResponse',
-              label: 'Resposta Completa (Bruta)',
+              label: 'Resposta Completa',
               children: (
                 <pre
                   style={{
@@ -91,10 +91,9 @@ const ColumnSuggestionsPanel = ({ parsedStructure, onApplySuggestions, fullRespo
         {parsedStructure.suggestedColumns && parsedStructure.suggestedColumns.length > 0 && (
           <>
             <Alert
-              message="Sugestões de Colunas Disponíveis"
-              description={`Encontramos ${parsedStructure.suggestedColumns.length} campos que funcionariam bem como colunas da tabela. Clique abaixo para configurá-los automaticamente.`}
-              type="success"
-              showIcon
+              message="Sugestões de Colunas encontradas"
+              description={`Identificamos ${parsedStructure.suggestedColumns.length} campos que podem ser usados como colunas da tabela. Clique abaixo para aplicá-los automaticamente.`}
+              type="info"              
             />
 
             <Button type="primary" onClick={onApplySuggestions} block>

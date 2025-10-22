@@ -10,10 +10,11 @@
  * - Bidirectional synchronization between all formats
  * - Auto-detection of input format
  * - URL encoding/decoding handling
- * - Real-time validation and preview
  */
 
-import { useState, useEffect } from 'react';
+/* global setTimeout, clearTimeout */
+
+import { useState, useEffect, useRef, useCallback } from 'react';
 import {
   Card,
   Tabs,
@@ -26,18 +27,11 @@ import {
 import {
   PlusOutlined,
   DeleteOutlined,
-  CheckCircleOutlined,
-  CloseCircleOutlined,
-  InfoCircleOutlined,
 } from '@ant-design/icons';
 import {
-  parseQueryString,
-  parseJSON,
   toQueryString,
   toJSON,
-  detectFormat,
   parseAny,
-  encodeParam,
 } from '../../utils/query-string-parser';
 
 const { TextArea } = Input;
@@ -48,52 +42,41 @@ const QueryParamsEditor = ({ value = [], onChange }) => {
   const [params, setParams] = useState(value);
   const [queryStringInput, setQueryStringInput] = useState('');
   const [jsonInput, setJsonInput] = useState('');
-  const [parsePreview, setParsePreview] = useState(null);
-  const [isUpdating, setIsUpdating] = useState(false);
+
+  // Track update source to prevent circular updates
+  const updateSourceRef = useRef(null);
+  const debounceTimerRef = useRef(null);
 
   /**
-   * Initialize from props
+   * Notifies parent of changes with source tracking
    */
-  useEffect(() => {
-    if (!isUpdating && value) {
-      setParams(value);
-      setQueryStringInput(toQueryString(value));
-      setJsonInput(toJSON(value));
-      updateParsePreview(value);
-    }
-  }, [value, isUpdating]);
-
-  /**
-   * Updates parse preview
-   */
-  const updateParsePreview = (currentParams) => {
-    if (!currentParams || currentParams.length === 0) {
-      setParsePreview(null);
-      return;
-    }
-
-    const hasSpecialChars = currentParams.some(p =>
-      p.value && /[*()&=?#+]/.test(p.value)
-    );
-
-    setParsePreview({
-      success: true,
-      count: currentParams.length,
-      params: currentParams,
-      hasSpecialChars,
-    });
-  };
-
-  /**
-   * Notifies parent of changes
-   */
-  const notifyChange = (newParams) => {
-    setIsUpdating(true);
+  const notifyChange = useCallback((newParams, source = 'visual') => {
+    updateSourceRef.current = source;
     if (onChange) {
       onChange(newParams);
     }
-    setTimeout(() => setIsUpdating(false), 0);
-  };
+  }, [onChange]);
+
+  /**
+   * Initialize from props only when coming from parent
+   */
+  useEffect(() => {
+    // Only update if the change came from parent (not from internal edits)
+    if (updateSourceRef.current === null || updateSourceRef.current === 'parent') {
+      setParams(value);
+      setQueryStringInput(toQueryString(value));
+      setJsonInput(toJSON(value));
+    }
+    // Reset source after processing
+    updateSourceRef.current = null;
+
+    // Cleanup debounce timer on unmount
+    return () => {
+      if (debounceTimerRef.current) {
+        clearTimeout(debounceTimerRef.current);
+      }
+    };
+  }, [value]);
 
   /**
    * Handles visual tab changes
@@ -104,7 +87,6 @@ const QueryParamsEditor = ({ value = [], onChange }) => {
     setParams(newParams);
     setQueryStringInput(toQueryString(newParams));
     setJsonInput(toJSON(newParams));
-    updateParsePreview(newParams);
     notifyChange(newParams);
   };
 
@@ -113,7 +95,6 @@ const QueryParamsEditor = ({ value = [], onChange }) => {
     setParams(newParams);
     setQueryStringInput(toQueryString(newParams));
     setJsonInput(toJSON(newParams));
-    updateParsePreview(newParams);
     notifyChange(newParams);
   };
 
@@ -122,67 +103,66 @@ const QueryParamsEditor = ({ value = [], onChange }) => {
     setParams(newParams);
     setQueryStringInput(toQueryString(newParams));
     setJsonInput(toJSON(newParams));
-    updateParsePreview(newParams);
     notifyChange(newParams);
   };
 
   /**
-   * Handles query string input changes
+   * Handles query string input changes with debouncing
    */
-  const handleQueryStringChange = (e) => {
+  const handleQueryStringChange = useCallback((e) => {
     const input = e.target.value;
     setQueryStringInput(input);
 
-    try {
-      const result = parseAny(input);
-
-      if (result.errors.length === 0) {
-        setParams(result.params);
-        setJsonInput(toJSON(result.params));
-        updateParsePreview(result.params);
-        notifyChange(result.params);
-      } else {
-        setParsePreview({
-          success: false,
-          errors: result.errors,
-        });
-      }
-    } catch (error) {
-      setParsePreview({
-        success: false,
-        errors: [error.message],
-      });
+    // Clear previous debounce timer
+    if (debounceTimerRef.current) {
+      clearTimeout(debounceTimerRef.current);
     }
-  };
+
+    // Debounce the parsing and notification
+    debounceTimerRef.current = setTimeout(() => {
+      try {
+        const result = parseAny(input);
+
+        if (result.errors.length === 0) {
+          updateSourceRef.current = 'queryString';
+          setParams(result.params);
+          setJsonInput(toJSON(result.params));
+          notifyChange(result.params, 'queryString');
+        }
+      } catch (error) {
+        // Silently ignore parsing errors during editing
+      }
+    }, 500); // 500ms debounce
+  }, [notifyChange]);
 
   /**
-   * Handles JSON input changes
+   * Handles JSON input changes with debouncing
    */
-  const handleJsonChange = (e) => {
+  const handleJsonChange = useCallback((e) => {
     const input = e.target.value;
     setJsonInput(input);
 
-    try {
-      const result = parseAny(input);
-
-      if (result.errors.length === 0) {
-        setParams(result.params);
-        setQueryStringInput(toQueryString(result.params));
-        updateParsePreview(result.params);
-        notifyChange(result.params);
-      } else {
-        setParsePreview({
-          success: false,
-          errors: result.errors,
-        });
-      }
-    } catch (error) {
-      setParsePreview({
-        success: false,
-        errors: [error.message],
-      });
+    // Clear previous debounce timer
+    if (debounceTimerRef.current) {
+      clearTimeout(debounceTimerRef.current);
     }
-  };
+
+    // Debounce the parsing and notification
+    debounceTimerRef.current = setTimeout(() => {
+      try {
+        const result = parseAny(input);
+
+        if (result.errors.length === 0) {
+          updateSourceRef.current = 'json';
+          setParams(result.params);
+          setQueryStringInput(toQueryString(result.params));
+          notifyChange(result.params, 'json');
+        }
+      } catch (error) {
+        // Silently ignore parsing errors during editing
+      }
+    }, 500); // 500ms debounce
+  }, [notifyChange]);
 
   /**
    * Tab items
@@ -193,14 +173,6 @@ const QueryParamsEditor = ({ value = [], onChange }) => {
       label: 'Visual',
       children: (
         <Space direction="vertical" size="middle" style={{ width: '100%' }}>
-          <Alert
-            message="Editor visual para parâmetros de consulta"
-            type="info"
-            showIcon
-            icon={<InfoCircleOutlined />}
-            style={{ marginBottom: 8 }}
-          />
-
           {params.map((param, index) => (
             <Space key={index} style={{ width: '100%' }} align="start">
               <Input
@@ -243,12 +215,11 @@ const QueryParamsEditor = ({ value = [], onChange }) => {
           <Alert
             message="Cole ou edite a query string"
             description="Formato: chave1=valor1&chave2=valor2. Sincroniza automaticamente com os formatos Visual e JSON."
-            type="info"
-            showIcon
+            
           />
 
           <TextArea
-            placeholder="key=U4DMV*8nvpm3EOpvf69Rxw((&site=stackoverflow&page=1&pagesize=10&order=desc"
+            placeholder="page=1&pagesize=10&order=desc"
             value={queryStringInput}
             onChange={handleQueryStringChange}
             rows={6}
@@ -290,76 +261,13 @@ const QueryParamsEditor = ({ value = [], onChange }) => {
   ];
 
   return (
-    <Card title="Parâmetros de Consulta de Teste" size="small">
+    <Card title="Parâmetros para requisição de teste" size="small">
       <Space direction="vertical" size="middle" style={{ width: '100%' }}>
         <Tabs
           activeKey={activeTab}
           onChange={setActiveTab}
           items={tabItems}
         />
-
-        {/* Parsing Preview */}
-        {parsePreview && (
-          <Card
-            title="Pré-visualização da Análise"
-            size="small"
-            type="inner"
-            style={{ backgroundColor: '#fafafa' }}
-          >
-            {parsePreview.success ? (
-              <Space direction="vertical" size="small" style={{ width: '100%' }}>
-                <Alert
-                  message={`Analisado com sucesso (${parsePreview.count} parâmetro${parsePreview.count !== 1 ? 's' : ''})`}
-                  type="success"
-                  showIcon
-                  icon={<CheckCircleOutlined />}
-                />
-
-                <div style={{ marginTop: 8 }}>
-                  {parsePreview.params.map((param, index) => (
-                    <div key={index} style={{ marginBottom: 4 }}>
-                      <Text strong>{param.key}</Text>
-                      <Text type="secondary">: </Text>
-                      <Text>{param.value || '(vazio)'}</Text>
-
-                      {param.value && /[*()&=?#+]/.test(param.value) && (
-                        <div style={{ marginLeft: 16, fontSize: 12 }}>
-                          <Text type="secondary">
-                            Codificado em URL: {encodeParam(param.value)}
-                          </Text>
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
-
-                {parsePreview.hasSpecialChars && (
-                  <Alert
-                    message="Caracteres especiais detectados"
-                    description="Valores com caracteres especiais (*()&=?#+) serão automaticamente codificados em URL ao serem enviados para a API."
-                    type="info"
-                    showIcon
-                    style={{ marginTop: 8 }}
-                  />
-                )}
-              </Space>
-            ) : (
-              <Space direction="vertical" size="small" style={{ width: '100%' }}>
-                <Alert
-                  message="Erros de análise"
-                  type="error"
-                  showIcon
-                  icon={<CloseCircleOutlined />}
-                />
-                <ul style={{ margin: 0, paddingLeft: 20, color: '#ff4d4f' }}>
-                  {parsePreview.errors.map((error, i) => (
-                    <li key={i}>{error}</li>
-                  ))}
-                </ul>
-              </Space>
-            )}
-          </Card>
-        )}
       </Space>
     </Card>
   );

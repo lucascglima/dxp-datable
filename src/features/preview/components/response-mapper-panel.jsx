@@ -1,8 +1,8 @@
 /**
  * Response Mapper Panel Component
  *
- * Handles response mapping configuration and validation display.
- * Extracted from preview-section.jsx.
+ * Permite configurar onde estão os dados e o total de registros
+ * dentro da resposta da API, usados pela tabela.
  */
 
 import { Card, Space, Checkbox, Input, Alert, Typography } from 'antd';
@@ -20,16 +20,15 @@ const ResponseMapperPanel = ({
   onTotalPathChange,
 }) => {
   return (
-    <Card title="Mapeamento de Resposta" size="small">
+    <Card title="Mapeamento da Resposta da API" size="small">
       <Space direction="vertical" size="middle" style={{ width: '100%' }}>
         <Checkbox checked={enableMapping} onChange={(e) => onToggleMapping(e.target.checked)}>
-          Habilitar Mapeamento de Resposta Personalizado
+          Ativar mapeamento personalizado da resposta
         </Checkbox>
 
         {!enableMapping && (
           <Alert
-            message="A resposta da API será tratada como um array direto de itens"
-            type="info"
+            message="Se o mapeamento estiver desativado, a tabela usará diretamente os dados retornados pela API."
             showIcon
           />
         )}
@@ -37,28 +36,28 @@ const ResponseMapperPanel = ({
         {enableMapping && (
           <>
             <div>
-              <Text strong>Caminho da Lista de Itens (obrigatório)</Text>
+              <Text strong>Local dos itens na resposta (obrigatório)</Text>
               <Input
-                placeholder='Caminho em notação dot, ex.: "data.items", "results"'
+                placeholder='Exemplo: data.items ou results'
                 value={dataPath}
                 onChange={(e) => onDataPathChange(e.target.value)}
                 style={{ marginTop: 4 }}
               />
               <Text type="secondary" style={{ fontSize: 12 }}>
-                Caminho em notação dot para o array de itens
+                Informe o caminho onde estão os dados da listagem.
               </Text>
             </div>
 
             <div>
-              <Text strong>Caminho da Contagem Total (opcional)</Text>
+              <Text strong>Local do total de registros (opcional)</Text>
               <Input
-                placeholder='ex.: "data.pagination.total", "total", deixe em branco se não estiver disponível'
+                placeholder='Exemplo: data.pagination.total ou total — deixe em branco se não houver'
                 value={totalPath}
                 onChange={(e) => onTotalPathChange(e.target.value)}
                 style={{ marginTop: 4 }}
               />
               <Text type="secondary" style={{ fontSize: 12 }}>
-                Deixe em branco se a API não retornar a contagem total
+                Use se a API informar a quantidade total de registros.
               </Text>
             </div>
 
@@ -66,7 +65,7 @@ const ResponseMapperPanel = ({
               <Space direction="vertical" size="small" style={{ width: '100%' }}>
                 {mappingValidation.itemsFound && (
                   <Alert
-                    message={`Encontrados ${mappingValidation.itemsCount} itens em "${dataPath}"`}
+                    message={`Foram encontrados ${mappingValidation.itemsCount} itens em "${dataPath}".`}
                     type="success"
                     showIcon
                     icon={<CheckCircleOutlined />}
@@ -75,7 +74,7 @@ const ResponseMapperPanel = ({
 
                 {mappingValidation.totalFound && (
                   <Alert
-                    message={`Total encontrado: ${mappingValidation.totalValue} em "${totalPath}"`}
+                    message={`Total identificado: ${mappingValidation.totalValue} em "${totalPath}".`}
                     type="success"
                     showIcon
                     icon={<CheckCircleOutlined />}
@@ -84,7 +83,7 @@ const ResponseMapperPanel = ({
 
                 {!mappingValidation.totalFound && totalPath && (
                   <Alert
-                    message="Contagem total não disponível (usando o tamanho dos itens)"
+                    message="A API não informou o total. Será usado o número de itens retornados."
                     type="info"
                     showIcon
                   />
@@ -92,7 +91,7 @@ const ResponseMapperPanel = ({
 
                 {mappingValidation.errors && mappingValidation.errors.length > 0 && (
                   <Alert
-                    message="Erros de Mapeamento"
+                    message="Erros encontrados no mapeamento da resposta"
                     description={
                       <ul style={{ margin: 0, paddingLeft: 20 }}>
                         {mappingValidation.errors.map((error, i) => (
@@ -107,7 +106,7 @@ const ResponseMapperPanel = ({
 
                 {mappingValidation.warnings && mappingValidation.warnings.length > 0 && (
                   <Alert
-                    message="Avisos"
+                    message="Avisos de mapeamento"
                     description={
                       <ul style={{ margin: 0, paddingLeft: 20 }}>
                         {mappingValidation.warnings.map((warning, i) => (

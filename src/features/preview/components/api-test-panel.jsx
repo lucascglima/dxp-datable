@@ -44,9 +44,8 @@ const ApiTestPanel = ({
         <Alert
           message={
             testResult.success ? (
-              <Space>
-                <CheckCircleOutlined />
-                Conexão Bem-sucedida
+              <Space>                
+                Conexão bem-sucedida
               </Space>
             ) : (
               <Space>

@@ -47,13 +47,13 @@ const ColumnEditor = ({ column, index, onUpdate, onRemove, onRenderTypeChange, o
             <Form.Item
               label={
                 <Space>
-                  Nome da Coluna
-                  <Tooltip title="Texto exibido no cabeçalho da tabela">
+                  Nome da Coluna*
+                  <Tooltip title="Texto exibido no título da coluna">
                     <InfoCircleOutlined style={{ color: '#1890ff' }} />
                   </Tooltip>
                 </Space>
               }
-              required
+              
               validateStatus={!column.title ? 'error' : 'success'}
             >
               <Input
@@ -68,13 +68,13 @@ const ColumnEditor = ({ column, index, onUpdate, onRemove, onRenderTypeChange, o
             <Form.Item
               label={
                 <Space>
-                  Campo de Dados
+                  Campo de Dados*
                   <Tooltip title="Nome exato da propriedade retornada pela sua API (case-sensitive)">
                     <InfoCircleOutlined style={{ color: '#1890ff' }} />
                   </Tooltip>
                 </Space>
               }
-              required
+              
               validateStatus={!column.dataIndex ? 'error' : 'success'}
             >
               <Input
@@ -85,22 +85,9 @@ const ColumnEditor = ({ column, index, onUpdate, onRemove, onRenderTypeChange, o
             </Form.Item>
           </Col>
         </Row>
-
+      
         <Row gutter={16}>
-          <Col span={8}>
-            <Form.Item label="Largura da Coluna (Opcional)">
-              <InputNumber
-                value={column.width}
-                onChange={(val) => onUpdate(index, 'width', val)}
-                placeholder="Automático"
-                min={50}
-                max={1000}
-                addonAfter="px"
-                style={{ width: '100%' }}
-              />
-            </Form.Item>
-          </Col>
-          <Col span={8}>
+          <Col span={12}>
             <Form.Item label=" " colon={false}>
               <Checkbox
                 checked={column.sortable}
@@ -110,7 +97,29 @@ const ColumnEditor = ({ column, index, onUpdate, onRemove, onRenderTypeChange, o
               </Checkbox>
             </Form.Item>
           </Col>
+
+          {column.sortable && (
+            <Col span={12}>
+              <Form.Item
+                label={
+                  <Space>
+                    Campo de Ordenação
+                    <Tooltip title="Nome do campo enviado para ordenação na API. Deixe vazio para usar o dataIndex">
+                      <InfoCircleOutlined style={{ color: '#1890ff' }} />
+                    </Tooltip>
+                  </Space>
+                }
+              >
+                <Input
+                  value={column.sortField}
+                  onChange={(e) => onUpdate(index, 'sortField', e.target.value)}
+                  placeholder={column.dataIndex || 'Usar dataIndex'}
+                />
+              </Form.Item>
+            </Col>
+          )}
         </Row>
+
 
         <Divider orientation="left">
           <Space>
@@ -151,20 +160,26 @@ const ColumnEditor = ({ column, index, onUpdate, onRemove, onRenderTypeChange, o
               </Select>
             </Form.Item>
           </Col>
+
+          <Col span={12}>
+            <Form.Item label="Largura (px)">
+              <InputNumber
+                value={column.width}
+                onChange={(val) => onUpdate(index, 'width', val)}
+                placeholder="Automático"
+                min={50}
+                max={1000}
+                addonAfter="px"
+                style={{ width: '100%' }}
+              />
+            </Form.Item>
+          </Col>
         </Row>
 
         {/* Render-specific configuration fields */}
         {column.render?.type && column.render.type !== 'default' && (
           <Card size="small" style={{ background: '#fafafa', marginBottom: 16 }}>
             <Space direction="vertical" size="middle" style={{ width: '100%' }}>
-              <Alert
-                message={`Configuração de ${
-                  getAvailableRenderers().find((r) => r.value === column.render.type)?.label
-                }`}
-                type="info"
-                showIcon
-                style={{ marginBottom: 8 }}
-              />
 
               <RenderConfigForm
                 renderType={column.render.type}
@@ -176,6 +191,7 @@ const ColumnEditor = ({ column, index, onUpdate, onRemove, onRenderTypeChange, o
           </Card>
         )}
 
+      
         {hasErrors && (
           <Alert
             message="Configuração da coluna incompleta"
