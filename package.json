@@ -10,6 +10,7 @@
     "lint": "eslint . --ext js,jsx"
   },
   "dependencies": {
+    "@monaco-editor/react": "^4.7.0",
     "antd": "^5.23.3",
     "axios": "^1.7.9",
     "date-fns": "^4.1.0",
