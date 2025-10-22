@@ -240,8 +240,7 @@ const QueryParamsEditor = ({ value = [], onChange }) => {
           <Alert
             message="Cole ou edite o array JSON"
             description='Formato: [{"key": "page", "value": "1"}]. Sincroniza automaticamente com os formatos Visual e Query String.'
-            type="info"
-            showIcon
+            type="info"            
           />
 
           <TextArea

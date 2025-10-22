@@ -7,12 +7,11 @@
 
 import React, { useState } from 'react';
 import { Form, Input, Button, Alert, Space, Divider } from 'antd';
-import { EyeInvisibleOutlined, EyeOutlined, LinkOutlined } from '@ant-design/icons';
+import { LinkOutlined } from '@ant-design/icons';
 import { validateUrl } from '../../utils/api-validator';
 import { UrlParamsEditor, DefaultQueryParamsEditor } from '../shared';
 
 const ApiConfigSection = ({ value = {}, onChange }) => {
-  const [showToken, setShowToken] = useState(false);
   const [urlValidation, setUrlValidation] = useState(null);
 
   const handleEndpointChange = (e) => {
@@ -77,7 +76,6 @@ const ApiConfigSection = ({ value = {}, onChange }) => {
         message="Configuração da API"
         description="Configure o endpoint da API de onde você deseja buscar os dados. Você pode usar qualquer API REST que retorne dados em JSON."
         type="info"
-       
       />
 
       <Form.Item
@@ -121,15 +119,11 @@ const ApiConfigSection = ({ value = {}, onChange }) => {
         )}
       </Form.Item>
 
-      
-
       <UrlParamsEditor
         value={value.urlParams || []}
         onChange={handleUrlParamsChange}
         currentUrl={value.apiEndpoint || ''}
       />
-
-      
 
       <DefaultQueryParamsEditor
         value={value.defaultQueryParams || []}
@@ -143,8 +137,7 @@ const ApiConfigSection = ({ value = {}, onChange }) => {
         label="Token de Autenticação (Opcional)"
         help="Deixe em branco se sua API não exigir autenticação. Use o formato Bearer para tokens JWT."
       >
-        <Input.Password
-          type={showToken ? 'text' : 'password'}
+        <Input.Password          
           value={value.authToken}
           onChange={handleTokenChange}
           placeholder="Bearer seu-token-aqui ou deixe em branco"          

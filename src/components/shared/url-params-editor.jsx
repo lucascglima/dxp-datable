@@ -26,7 +26,6 @@ import {
   DeleteOutlined,
   CheckCircleOutlined,
   WarningOutlined,
-  InfoCircleOutlined,
 } from '@ant-design/icons';
 import {
   extractUrlVariables,

@@ -20,28 +20,30 @@ const ColumnEditor = ({ column, index, onUpdate, onRemove, onRenderTypeChange, o
   return (
     <Card
       key={column.id || index}
-      size="small"
+      
       title={
-        <Space>
+        <Space
+        >
           <span>Coluna {index + 1}</span>
-          {column.title && <span style={{ fontWeight: 'normal' }}> - {column.title}</span>}
+          {column.title && <span style={{ fontWeight: 'normal' }}>: {column.title}</span>}
         </Space>
       }
       extra={
-        <Button
-          type="text"
-          danger
-          icon={<DeleteOutlined />}
-          onClick={() => onRemove(index)}
-        >
-          Remover
-        </Button>
+        <Tooltip title="Remover coluna">
+          <Button
+            type="primary"        
+            icon={<DeleteOutlined />}
+            onClick={() => onRemove(index)}
+          >            
+          </Button>
+        </Tooltip>
+            
       }
       style={{
         borderColor: hasErrors ? '#ff4d4f' : undefined,
       }}
     >
-      <Space direction="vertical" size="middle" style={{ width: '100%' }}>
+      <Space direction="vertical" style={{ width: '100%' }}>
         <Row gutter={16}>
           <Col span={12}>
             <Form.Item
@@ -49,7 +51,7 @@ const ColumnEditor = ({ column, index, onUpdate, onRemove, onRenderTypeChange, o
                 <Space>
                   Nome da Coluna*
                   <Tooltip title="Texto exibido no título da coluna">
-                    <InfoCircleOutlined style={{ color: '#1890ff' }} />
+                    <InfoCircleOutlined style={{ color: '#4B67A2' }} />
                   </Tooltip>
                 </Space>
               }
@@ -70,7 +72,7 @@ const ColumnEditor = ({ column, index, onUpdate, onRemove, onRenderTypeChange, o
                 <Space>
                   Campo de Dados*
                   <Tooltip title="Nome exato da propriedade retornada pela sua API (case-sensitive)">
-                    <InfoCircleOutlined style={{ color: '#1890ff' }} />
+                    <InfoCircleOutlined style={{ color: '#4B67A2' }} />
                   </Tooltip>
                 </Space>
               }
@@ -93,7 +95,7 @@ const ColumnEditor = ({ column, index, onUpdate, onRemove, onRenderTypeChange, o
                 checked={column.sortable}
                 onChange={(e) => onUpdate(index, 'sortable', e.target.checked)}
               >
-                Habilitar ordenação
+                Ativar ordenação
               </Checkbox>
             </Form.Item>
           </Col>
@@ -105,7 +107,7 @@ const ColumnEditor = ({ column, index, onUpdate, onRemove, onRenderTypeChange, o
                   <Space>
                     Campo de Ordenação
                     <Tooltip title="Nome do campo enviado para ordenação na API. Deixe vazio para usar o dataIndex">
-                      <InfoCircleOutlined style={{ color: '#1890ff' }} />
+                      <InfoCircleOutlined style={{ color: '#4B67A2' }} />
                     </Tooltip>
                   </Space>
                 }
@@ -124,7 +126,7 @@ const ColumnEditor = ({ column, index, onUpdate, onRemove, onRenderTypeChange, o
         <Divider orientation="left">
           <Space>
             <FormatPainterOutlined />
-            Customização de Renderização
+            Renderização customizada 
           </Space>
         </Divider>
 
@@ -133,9 +135,9 @@ const ColumnEditor = ({ column, index, onUpdate, onRemove, onRenderTypeChange, o
             <Form.Item
               label={
                 <Space>
-                  Tipo de Renderização
+                  Tipo
                   <Tooltip title="Escolha como os valores desta coluna serão exibidos">
-                    <InfoCircleOutlined style={{ color: '#1890ff' }} />
+                    <InfoCircleOutlined style={{ color: '#4B67A2' }} />
                   </Tooltip>
                 </Space>
               }

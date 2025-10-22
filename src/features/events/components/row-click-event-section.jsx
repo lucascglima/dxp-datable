@@ -130,8 +130,7 @@ alert('Name: ' + record.name + '\\nEmail: ' + record.email);
                   </li>
                 </ul>
               }
-              type="info"
-              showIcon
+              type="info"              
             />
 
             <div style={{ display: 'flex', gap: '8px' }}>

@@ -20,8 +20,7 @@ const ColumnSuggestionsPanel = ({ parsedStructure, onApplySuggestions, fullRespo
       <Space direction="vertical" size="middle" style={{ width: '100%' }}>
         <Alert
           message={`Encontrados ${parsedStructure.fields.length} campos na resposta da API`}
-          type="info"
-          showIcon
+          type="info"          
           icon={<InfoCircleOutlined />}
         />
 

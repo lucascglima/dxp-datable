@@ -136,6 +136,9 @@ export const componentTokens = {
     borderRadius: parseFloat(buttonTokens.buttonBorderRadius),
     borderRadiusSM: parseFloat(buttonTokens.buttonBorderRadiusSM),
     borderRadiusLG: parseFloat(buttonTokens.buttonBorderRadiusLG),
+
+    // Shadow
+    defaultShadow: 0,
   },
 
   Table: {

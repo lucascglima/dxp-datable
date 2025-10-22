@@ -7,7 +7,7 @@
 
 import { useState, useCallback } from 'react';
 import { Space, Alert, Button } from 'antd';
-import { ColumnHeightOutlined, ImportOutlined, ExportOutlined } from '@ant-design/icons';
+import { ImportOutlined, ExportOutlined } from '@ant-design/icons';
 import { getRendererDefaultConfig } from '../../features/columns/renderers';
 import ColumnList from '../../features/columns/components/column-list';
 import ColumnJsonModal from '../../features/columns/components/column-json-modal';

@@ -7,7 +7,7 @@
 
 import React from 'react';
 import { Form, Switch, Alert, Space, Typography, Input, Card, Divider } from 'antd';
-import { SearchOutlined, FilterOutlined, CalendarOutlined } from '@ant-design/icons';
+import { SearchOutlined, CalendarOutlined } from '@ant-design/icons';
 import { SearchInputParam } from '../dynamic-params';
 import { defaultDynamicParamsConfig } from '../dynamic-params/dynamic-params.types';
 

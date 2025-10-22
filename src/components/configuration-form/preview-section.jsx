@@ -5,7 +5,7 @@
  * Reduced from 645 lines to ~180 lines using composition.
  */
 
-import { useState, useCallback, useEffect  } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { Space, Alert } from 'antd';
 import { ApiOutlined } from '@ant-design/icons';
 import { parseResponseStructure } from '../../services/external-api';
@@ -131,8 +131,7 @@ const PreviewSection = ({
       <Alert
         message="Testar e Pré-visualizar"
         description="Configure parâmetros de teste, defina o mapeamento de resposta, se necessário, e pré-visualize a estrutura de dados da sua API."
-        type='info'
-        
+        type="info"
         icon={<ApiOutlined />}
       />
 

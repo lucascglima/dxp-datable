@@ -6,7 +6,7 @@
  */
 
 import { Form, Select, Checkbox, Alert, Space, Radio, Input, Divider } from 'antd';
-import { SettingOutlined, ApiOutlined, ThunderboltOutlined } from '@ant-design/icons';
+import { ApiOutlined, ThunderboltOutlined } from '@ant-design/icons';
 
 const { Option } = Select;
 
@@ -70,9 +70,7 @@ const PaginationConfigSection = ({ value = {}, onChange }) => {
       <Alert
         message="Configurações de Paginação"
         description="Configure o comportamento da paginação: desabilite-a, use paginação do lado do cliente ou envie parâmetros de paginação para sua API."
-        closable
-        style={{ backgroundColor: '#f0f5ff', border: '1px solid #4B67A2' }}
-        
+        type="info"
       />
 
       {/* Show Pagination Toggle */}
@@ -150,7 +148,7 @@ const PaginationConfigSection = ({ value = {}, onChange }) => {
                 message="Nomes de Parâmetros de API Personalizados"
                 description="Configure os nomes dos parâmetros de consulta que serão enviados para sua API para paginação."
                 type="info"
-                style={{marginBottom: 16}}  
+                style={{ marginBottom: 16 }}
               />
 
               <Form.Item
@@ -214,7 +212,7 @@ const PaginationConfigSection = ({ value = {}, onChange }) => {
         <Alert
           message="Tamanho de Página Grande"
           description="Exibir muitos itens por página pode afetar o desempenho da página."
-          style={{ backgroundColor: '#f0f5ff', border: '1px solid #4B67A2' }}
+          type="info"
           closable
           showIcon
         />

@@ -106,8 +106,7 @@ const SortingConfigSection = ({ value, onChange }) => {
             <Alert
               message="Ordenação do Lado do Servidor"
               description="Os parâmetros de ordenação serão enviados para sua API como parâmetros de consulta. Seu backend deve lidar com esses parâmetros e retornar dados ordenados."
-              type="info"
-              showIcon
+              type="info"              
             />
 
             <Form.Item
@@ -179,9 +178,8 @@ const SortingConfigSection = ({ value, onChange }) => {
         {currentValue.mode === 'client' && (
           <Alert
             message="Ordenação do Lado do Cliente"
-            description="Os dados serão ordenados diretamente no navegador. Isso funciona bem para pequenos conjuntos de dados, mas pode ser lento para tabelas grandes. Nenhuma chamada de API é feita ao ordenar."
+            description="Os dados serão ordenados diretamente no navegador. Isso funciona bem para pequenos conjuntos de dados, mas pode ser lento para tabelas grandes. Nenhuma chamada de API é feita ao ordenar."            
             type="info"
-            showIcon
           />
         )}
 

@@ -18,8 +18,7 @@ import {
   Space,
   Alert,
   Typography,
-  Checkbox,
-
+  Checkbox
 } from 'antd';
 import {
   PlusOutlined,
