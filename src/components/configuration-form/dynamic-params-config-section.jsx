@@ -115,9 +115,9 @@ const DynamicParamsConfigSection = ({ value = {}, onChange }) => {
           {currentConfig.searchInput?.enabled && (
             <>
               <Form.Item
-                label="Nome do Parâmetro de Consulta"
+                label="Nome do Parâmetro de Consulta*"
                 help="Nome do parâmetro que será enviado à API (ex: 'search', 'q', 'filter')"
-                required
+                
               >
                 <Input
                   value={currentConfig.searchInput?.queryParamName || ''}

@@ -92,7 +92,9 @@ export const fetchData = async (endpoint, token = '', pagination = {}, apiConfig
     if (sortInfo && sortInfo.columnKey && apiConfig.sortingConfig?.mode === 'server') {
       const { columnParam, orderParam, orderValues } = apiConfig.sortingConfig.serverConfig;
 
-      params[columnParam] = sortInfo.columnKey;
+      // Use sortField if available, otherwise fallback to columnKey
+      const sortFieldToUse = sortInfo.sortField || sortInfo.columnKey;
+      params[columnParam] = sortFieldToUse;
       params[orderParam] = orderValues[sortInfo.order] || orderValues.ascend;
     }
 
@@ -267,14 +269,32 @@ export const parseResponseStructure = (data, dataPath = '') => {
     // Generate suggested columns with IDs
     const suggestedColumns = fields
       .filter((f) => f.suggestAsColumn)
-      .map((f, index) => ({
-        id: `col_${Date.now()}_${index}`,
-        key: f.name,
-        title: f.name.charAt(0).toUpperCase() + f.name.slice(1).replace(/_/g, ' '),
-        dataIndex: f.name,
-        sortable: true,
-        clickable: false,
-      }));
+      .map((f, index) => {
+        const column = {
+          id: `col_${Date.now()}_${index}`,
+          key: f.name,
+          title: f.name.charAt(0).toUpperCase() + f.name.slice(1).replace(/_/g, ' '),
+          dataIndex: f.name,
+          sortable: false,
+          clickable: false,
+        };
+
+        // Apply boolean render config automatically for boolean fields
+        if (f.type === 'boolean') {
+          column.render = {
+            type: 'boolean',
+            config: {
+              trueText: 'Sim',
+              falseText: 'Não',
+              showAsTag: false,
+              trueColor: 'green',
+              falseColor: 'red',
+            },
+          };
+        }
+
+        return column;
+      });
 
     return {
       fields,

@@ -100,14 +100,21 @@ const DxpTableHeader = ({ columns, onSort = () => {}, sortingConfig }) => {
    */
   const handleSortChange = (pagination, filters, sorter) => {
     if (sorter && sorter.column) {
+      // Find the original column config to get sortField
+      const originalColumn = columns.find(
+        (col) => col.key === (sorter.columnKey || sorter.field)
+      );
+
       onSort({
         columnKey: sorter.columnKey || sorter.field,
+        sortField: originalColumn?.sortField,
         order: sorter.order || null,
       });
     } else {
       // Sort was cleared
       onSort({
         columnKey: null,
+        sortField: null,
         order: null,
       });
     }

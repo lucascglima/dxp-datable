@@ -35,7 +35,6 @@ export const FIELD_TYPES = {
  * @property {string} label - Display label for UI
  * @property {FIELD_TYPES} type - Field input type
  * @property {any} [defaultValue] - Default value
- * @property {boolean} [required] - Whether field is required
  * @property {string} [placeholder] - Placeholder text
  * @property {string} [helpText] - Help text for user
  * @property {Array<{value: any, label: string}>} [options] - Options for select type

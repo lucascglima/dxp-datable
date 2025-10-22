@@ -80,10 +80,10 @@ const DefaultQueryParamsEditor = ({ value = [], onChange }) => {
 
 
   return (
-    <Card title="Parâmetros de Consulta Padrão" size="small">
+    <Card title="Parâmetros de consulta (Query)" size="small">
       <Space direction="vertical" size="middle" style={{ width: '100%' }}>
         <Alert
-          message="Parâmetros de consulta padrão para todas as requisições"
+          message="Parâmetros de consultas estáticas (Query)"
           description="Esses parâmetros serão enviados com todas as requisições da API (tanto para os dados da tabela quanto para os testes). Use a caixa de seleção para ativar/desativar cada parâmetro."
           type="info"
           showIcon

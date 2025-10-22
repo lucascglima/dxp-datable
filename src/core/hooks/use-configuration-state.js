@@ -5,7 +5,7 @@
  * Extracted from configuration-page.jsx to follow clean architecture.
  */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { App } from 'antd';
 import {
   saveConfiguration,
@@ -22,6 +22,7 @@ export const useConfigurationState = () => {
   const { message } = App.useApp();
   const [config, setConfig] = useState(createConfiguration());
   const [isInitialLoad, setIsInitialLoad] = useState(true);
+  const hasShownLoadMessage = useRef(false);
 
   /**
    * Load existing configuration on mount
@@ -31,7 +32,12 @@ export const useConfigurationState = () => {
     if (existing) {
       const configWithDefaults = createConfiguration(existing);
       setConfig(configWithDefaults);
-      message.info('Configuração existente carregada');
+
+      // Only show message once, even with StrictMode double-render
+      if (!hasShownLoadMessage.current) {
+        message.info('Configuração existente carregada');
+        hasShownLoadMessage.current = true;
+      }
     }
     setIsInitialLoad(false);
   }, []);

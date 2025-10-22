@@ -6,7 +6,7 @@
  */
 
 import { useState, useCallback } from 'react';
-import { Space, Alert, App } from 'antd';
+import { Space, Alert } from 'antd';
 import { ApiOutlined } from '@ant-design/icons';
 import { parseResponseStructure } from '../../services/external-api';
 import { QueryParamsEditor } from '../shared';
@@ -28,7 +28,6 @@ const PreviewSection = ({
   urlParams = [],
   responseDataPath = null,
 }) => {
-  const { message } = App.useApp();
   const [parsedStructure, setParsedStructure] = useState(null);
 
   // Query parameters for testing
@@ -112,9 +111,8 @@ const PreviewSection = ({
   const handleApplySuggestions = useCallback(() => {
     if (parsedStructure?.suggestedColumns) {
       onSuggestColumns(parsedStructure.suggestedColumns);
-      message.success(`Aplicadas ${parsedStructure.suggestedColumns.length} colunas sugeridas`);
     }
-  }, [parsedStructure, onSuggestColumns, message]);
+  }, [parsedStructure, onSuggestColumns]);
 
   return (
     <Space direction="vertical" size="large" style={{ width: '100%' }}>

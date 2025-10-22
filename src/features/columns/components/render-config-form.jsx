@@ -25,8 +25,7 @@ const RenderConfigForm = ({ renderType, config, fields, onConfigChange }) => {
         return (
           <Form.Item
             key={field.name}
-            label={field.label}
-            required={field.required}
+            label={field.label}        
             help={field.helpText}
           >
             <Input
@@ -53,8 +52,7 @@ const RenderConfigForm = ({ renderType, config, fields, onConfigChange }) => {
         return (
           <Form.Item
             key={field.name}
-            label={field.label}
-            required={field.required}
+            label={field.label}          
             help={field.helpText}
           >
             <Select

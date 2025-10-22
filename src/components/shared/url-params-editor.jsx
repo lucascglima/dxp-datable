@@ -190,8 +190,8 @@ const UrlParamsEditor = ({ value = [], onChange, currentUrl = '' }) => {
                     status={isEmpty ? 'error' : undefined}
                   />
                   {!isUsed && param.key && (
-                    <Tag color="orange" icon={<WarningOutlined />}>
-                      Não usado na URL
+                    <Tag style={{padding: 8}} color="orange" icon={<WarningOutlined />}>
+                      Não utilizado na URL
                     </Tag>
                   )}
                   <Button
@@ -216,7 +216,7 @@ const UrlParamsEditor = ({ value = [], onChange, currentUrl = '' }) => {
         </Button>
 
         {/* Validation messages */}
-        {validation && (
+        {validation.errors.length ==  0 && validation.warnings.length == 0 && (
           <Space direction="vertical" size="small" style={{ width: '100%' }}>
             {validation.valid && (
               <Alert
@@ -309,7 +309,7 @@ const UrlParamsEditor = ({ value = [], onChange, currentUrl = '' }) => {
 
               {urlPreview.missing.length > 0 && (
                 <Alert
-                  message={`Valores ausentes para: ${urlPreview.missing.map(m => `:${m}`).join(', ')}`}
+                  message={`Valores não cadastrados: ${urlPreview.missing.map(m => `:${m}`).join(', ')}`}
                   type="warning"
                   showIcon
                   style={{ marginTop: 8 }}

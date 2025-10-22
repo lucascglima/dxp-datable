@@ -193,14 +193,6 @@ const QueryParamsEditor = ({ value = [], onChange }) => {
       label: 'Visual',
       children: (
         <Space direction="vertical" size="middle" style={{ width: '100%' }}>
-          <Alert
-            message="Editor visual para parâmetros de consulta"
-            type="info"
-            showIcon
-            icon={<InfoCircleOutlined />}
-            style={{ marginBottom: 8 }}
-          />
-
           {params.map((param, index) => (
             <Space key={index} style={{ width: '100%' }} align="start">
               <Input
@@ -290,7 +282,7 @@ const QueryParamsEditor = ({ value = [], onChange }) => {
   ];
 
   return (
-    <Card title="Parâmetros de Consulta de Teste" size="small">
+    <Card title="Parâmetros para consulta de Teste" size="small">
       <Space direction="vertical" size="middle" style={{ width: '100%' }}>
         <Tabs
           activeKey={activeTab}

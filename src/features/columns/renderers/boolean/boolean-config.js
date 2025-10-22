@@ -30,19 +30,17 @@ export const defaultBooleanConfig = {
 export const booleanRendererFields = [
   {
     name: 'trueText',
-    label: 'Texto para Verdadeiro',
+    label: 'Texto para Verdadeiro *',
     type: 'text',
     placeholder: 'Sim',
     defaultValue: 'Sim',
-    required: true,
   },
   {
     name: 'falseText',
-    label: 'Texto para Falso',
+    label: 'Texto para Falso *',
     type: 'text',
     placeholder: 'Não',
     defaultValue: 'Não',
-    required: true,
   },
   {
     name: 'showAsTag',

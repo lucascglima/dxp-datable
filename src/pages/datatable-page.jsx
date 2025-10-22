@@ -163,12 +163,12 @@ const DataTablePage = () => {
         }));
       }
 
-      console.log('✅ Data loaded successfully');
+      console.log('Data loaded successfully');
       console.log('Total items:', response.pagination?.total || response.data.length);
       console.log('Items in current view:', response.data.length);
     } catch (err) {
       setError(err.message || 'Falha ao carregar dados');
-      message.error('❌ ' + (err.message || 'Falha ao carregar dados'));
+      message.error((err.message || 'Falha ao carregar dados'));
     } finally {
       setLoading(false);
     }
@@ -436,16 +436,6 @@ const DataTablePage = () => {
               </Button>
             </Space>
           </div>
-
-          {/* Status Badge */}
-          {!loading && !error && data.length > 0 && (
-            <Alert
-              message={`✅ ${pagination.total} registros carregados com sucesso`}
-              type="success"
-              showIcon
-              closable
-            />
-          )}
 
           {/* Error Display */}
           {error && (

@@ -43,7 +43,7 @@ const ColumnSuggestionsPanel = ({ parsedStructure, onApplySuggestions, fullRespo
                           )}
                         </Space>
                         <Text type="secondary" style={{ fontSize: '12px' }}>
-                          Amostra: {JSON.stringify(field.sampleValue)}
+                          {JSON.stringify(field.sampleValue)}
                         </Text>
                       </Space>
                     </Card>
@@ -53,7 +53,7 @@ const ColumnSuggestionsPanel = ({ parsedStructure, onApplySuggestions, fullRespo
             },
             {
               key: 'json',
-              label: 'Dados de Amostra (JSON)',
+              label: 'Item retornado (JSON)',
               children: (
                 <pre
                   style={{
@@ -70,7 +70,7 @@ const ColumnSuggestionsPanel = ({ parsedStructure, onApplySuggestions, fullRespo
             },
             fullResponse && {
               key: 'fullResponse',
-              label: 'Resposta Completa (Bruta)',
+              label: 'Resposta Completa',
               children: (
                 <pre
                   style={{

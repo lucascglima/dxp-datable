@@ -79,7 +79,7 @@ const ConfigurationPage = () => {
     const success = configState.saveConfig();
 
     if (success) {
-      message.success('✅ Configuração salva com sucesso! Redirecionando...', 2);
+      message.success('Configuração salva com sucesso! Redirecionando...', 2);
       setTimeout(() => {
         navigate('/datatable');
       }, 1000);
