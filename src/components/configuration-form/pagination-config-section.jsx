@@ -75,10 +75,7 @@ const PaginationConfigSection = ({ value = {}, onChange }) => {
 
       {/* Show Pagination Toggle */}
       <Form.Item help="Desmarque para ocultar os controles de paginação e mostrar todos os itens em uma única página">
-        <Checkbox
-          checked={defaultPagination.showPagination}
-          onChange={handleShowPaginationChange}
-        >
+        <Checkbox checked={defaultPagination.showPagination} onChange={handleShowPaginationChange}>
           Mostrar controles de paginação
         </Checkbox>
       </Form.Item>
@@ -89,10 +86,7 @@ const PaginationConfigSection = ({ value = {}, onChange }) => {
           <Divider orientation="left">Modo de paginação</Divider>
 
           {/* Pagination Mode */}
-          <Form.Item
-            label="Modo de paginação"
-            help="Escolha como a paginação é tratada"
-          >
+          <Form.Item label="Modo de paginação" help="Escolha como a paginação é tratada">
             <Radio.Group
               value={defaultPagination.mode}
               onChange={handleModeChange}
@@ -180,7 +174,6 @@ const PaginationConfigSection = ({ value = {}, onChange }) => {
               <Alert
                 message={`Exemplo de chamada à API: ${defaultPagination.apiParamNames?.page || '_page'}=1&${defaultPagination.apiParamNames?.pageSize || '_page_size'}=${defaultPagination.pageSize}`}
                 type="info"
-              
               />
             </>
           )}
@@ -188,10 +181,9 @@ const PaginationConfigSection = ({ value = {}, onChange }) => {
           {/* Client-side mode info */}
           {defaultPagination.mode === 'client' && (
             <Alert
-              message="Paginação do lado do cliente ativa"            
+              message="Paginação do lado do cliente ativa"
               description="Todos os dados serão carregados da API de uma só vez. A troca de páginas será feita localmente, no navegador, para evitar novas requisições e melhorar o desempenho."
               type="success"
-              
             />
           )}
         </>
@@ -203,7 +195,6 @@ const PaginationConfigSection = ({ value = {}, onChange }) => {
           message="Paginação desativada"
           description="Todos os itens serão exibidos em uma única página, sem controles de navegação. A API será chamada apenas uma vez, retornando todos os registros disponíveis."
           type="warning"
-          
         />
       )}
     </Space>

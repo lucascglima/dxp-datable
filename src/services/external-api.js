@@ -32,9 +32,7 @@ const createExternalApiInstance = (token = '') => {
   };
 
   if (token && token.trim()) {
-    const authToken = token.trim().startsWith('Bearer ')
-      ? token.trim()
-      : `Bearer ${token.trim()}`;
+    const authToken = token.trim().startsWith('Bearer ') ? token.trim() : `Bearer ${token.trim()}`;
     config.headers.Authorization = authToken;
   }
 
@@ -51,7 +49,13 @@ const createExternalApiInstance = (token = '') => {
  * @param {Object} sortInfo - Sorting information (columnKey, order)
  * @returns {Promise<Object>} Response with data and pagination
  */
-export const fetchData = async (endpoint, token = '', pagination = {}, apiConfig = {}, sortInfo = null) => {
+export const fetchData = async (
+  endpoint,
+  token = '',
+  pagination = {},
+  apiConfig = {},
+  sortInfo = null
+) => {
   try {
     const api = createExternalApiInstance(token);
     const { page = 1, pageSize = 20, enablePagination = true } = pagination;
@@ -77,7 +81,7 @@ export const fetchData = async (endpoint, token = '', pagination = {}, apiConfig
     const params = {};
     if (apiConfig.defaultQueryParams && Array.isArray(apiConfig.defaultQueryParams)) {
       const defaultParams = toObject(
-        apiConfig.defaultQueryParams.filter(p => p.enabled !== false)
+        apiConfig.defaultQueryParams.filter((p) => p.enabled !== false)
       );
       Object.assign(params, defaultParams);
     }
@@ -101,7 +105,10 @@ export const fetchData = async (endpoint, token = '', pagination = {}, apiConfig
     // Add dynamic parameters (search input, date range, etc.)
     if (apiConfig.dynamicParams) {
       // Add search input parameter if enabled and has value
-      if (apiConfig.dynamicParams.searchInput?.enabled && apiConfig.dynamicParams.searchInput?.currentValue) {
+      if (
+        apiConfig.dynamicParams.searchInput?.enabled &&
+        apiConfig.dynamicParams.searchInput?.currentValue
+      ) {
         const { queryParamName, currentValue } = apiConfig.dynamicParams.searchInput;
         if (queryParamName && currentValue.trim()) {
           params[queryParamName] = currentValue.trim();
@@ -213,7 +220,8 @@ export const testConnection = async (endpoint, token = '', apiConfig = {}, testP
       success: true,
       status: response.status,
       sampleData: data,
-      message: 'A requisição foi concluída corretamente. Confira abaixo a sugestão de configuração das colunas.',
+      message:
+        'A requisição foi concluída corretamente. Confira abaixo a sugestão de configuração das colunas.',
       fullResponse: response.data, // Include full response for debugging
     };
   } catch (error) {
@@ -252,11 +260,7 @@ export const parseResponseStructure = (data, dataPath = '') => {
     // Extract field names and types
     const fields = Object.keys(sample).map((key) => {
       const value = sample[key];
-      const type = Array.isArray(value)
-        ? 'array'
-        : value === null
-        ? 'null'
-        : typeof value;
+      const type = Array.isArray(value) ? 'array' : value === null ? 'null' : typeof value;
 
       return {
         name: key,

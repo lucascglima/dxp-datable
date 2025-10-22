@@ -12,15 +12,7 @@
  */
 
 import { useState, useEffect } from 'react';
-import {
-  Card,
-  Input,
-  Button,
-  Space,
-  Alert,
-  Typography,
-  Tag,
-} from 'antd';
+import { Card, Input, Button, Space, Alert, Typography, Tag } from 'antd';
 import {
   PlusOutlined,
   DeleteOutlined,
@@ -114,7 +106,6 @@ const UrlParamsEditor = ({ value = [], onChange, currentUrl = '' }) => {
     notifyChange(newParams);
   };
 
-
   // Check if URL has variables
   const hasVariables = currentUrl && hasUrlVariables(currentUrl);
   const detectedVariables = hasVariables ? extractUrlVariables(currentUrl) : [];
@@ -124,7 +115,7 @@ const UrlParamsEditor = ({ value = [], onChange, currentUrl = '' }) => {
       <Space direction="vertical" size="middle" style={{ width: '100%' }}>
         <Alert
           message="Configure variáveis da URL"
-          description="Por exemplo, variáveis como :version ou :userId serão trocadas pelos valores configurados. Exemplo: https://api.com/:version/users → https://api.com/2.3/users"          
+          description="Por exemplo, variáveis como :version ou :userId serão trocadas pelos valores configurados. Exemplo: https://api.com/:version/users → https://api.com/2.3/users"
           type="info"
         />
         {/* Parameters editor */}
@@ -141,7 +132,6 @@ const UrlParamsEditor = ({ value = [], onChange, currentUrl = '' }) => {
                     value={param.key}
                     onChange={(e) => handleParamChange(index, 'key', e.target.value)}
                     style={{ width: 150 }}
-                    
                     status={!isUsed && param.key ? 'warning' : undefined}
                   />
                   <Input
@@ -152,28 +142,22 @@ const UrlParamsEditor = ({ value = [], onChange, currentUrl = '' }) => {
                     status={isEmpty ? 'error' : undefined}
                   />
                   {!isUsed && param.key && (
-                    <Tag style={{padding: 8}} color="orange" icon={<WarningOutlined />}>
+                    <Tag style={{ padding: 8 }} color="orange" icon={<WarningOutlined />}>
                       Não utilizado na URL
                     </Tag>
-                  )}               
-                    <Button                         
-                      type="text"       
-                      icon={<DeleteOutlined />}
-                      onClick={() => handleRemoveParam(index)}
-                    >            
-                    </Button>
+                  )}
+                  <Button
+                    type="text"
+                    icon={<DeleteOutlined />}
+                    onClick={() => handleRemoveParam(index)}
+                  ></Button>
                 </Space>
               );
             })}
           </>
         )}
 
-        <Button
-          type="dashed"
-          icon={<PlusOutlined />}
-          onClick={handleAddParam}
-          block
-        >
+        <Button type="dashed" icon={<PlusOutlined />} onClick={handleAddParam} block>
           Adicionar parâmetro de URL
         </Button>
 
@@ -271,7 +255,7 @@ const UrlParamsEditor = ({ value = [], onChange, currentUrl = '' }) => {
 
               {urlPreview.missing.length > 0 && (
                 <Alert
-                  message={`Valores não cadastrados: ${urlPreview.missing.map(m => `:${m}`).join(', ')}`}
+                  message={`Valores não cadastrados: ${urlPreview.missing.map((m) => `:${m}`).join(', ')}`}
                   type="warning"
                   showIcon
                   style={{ marginTop: 8 }}

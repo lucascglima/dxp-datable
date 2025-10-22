@@ -69,9 +69,7 @@ export const validateMapping = (responseData, itemsPath, totalPath = '') => {
       const total = getNestedValue(responseData, totalPath);
 
       if (total === undefined || total === null) {
-        validation.warnings.push(
-          `Caminho "${totalPath}" não encontrado - usando tamanho do array`
-        );
+        validation.warnings.push(`Caminho "${totalPath}" não encontrado - usando tamanho do array`);
       } else {
         const totalNum = parseInt(total, 10);
         if (isNaN(totalNum)) {

@@ -11,20 +11,8 @@
  */
 
 import { useState, useEffect, useRef, useCallback } from 'react';
-import {
-  Card,
-  Input,
-  Button,
-  Space,
-  Alert,
-  Typography,
-  Checkbox
-} from 'antd';
-import {
-  PlusOutlined,
-  DeleteOutlined,
-  InfoCircleOutlined,
-} from '@ant-design/icons';
+import { Card, Input, Button, Space, Alert, Typography, Checkbox } from 'antd';
+import { PlusOutlined, DeleteOutlined, InfoCircleOutlined } from '@ant-design/icons';
 
 const { Text } = Typography;
 
@@ -37,12 +25,15 @@ const DefaultQueryParamsEditor = ({ value = [], onChange }) => {
   /**
    * Notifies parent of changes with source tracking
    */
-  const notifyChange = useCallback((newParams, source = 'visual') => {
-    updateSourceRef.current = source;
-    if (onChange) {
-      onChange(newParams);
-    }
-  }, [onChange]);
+  const notifyChange = useCallback(
+    (newParams, source = 'visual') => {
+      updateSourceRef.current = source;
+      if (onChange) {
+        onChange(newParams);
+      }
+    },
+    [onChange]
+  );
 
   /**
    * Initialize from props only when coming from parent
@@ -81,16 +72,14 @@ const DefaultQueryParamsEditor = ({ value = [], onChange }) => {
     notifyChange(newParams);
   };
 
-
   return (
     <Card title="Parâmetros de consulta (Query)" size="small">
       <Space direction="vertical" size="middle" style={{ width: '100%' }}>
         <Alert
           message="Parâmetros de consultas estáticas (Query)"
           description="Esses parâmetros serão enviados com todas as requisições da API (tanto para os dados da tabela quanto para os testes). Use a caixa de seleção para ativar/desativar cada parâmetro."
-          type="info"          
+          type="info"
           icon={<InfoCircleOutlined />}
-          
         />
 
         {/* Parameters editor */}
@@ -101,9 +90,7 @@ const DefaultQueryParamsEditor = ({ value = [], onChange }) => {
                 <Space style={{ width: '100%', gap: 24 }} align="start">
                   <Checkbox
                     checked={param.enabled !== false} // Default to true if undefined
-                    onChange={(e) =>
-                      handleParamChange(index, 'enabled', e.target.checked)
-                    }
+                    onChange={(e) => handleParamChange(index, 'enabled', e.target.checked)}
                     style={{ marginTop: 8 }}
                   />
                   <Input
@@ -118,9 +105,9 @@ const DefaultQueryParamsEditor = ({ value = [], onChange }) => {
                     onChange={(e) => handleParamChange(index, 'value', e.target.value)}
                     disabled={!param.enabled}
                   />
-            
+
                   <Button
-                    type="text"                    
+                    type="text"
                     icon={<DeleteOutlined />}
                     onClick={() => handleRemoveParam(index)}
                   />
@@ -143,12 +130,7 @@ const DefaultQueryParamsEditor = ({ value = [], onChange }) => {
           </>
         )}
 
-        <Button
-          type="dashed"
-          icon={<PlusOutlined />}
-          onClick={handleAddParam}
-          block
-        >
+        <Button type="dashed" icon={<PlusOutlined />} onClick={handleAddParam} block>
           Adicionar parâmetro de consulta
         </Button>
 
@@ -160,14 +142,12 @@ const DefaultQueryParamsEditor = ({ value = [], onChange }) => {
               <div>
                 <Text>
                   Se a sua API sempre exige certos parâmetros como{' '}
-                  <Text code>site=stackoverflow</Text> ou{' '}
-                  <Text code>filter=withbody</Text>, adicione-os aqui. Você pode
-                  desativá-los temporariamente sem excluir usando a caixa de seleção.
+                  <Text code>site=stackoverflow</Text> ou <Text code>filter=withbody</Text>,
+                  adicione-os aqui. Você pode desativá-los temporariamente sem excluir usando a
+                  caixa de seleção.
                 </Text>
               </div>
             }
-        
-          
           />
         )}
       </Space>

@@ -11,15 +11,13 @@
 // Incluímos uma pilha de fontes seguras para garantir boa renderização
 // em diferentes sistemas operacionais (macOS, Windows, Linux, Android, iOS).
 
-$font-family-primary: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 
-                      'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 
-                      'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 
-                      'Noto Color Emoji';
+$font-family-primary:
+  -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+  sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 
 // A fonte monoespaçada é usada para código, números de referência e dados técnicos.
 // Monoespaçadas garantem alinhamento vertical perfeito em tabelas de dados.
-$font-family-monospace: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, 
-                        Courier, monospace;
+$font-family-monospace: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
 
 // Use esta fonte especificamente para títulos se quiser diferenciá-los do corpo de texto.
 // Por padrão, usamos a mesma fonte primária para manter consistência.
@@ -150,7 +148,7 @@ $text-decoration-thickness: 1px;
 // ============================================
 // OBSERVAÇÕES DE USO
 // ============================================
-// 
+//
 // 1. ACESSIBILIDADE:
 //    - Contraste mínimo texto/fundo: 4.5:1 para texto normal, 3:1 para texto grande
 //    - Texto grande = 18px+ ou 14px+ em negrito

@@ -5,7 +5,21 @@
  * Extracted from columns-config-section.jsx.
  */
 
-import { Card, Form, Input, InputNumber, Checkbox, Space, Button, Row, Col, Tooltip, Select, Alert, Divider } from 'antd';
+import {
+  Card,
+  Form,
+  Input,
+  InputNumber,
+  Checkbox,
+  Space,
+  Button,
+  Row,
+  Col,
+  Tooltip,
+  Select,
+  Alert,
+  Divider,
+} from 'antd';
 import { DeleteOutlined, InfoCircleOutlined, FormatPainterOutlined } from '@ant-design/icons';
 import { getAvailableRenderers, getRendererFields } from '../renderers';
 import RenderConfigForm from './render-config-form';
@@ -13,7 +27,14 @@ import { validateColumn } from '../../../core/validators/column-validator';
 
 const { Option } = Select;
 
-const ColumnEditor = ({ column, index, onUpdate, onRemove, onRenderTypeChange, onRenderConfigChange }) => {
+const ColumnEditor = ({
+  column,
+  index,
+  onUpdate,
+  onRemove,
+  onRenderTypeChange,
+  onRenderConfigChange,
+}) => {
   const validation = validateColumn(column, index);
   const hasErrors = validation.length > 0;
 
@@ -22,28 +43,20 @@ const ColumnEditor = ({ column, index, onUpdate, onRemove, onRenderTypeChange, o
       key={column.id || index}
       type="inner"
       title={
-        <Space
-        >
+        <Space>
           <span>Coluna {index + 1}:</span>
           {column.title && <span style={{ fontWeight: 'normal' }}>{column.title}</span>}
         </Space>
       }
       extra={
         <Tooltip title="Remover coluna">
-          <Button
-            type="primary"        
-            icon={<DeleteOutlined />}
-            onClick={() => onRemove(index)}
-          >            
-          </Button>
+          <Button type="primary" icon={<DeleteOutlined />} onClick={() => onRemove(index)}></Button>
         </Tooltip>
-            
       }
       style={{
         borderColor: hasErrors ? '#ff4d4f' : undefined,
       }}
     >
-      
       <Space direction="vertical" style={{ width: '100%' }}>
         <Row gutter={16}>
           <Col span={12}>
@@ -56,7 +69,6 @@ const ColumnEditor = ({ column, index, onUpdate, onRemove, onRenderTypeChange, o
                   </Tooltip>
                 </Space>
               }
-              
               validateStatus={!column.title ? 'error' : 'success'}
             >
               <Input
@@ -77,7 +89,6 @@ const ColumnEditor = ({ column, index, onUpdate, onRemove, onRenderTypeChange, o
                   </Tooltip>
                 </Space>
               }
-              
               validateStatus={!column.dataIndex ? 'error' : 'success'}
             >
               <Input
@@ -90,8 +101,6 @@ const ColumnEditor = ({ column, index, onUpdate, onRemove, onRenderTypeChange, o
         </Row>
 
         <Row gutter={16} justify={'flex'}>
-       
-
           {column.sortable && (
             <Col span={12}>
               <Form.Item
@@ -112,8 +121,8 @@ const ColumnEditor = ({ column, index, onUpdate, onRemove, onRenderTypeChange, o
               </Form.Item>
             </Col>
           )}
-             <Col span={12} style={{ paddingLeft: 0 }}>
-            <Form.Item label=" " colon={false} >
+          <Col span={12} style={{ paddingLeft: 0 }}>
+            <Form.Item label=" " colon={false}>
               <Checkbox
                 checked={column.sortable}
                 onChange={(e) => onUpdate(index, 'sortable', e.target.checked)}
@@ -124,11 +133,10 @@ const ColumnEditor = ({ column, index, onUpdate, onRemove, onRenderTypeChange, o
           </Col>
         </Row>
 
-
         <Divider orientation="left">
           <Space>
             <FormatPainterOutlined />
-            Renderização customizada 
+            Renderização customizada
           </Space>
         </Divider>
 
@@ -182,7 +190,11 @@ const ColumnEditor = ({ column, index, onUpdate, onRemove, onRenderTypeChange, o
 
         {/* Render-specific configuration fields */}
         {column.render?.type && column.render.type !== 'default' && (
-          <Card size="small" type="inner" style={{ background: '#fafafa', marginBottom: 8, padding: 8 }}>
+          <Card
+            size="small"
+            type="inner"
+            style={{ background: '#fafafa', marginBottom: 8, padding: 8 }}
+          >
             <Space direction="vertical" size="middle" style={{ width: '100%' }}>
               <RenderConfigForm
                 renderType={column.render.type}
@@ -194,7 +206,6 @@ const ColumnEditor = ({ column, index, onUpdate, onRemove, onRenderTypeChange, o
           </Card>
         )}
 
-      
         {hasErrors && (
           <Alert
             message="Configuração da coluna incompleta"

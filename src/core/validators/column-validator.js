@@ -101,9 +101,7 @@ export const validateColumns = (columns = []) => {
 
   if (duplicates.length > 0) {
     const uniqueDuplicates = [...new Set(duplicates)];
-    errors.push(
-      `Campos de dados duplicados encontrados: ${uniqueDuplicates.join(', ')}`
-    );
+    errors.push(`Campos de dados duplicados encontrados: ${uniqueDuplicates.join(', ')}`);
   }
 
   return {

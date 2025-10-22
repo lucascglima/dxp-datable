@@ -6,33 +6,23 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import {
-  Card,
-  Button,
-  Space,
-  Alert,
-  Typography,
-  Badge,
-  message,
-  notification,
-} from 'antd';
-import {
-  ReloadOutlined,
-  EditOutlined,
-  WarningOutlined,
-  InfoCircleOutlined,
-} from '@ant-design/icons';
+import PropTypes from 'prop-types';
+import { Card, Button, Space, Alert, Typography, message, notification } from 'antd';
+import { ReloadOutlined, EditOutlined, WarningOutlined } from '@ant-design/icons';
 import DxpTable from '../components/dxp-table';
 import { SearchInputParam } from '../components/dynamic-params';
-import { loadConfiguration, hasConfiguration, updateConfiguration } from '../services/config-storage';
+import {
+  loadConfiguration,
+  hasConfiguration,
+  updateConfiguration,
+} from '../services/config-storage';
 import { fetchData } from '../services/external-api';
 import { createColumnRenderer } from '../features/columns/renderers';
+import { VIEWS } from '../hooks/use-view-manager';
 
 const { Title, Text, Paragraph } = Typography;
 
-const DataTablePage = () => {
-  const navigate = useNavigate();
+const DataTablePage = ({ onNavigate }) => {
   const [config, setConfig] = useState(null);
   const [data, setData] = useState([]);
   const [allData, setAllData] = useState([]); // Store all data for client-side pagination
@@ -89,12 +79,6 @@ const DataTablePage = () => {
 
     const paginationMode = config.pagination?.mode || 'api';
     const showPagination = config.pagination?.showPagination !== false;
-
-    console.log('=== FETCHING DATA ===');
-    console.log('Pagination Mode:', paginationMode);
-    console.log('Show Pagination:', showPagination);
-    console.log('Pagination:', { current: pagination.current, pageSize: pagination.pageSize });
-    console.log('Sort Info:', sortInfo);
 
     try {
       // Prepare API config with sorting, pagination, URL params, default query params, and dynamic params
@@ -162,13 +146,9 @@ const DataTablePage = () => {
           total: response.pagination.total,
         }));
       }
-
-      console.log('Data loaded successfully');
-      console.log('Total items:', response.pagination?.total || response.data.length);
-      console.log('Items in current view:', response.data.length);
     } catch (err) {
       setError(err.message || 'Falha ao carregar dados');
-      message.error((err.message || 'Falha ao carregar dados'));
+      message.error(err.message || 'Falha ao carregar dados');
     } finally {
       setLoading(false);
     }
@@ -198,7 +178,14 @@ const DataTablePage = () => {
       fetchTableData();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [config, pagination.current, pagination.pageSize, sortInfo.columnKey, sortInfo.order, searchValue]);
+  }, [
+    config,
+    pagination.current,
+    pagination.pageSize,
+    sortInfo.columnKey,
+    sortInfo.order,
+    searchValue,
+  ]);
 
   /**
    * Handles pagination changes
@@ -217,12 +204,6 @@ const DataTablePage = () => {
   const handleSort = (newSortInfo) => {
     const sortingMode = config?.events?.sorting?.mode;
 
-    console.log('=== SORT REQUESTED ===');
-    console.log('Column:', newSortInfo.columnKey);
-    console.log('Order:', newSortInfo.order);
-    console.log('Mode:', sortingMode);
-    console.log('---');
-
     if (sortingMode === 'server') {
       // Server-side sorting: update state and trigger data fetch
       setSortInfo(newSortInfo);
@@ -236,15 +217,10 @@ const DataTablePage = () => {
     }
   };
 
-
-
   /**
    * Handles search input change
    */
   const handleSearchChange = (newValue) => {
-    console.log('=== SEARCH VALUE CHANGED ===');
-    console.log('New value:', newValue);
-
     // Update local state
     setSearchValue(newValue);
 
@@ -287,8 +263,7 @@ const DataTablePage = () => {
     const customCode = config.events.onRowClick.code;
 
     if (!customCode || customCode.trim() === '') {
-      // No custom code provided, use default
-      console.log('Row clicked:', record);
+      // No custom code provided, use default behavior (do nothing)
       return;
     }
 
@@ -374,7 +349,7 @@ const DataTablePage = () => {
    * Navigates to configuration page
    */
   const handleEditConfig = () => {
-    navigate('/configuration');
+    onNavigate(VIEWS.CONFIGURATION);
   };
 
   // Show welcome message if no configuration
@@ -391,11 +366,7 @@ const DataTablePage = () => {
             <Paragraph type="secondary">
               A configuração é rápida e fácil - não é necessário codificar!
             </Paragraph>
-            <Button
-              type="primary"
-              size="large"
-              onClick={() => navigate('/configuration')}
-            >
+            <Button type="primary" size="large" onClick={() => onNavigate(VIEWS.CONFIGURATION)}>
               Ir para Configuração
             </Button>
           </Space>
@@ -420,10 +391,7 @@ const DataTablePage = () => {
             </div>
 
             <Space>
-              <Button
-                icon={<EditOutlined />}
-                onClick={handleEditConfig}
-              >
+              <Button icon={<EditOutlined />} onClick={handleEditConfig}>
                 Editar Configuração
               </Button>
               <Button
@@ -486,6 +454,10 @@ const DataTablePage = () => {
       </Card>
     </div>
   );
+};
+
+DataTablePage.propTypes = {
+  onNavigate: PropTypes.func.isRequired,
 };
 
 export default DataTablePage;

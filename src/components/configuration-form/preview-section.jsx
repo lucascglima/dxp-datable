@@ -60,12 +60,15 @@ const PreviewSection = ({
    * Handles query params change from editor
    * Memoized to prevent unnecessary re-renders
    */
-  const handleQueryParamsChange = useCallback((newParams) => {
-    setQueryParams(newParams);
-    if (onTestQueryParamsChange) {
-      onTestQueryParamsChange(newParams);
-    }
-  }, [onTestQueryParamsChange]);
+  const handleQueryParamsChange = useCallback(
+    (newParams) => {
+      setQueryParams(newParams);
+      if (onTestQueryParamsChange) {
+        onTestQueryParamsChange(newParams);
+      }
+    },
+    [onTestQueryParamsChange]
+  );
 
   /**
    * Gets nested value from object using dot notation
@@ -114,7 +117,16 @@ const PreviewSection = ({
         }
       }
     }
-  }, [apiEndpoint, authToken, urlParams, queryParams, defaultQueryParams, mapping, apiTest, getNestedValue]);
+  }, [
+    apiEndpoint,
+    authToken,
+    urlParams,
+    queryParams,
+    defaultQueryParams,
+    mapping,
+    apiTest,
+    getNestedValue,
+  ]);
 
   /**
    * Applies suggested columns

@@ -1,368 +1,399 @@
-# DxpTable Component - Visual Configuration Platform
+# DxpTable - Liferay Client Extension
 
-A reusable, no-code DataTable component built with React and Ant Design, featuring a visual configuration interface and full Liferay Custom Element integration. Built following **Clean Architecture** and **Clean Code** principles.
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Version](https://img.shields.io/badge/version-1.0.0-green.svg)
+![React](https://img.shields.io/badge/react-18.3.1-61dafb.svg)
+![Liferay](https://img.shields.io/badge/liferay-7.4%20GA129%2B-0b63ce.svg)
 
-## 🎯 Features
+**DataTable configurável via wizard visual - Client Extension para Liferay DXP**
 
-### Core Features
-- **Visual No-Code Configuration** - Configure tables through an intuitive wizard interface
-- **Clean Architecture** - Separation of concerns with core, features, and components layers
-- **Fully Controlled Component** - Complete control over table state and behavior
-- **Column Sorting** - Client-side and server-side sorting support
-- **Custom Pagination** - Flexible pagination with page size selection
-- **Dynamic Parameters** - Search inputs and filters that update the table
-- **Event Handling** - Row click events with custom JavaScript code
-- **Response Mapping** - Handle complex API responses with custom paths
-- **Liferay Integration** - Ready for Liferay DXP Custom Element deployment
+Componente reutilizável que permite criar tabelas dinâmicas através de uma interface visual sem código, pronto para deployment como Custom Element no Liferay DXP 7.4+. Construído seguindo princípios de **Clean Architecture** e **Clean Code**.
 
-### Configuration Features
-- API endpoint configuration with authentication
-- URL parameters and query parameters support
-- Column configuration with custom renderers (boolean, date, custom)
-- Pagination settings (client/server-side)
-- Event configuration (row clicks, sorting)
-- Response mapping for nested data structures
-- Test and preview API responses before saving
-- Column suggestions from API response
-- JSON import/export for column configurations
+---
 
-## 📚 Documentation
+## O que é este projeto?
 
-- **[QUICKSTART.md](QUICKSTART.md)** - Quick start guide for users
-- **[NO-CODE-GUIDE.md](NO-CODE-GUIDE.md)** - No-code configuration guide
-- **[ARCHITECTURE.md](ARCHITECTURE.md)** - Detailed architecture documentation
-- **[HOOKS.md](HOOKS.md)** - Custom hooks reference
-- **[COMPONENTS.md](COMPONENTS.md)** - Components documentation
-- **[VALIDATORS.md](VALIDATORS.md)** - Validation utilities
-- **[REFACTORING-SUMMARY.md](REFACTORING-SUMMARY.md)** - Refactoring summary and metrics
-- **[CONTRIBUTING.md](CONTRIBUTING.md)** - Contributing guidelines
-- **[IMPROVEMENTS.md](IMPROVEMENTS.md)** - Future improvements
+Um DataTable inteligente que você configura visualmente através de um wizard de 6 passos, sem escrever código. Ideal para exibir dados de APIs REST (Liferay Headless ou externas) em páginas do Liferay DXP.
 
-## 🏗️ Project Structure (Clean Architecture)
+**Use cases principais:**
 
-```
-/src
-  /core                           # Core business logic (framework-independent)
-    /hooks                        # Shared custom hooks
-      ├── use-configuration-state.js
-      └── use-column-manager.js
-    /validators                   # Business rules validators
-      ├── config-validator.js
-      ├── column-validator.js
-      └── mapping-validator.js
-    /models                       # Types and constants
-      └── configuration.types.js
+- Exibir dados de APIs Headless do Liferay (usuários, posts, documentos)
+- Integrar APIs REST externas no Liferay
+- Criar dashboards e relatórios configuráveis
+- Tabelas com paginação, ordenação e filtros dinâmicos
 
-  /features                       # Feature modules (use cases)
-    /configuration
-      /hooks
-        └── use-configuration-wizard.jsx
-      /components
-        ├── configuration-wizard.jsx
-        └── step-navigation.jsx
-    /preview
-      /components
-        ├── api-test-panel.jsx
-        ├── response-mapper-panel.jsx
-        └── column-suggestions-panel.jsx
-      /hooks
-        ├── use-api-test.js
-        └── use-response-mapping.js
-    /columns
-      /components
-        ├── column-list.jsx
-        ├── column-editor.jsx
-        ├── column-json-modal.jsx
-        └── render-config-form.jsx
-    /events
-      /components
-        ├── row-click-event-section.jsx
-        └── sorting-config-section.jsx
+---
 
-  /components                     # Reusable UI components
-    /dxp-table                    # Main table component
-      ├── dxp-table.jsx
-      ├── dxp-table-header.jsx
-      ├── dxp-table-footer.jsx
-      └── dxp-table.types.js
-    /shared                       # Shared components
-      ├── query-params-editor.jsx
-      ├── url-params-editor.jsx
-      └── default-query-params-editor.jsx
-    /configuration-form           # Configuration sections
-      ├── api-config-section.jsx
-      ├── columns-config-section.jsx
-      ├── pagination-config-section.jsx
-      ├── events-config.section.jsx
-      ├── dynamic-params-config-section.jsx
-      └── preview-section.jsx
+## Principais Features
 
-  /services                       # External services
-    ├── config-storage.js         # localStorage management
-    ├── liferay-api.js           # Liferay API client
-    └── external-api.js          # External API client
+### Configuração Visual (No-Code)
 
-  /utils                          # Utility functions
-    ├── api-validator.js
-    ├── query-string-parser.js
-    ├── url-params-replacer.js
-    └── column-renderers/
-        ├── index.jsx
-        ├── boolean-renderer.jsx
-        ├── date-renderer.jsx
-        └── default-renderer.jsx
+- ✨ **Wizard de 6 passos** - Configure tudo pela interface
+- 🔌 **Teste de API** - Preview da resposta antes de salvar
+- 🎯 **Sugestão automática de colunas** - A partir do JSON de resposta
+- 📤 **Import/Export** - Configurações em JSON
 
-  /pages                          # Application pages
-    ├── configuration-page.jsx    # Configuration wizard
-    └── datatable-page.jsx        # Table display
+### Funcionalidades da Tabela
 
-  /config                         # Configuration files
-    └── liferay-config.js
+- 📊 **Paginação flexível** - Client-side ou server-side
+- 🔄 **Ordenação** - Por coluna, client ou server
+- 🎨 **Renderers customizados** - Boolean, Date, Custom
+- 🔍 **Parâmetros dinâmicos** - Filtros e buscas que atualizam a tabela
+- 🖱️ **Eventos de clique** - Execute código JavaScript personalizado
+- 🗺️ **Response Mapping** - Suporte para dados aninhados (ex: `data.items[]`)
 
-  /styles                         # Styles
-    ├── main.scss
-    └── theme/
-```
+### Integração Liferay
 
-## 🚀 Installation
+- ⚡ **Custom Element** - Tag HTML `<dxp-datatable>`
+- 🔐 **OAuth integrado** - Autenticação automática com Liferay
+- 📦 **Deploy simples** - Via Liferay Workspace ou manual
+- 🎯 **Múltiplas instâncias** - Várias tabelas na mesma página
 
-### 1. Install Dependencies
+---
+
+## Requisitos
+
+- **Node.js** 16+ e npm
+- **Liferay DXP** 7.4 GA129 ou superior
+- Navegador moderno com suporte a ES Modules
+
+---
+
+## Instalação e Desenvolvimento
+
+### 1. Clone e instale dependências
 
 ```bash
+git clone <repository-url>
+cd datatable-simple
 npm install
 ```
 
-### 2. Environment Configuration
+### 2. Configure variáveis de ambiente
 
-Copy `.env.example` to `.env.local` and configure:
+Copie `.env.example` para `.env.local`:
 
 ```env
 VITE_LIFERAY_API_URL=http://localhost:8080
 VITE_LIFERAY_TOKEN=your-oauth-token-here
+VITE_APP_TITLE=DxpTable Component
 ```
 
-### 3. Development
+### 3. Execute em desenvolvimento
 
 ```bash
 npm run dev
+# Abre em http://localhost:3000
 ```
 
-### 4. Build for Production
+### 4. Build para produção
+
+```bash
+npm run build
+# Gera dist/main.js e dist/main.css
+```
+
+---
+
+## Deploy no Liferay DXP
+
+### Build do projeto
 
 ```bash
 npm run build
 ```
 
-## 💡 Quick Start
+Após o build, a pasta `dist/` conterá:
 
-### Option 1: Visual Configuration (No Code)
+- `main.js` - Bundle completo da aplicação (~1.2MB minified)
+- `main.css` - Estilos (~8KB)
 
-1. Run the development server: `npm run dev`
-2. Navigate to the configuration page
-3. Follow the 6-step wizard:
-   - **Step 1**: Configure API endpoint and authentication
-   - **Step 2**: Test API and preview response structure
-   - **Step 3**: Configure columns (or use suggestions)
-   - **Step 4**: Configure pagination
-   - **Step 5**: Configure events (row clicks, sorting)
-   - **Step 6**: Configure dynamic parameters (search, filters)
-4. Save and view your configured table
+### Opção 1: Deploy via Liferay Workspace
 
-### Option 2: Code-Based Usage
+```bash
+# Copie o projeto para o workspace
+cp -r . /path/to/liferay-workspace/client-extensions/dxp-datatable
 
-```javascript
-import DxpTable from './components/dxp-table';
-import { useTableData } from './hooks/use-table-data';
-
-function MyComponent() {
-  const {
-    data,
-    loading,
-    pagination,
-    handlePaginationChange,
-    handleSort,
-  } = useTableData('/o/headless-admin-user/v1.0/user-accounts', {
-    initialPageSize: 10,
-  });
-
-  const columns = [
-    { key: 'id', title: 'ID', dataIndex: 'id', sortable: true },
-    { key: 'name', title: 'Name', dataIndex: 'name', sortable: true },
-    { key: 'email', title: 'Email', dataIndex: 'emailAddress' },
-  ];
-
-  return (
-    <DxpTable
-      columns={columns}
-      data={data}
-      pagination={pagination}
-      loading={loading}
-      rowKey="id"
-      onPaginationChange={handlePaginationChange}
-      onSort={handleSort}
-      onRowClick={(record) => console.log(record)}
-    />
-  );
-}
+# Build e deploy
+cd /path/to/liferay-workspace
+blade gw deploy
 ```
 
-## 🎨 Architecture Highlights
+### Opção 2: Deploy Manual (ZIP)
 
-### Clean Architecture Principles
+```bash
+# Crie um ZIP do projeto
+cd ..
+zip -r dxp-datatable.zip datatable-simple/
 
-1. **Separation of Concerns**: Business logic (core) is separated from UI (components)
-2. **Dependency Rule**: Dependencies point inward (components → features → core)
-3. **Single Responsibility**: Each module has one reason to change
-4. **Reusability**: Hooks and validators can be used independently
-5. **Testability**: Isolated components and hooks are easy to test
+# No Liferay: Control Panel → Apps → App Manager → Upload
+```
 
-### Key Design Patterns
+### Opção 3: Liferay CLI
 
-- **Custom Hooks Pattern**: Encapsulate stateful logic
-- **Composition Pattern**: Small, focused components composed together
-- **Factory Pattern**: Column renderers creation
-- **Observer Pattern**: Event handling and callbacks
-- **Strategy Pattern**: Different sorting modes (server/client/disabled)
+```bash
+npm run build
+lcp deploy --project=dxp-datatable
+```
 
-## 📊 Refactoring Results
+---
 
-The project was recently refactored following Clean Architecture principles:
+## Usando no Liferay
 
-| Metric | Before | After | Improvement |
-|--------|--------|-------|-------------|
-| **Total Lines** | 2,167 | ~620 | **-71%** |
-| **Largest File** | 645 lines | ~250 lines | **-61%** |
-| **Files >600 lines** | 3 | 0 | **-100%** |
-| **Responsibilities/File** | 3-4 | 1-2 | **-50%** |
+### Como Widget em uma página
 
-See [REFACTORING-SUMMARY.md](REFACTORING-SUMMARY.md) for details.
+1. Edite uma página de conteúdo
+2. Abra o painel "Widgets"
+3. Procure por "DxpTable Component" em "Client Extensions"
+4. Arraste para a página
 
-## 🔧 API Reference
-
-### DxpTable Component
-
-| Prop | Type | Required | Description |
-|------|------|----------|-------------|
-| columns | Array | Yes | Column configuration array |
-| data | Array | Yes | Data array to be rendered |
-| pagination | Object | Yes | Pagination configuration (current, pageSize, total) |
-| rowKey | String | Yes | Unique key for each row |
-| loading | Boolean | No | Loading state indicator |
-| onSort | Function | No | Callback when column is sorted |
-| onRowClick | Function | No | Callback when row is clicked |
-| onPaginationChange | Function | No | Callback when pagination changes |
-
-### Column Configuration
-
-| Property | Type | Required | Description |
-|----------|------|----------|-------------|
-| key | String | Yes | Unique identifier for the column |
-| title | String | Yes | Column header title |
-| dataIndex | String | Yes | Key in data object |
-| sortable | Boolean | No | Enable sorting for this column |
-| width | String/Number | No | Column width |
-| render | Object | No | Custom render configuration (type, config) |
-
-### Custom Hooks
-
-- **[useConfigurationState](HOOKS.md#useconfigurationstate)** - Manage configuration state
-- **[useColumnManager](HOOKS.md#usecolumnmanager)** - CRUD operations for columns
-- **[useConfigurationWizard](HOOKS.md#useconfigurationwizard)** - Wizard navigation
-- **[useApiTest](HOOKS.md#useapitest)** - API connection testing
-- **[useResponseMapping](HOOKS.md#useresponsemapping)** - Response mapping configuration
-- **[useTableData](HOOKS.md#usetabledata)** - Table data management
-
-## 🌐 Liferay Custom Element Integration
-
-### Deployment to Liferay
-
-After building, the `dist/` folder contains:
-- `main.js` - Application bundle
-- `main.css` - Styles
-- `assets/` - Static assets
-
-### Using in Liferay
-
-The component is registered as a custom element:
+### Em templates FreeMarker
 
 ```html
 <dxp-datatable></dxp-datatable>
 ```
 
-Liferay automatically provides configuration via `window.Liferay` object.
+### Com atributos de configuração
 
-### Client Extension Configuration
-
-```yaml
-assemble:
-  - from: dist
-    include: "**/*"
-    into: static
-
-dxp-datatable-custom-element:
-  cssURLs:
-    - main.css
-  friendlyURLMapping: dxp-datatable
-  htmlElementName: dxp-datatable
-  instanceable: true
-  name: DxpTable Component
-  portletCategoryName: category.client-extensions
-  type: customElement
-  urls:
-    - main.js
-  useESM: true
+```html
+<dxp-datatable
+  data-liferay-config='{"apiEndpoint": "/o/headless-admin-user/v1.0/user-accounts"}'
+></dxp-datatable>
 ```
 
-## 🧪 Development
+---
 
-### Run Development Server
+## Configuração via Wizard Visual
+
+O wizard possui 6 etapas:
+
+1. **API Configuration** - Configure endpoint, autenticação, headers
+2. **Preview & Test** - Teste a API e visualize a resposta
+3. **Columns** - Adicione/configure colunas (ou use sugestões automáticas)
+4. **Pagination** - Configure paginação (client/server/disabled)
+5. **Events** - Configure cliques em linhas e ordenação
+6. **Dynamic Params** - Adicione filtros de busca e parâmetros dinâmicos
+
+Após configurar, a tabela é salva no localStorage e exibida automaticamente.
+
+### Exemplo de Configuração
+
+Um arquivo de exemplo está disponível em:
+
+```
+src/utils/examples/stackexchange.users.json
+```
+
+Este exemplo demonstra:
+
+- Configuração de API externa (StackExchange)
+- Parâmetros de URL e query
+- Colunas com renderer boolean
+- Paginação via API
+- Response mapping para dados aninhados
+
+---
+
+## Arquitetura do Projeto
+
+O projeto segue **Clean Architecture** com separação clara de responsabilidades:
+
+```
+/src
+  /core                 # Lógica de negócio (framework-independent)
+    /hooks              # Hooks compartilhados
+    /validators         # Validadores de regras de negócio
+    /models             # Types e constants
+
+  /features             # Módulos de funcionalidades (use cases)
+    /configuration      # Wizard de configuração
+    /preview            # Teste e preview de API
+    /columns            # Gerenciamento de colunas
+    /events             # Configuração de eventos
+
+  /components           # Componentes UI reutilizáveis
+    /dxp-table          # Componente principal da tabela
+    /configuration-form # Seções do formulário
+    /shared             # Componentes compartilhados
+
+  /services             # Serviços externos
+    /config-storage.js  # Gerenciamento localStorage
+    /liferay-api.js     # Cliente API Liferay
+    /external-api.js    # Cliente API externa
+
+  /utils                # Funções utilitárias
+  /pages                # Páginas da aplicação
+  /styles               # SCSS e sistema de temas
+```
+
+### Princípios aplicados:
+
+- **Separation of Concerns** - Lógica separada da UI
+- **Dependency Rule** - Dependências apontam para dentro
+- **Single Responsibility** - Cada módulo tem uma razão para mudar
+- **Testability** - Componentes isolados e testáveis
+
+---
+
+## Endpoints Liferay Comuns
+
+Exemplos de endpoints Headless API:
+
+- **Usuários**: `/o/headless-admin-user/v1.0/user-accounts`
+- **Blog Posts**: `/o/headless-delivery/v1.0/sites/{siteId}/blog-postings`
+- **Conteúdo Estruturado**: `/o/headless-delivery/v1.0/sites/{siteId}/structured-contents`
+- **Documentos**: `/o/headless-delivery/v1.0/sites/{siteId}/documents`
+
+---
+
+## Troubleshooting
+
+### Build falha ou assets não carregam
+
+**Problema**: `main.js` ou `main.css` não encontrados no Liferay
+
+**Solução**:
+
+- Verifique `base: './'` em [vite.config.js](vite.config.js)
+- Rebuild: `npm run build`
+- Confirme que `dist/main.js` e `dist/main.css` existem
+
+### Custom Element não é definido
+
+**Problema**: Erro no console do navegador
+
+**Solução**:
+
+- Verifique browser console para erros de carregamento
+- Confirme que o deploy foi bem-sucedido no Liferay
+- Limpe cache do navegador
+
+### Erros de OAuth/Autenticação
+
+**Problema**: 401 ou 403 ao acessar APIs Liferay
+
+**Solução**:
+
+- Verifique se `oAuthApplicationUserAgent` está definido em [client-extension.yaml](client-extension.yaml)
+- Confirme que o token OAuth está válido (se usando em dev)
+
+### API retorna 404
+
+**Problema**: Endpoint não encontrado
+
+**Solução**:
+
+- Valide a URL do endpoint no teste de API
+- Verifique se os parâmetros de URL estão corretos (ex: `{siteId}`)
+- Confirme que a API existe no Liferay
+
+### Configuração não persiste
+
+**Problema**: Configuração é perdida ao recarregar
+
+**Solução**:
+
+- Abra DevTools → Application → Local Storage
+- Procure por chave `dxp-table-config`
+- Use botão "Limpar Configuração" e reconfigure
+
+### Erros de build - SCSS
+
+**Problema**: Erro ao compilar arquivos SCSS
+
+**Solução**:
 
 ```bash
+# Reinstale dependências
+rm -rf node_modules package-lock.json
+npm install
+
+# Limpe cache do Vite
+rm -rf .vite node_modules/.vite
 npm run dev
 ```
 
-### Build for Production
+---
 
-```bash
-npm run build
+## Sistema de Temas (SCSS)
+
+O projeto usa um sistema de temas baseado em SCSS tokens integrado com Ant Design.
+
+**Estrutura:**
+
+- `/src/styles/theme/global/` - Tokens globais (cores, tipografia, spacing)
+- `/src/styles/theme/components/` - Tokens por componente
+- `/src/config/theme-tokens.js` - Conversor SCSS → JS
+- `/src/config/antd-theme.js` - Configuração Ant Design
+
+**Para customizar:**
+
+Edite os arquivos SCSS em `src/styles/theme/global/`:
+
+```scss
+// _colors.module.scss
+$color-primary: #1890ff; // Mude a cor primária
 ```
 
-### Preview Production Build
+Mudanças propagam automaticamente via hot reload.
+
+---
+
+## Scripts Disponíveis
 
 ```bash
-npm run preview
+npm run dev          # Servidor de desenvolvimento (porta 3000)
+npm run build        # Build de produção
+npm run preview      # Preview do build
+npm run lint         # Verifica código com ESLint
+npm run lint:fix     # Corrige problemas automaticamente
+npm run format       # Formata código com Prettier
+npm run format:check # Verifica formatação
 ```
 
-### Lint Code
+---
 
-```bash
-npm run lint
-```
+## Stack Tecnológico
 
-## 📝 Common Liferay Endpoints
+- [React](https://reactjs.org/) 18.3.1 - Framework UI
+- [Ant Design](https://ant.design/) 5.27.6 - Biblioteca de componentes
+- [Vite](https://vitejs.dev/) 6.4.1 - Build tool
+- [Axios](https://axios-http.com/) - Cliente HTTP
+- [date-fns](https://date-fns.org/) - Formatação de datas
+- [Sass](https://sass-lang.com/) - Pré-processador CSS
 
-- User Accounts: `/o/headless-admin-user/v1.0/user-accounts`
-- Blog Posts: `/o/headless-delivery/v1.0/sites/{siteId}/blog-postings`
-- Structured Content: `/o/headless-delivery/v1.0/sites/{siteId}/structured-contents`
-- Documents: `/o/headless-delivery/v1.0/sites/{siteId}/documents`
+---
 
-## 🤝 Contributing
+## Documentação Adicional
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on:
-- Adding new components following the architecture
-- Creating new hooks
-- Code conventions and naming patterns
-- How to add validators
+- [VALIDATORS.md](VALIDATORS.md) - Documentação dos validadores de negócio
+- [LIFERAY-MIGRATION.md](LIFERAY-MIGRATION.md) - Guia de migração para Liferay
 
-## 📄 License
+---
+
+## Licença
 
 MIT
 
-## 🙏 Acknowledgments
+---
 
-Built with:
-- [React](https://reactjs.org/)
-- [Ant Design](https://ant.design/)
-- [Vite](https://vitejs.dev/)
-- [Axios](https://axios-http.com/)
-- [date-fns](https://date-fns.org/)
+## Contribuições
+
+Contribuições são bem-vindas! Para adicionar features ou corrigir bugs:
+
+1. Fork o projeto
+2. Crie uma branch (`git checkout -b feature/nova-feature`)
+3. Commit suas mudanças (`git commit -m 'feat: adiciona nova feature'`)
+4. Push para a branch (`git push origin feature/nova-feature`)
+5. Abra um Pull Request
+
+**Convenções:**
+
+- Siga Clean Architecture (core → features → components)
+- Use hooks customizados para lógica stateful
+- Mantenha componentes pequenos e focados
+- Adicione validadores em `/core/validators/`
+
+---
+
+**Desenvolvido para Liferay DXP - Client Extension**
