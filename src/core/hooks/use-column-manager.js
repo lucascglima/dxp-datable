@@ -30,7 +30,6 @@ export const useColumnManager = (columns = [], onChange) => {
     }
   };
 
-
   /**
    * Adds a new empty column
    */

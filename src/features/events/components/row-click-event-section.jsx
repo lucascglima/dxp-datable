@@ -121,10 +121,10 @@ alert('Name: ' + record.name + '\\nEmail: ' + record.email);
                 <ul style={{ marginBottom: 0, paddingLeft: '20px' }}>
                   <li>
                     <code>record</code> - Objeto contendo todos os dados da linha clicada
-                  </li>                  
+                  </li>
                 </ul>
               }
-              type="info"              
+              type="info"
             />
 
             <div style={{ display: 'flex', gap: '8px' }}>

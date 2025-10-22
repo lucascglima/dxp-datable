@@ -2,26 +2,14 @@
  * Configuration Page (Refactored)
  *
  * Visual no-code interface for configuring the DxpTable component.
+ * Supports both Visual mode (step-by-step wizard) and JSON mode (direct JSON editing).
  * Reduced from 519 lines to ~250 lines using hooks and composition.
  */
 
 import React, { useCallback, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
-import {
-  Card,
-  Steps,
-  Button,
-  Space,
-  App,
-  Typography,
-  Divider,
-  Modal,
-  Switch,
-} from 'antd';
-import {
-  SaveOutlined,
-  ClearOutlined,
-} from '@ant-design/icons';
+import PropTypes from 'prop-types';
+import { Card, Steps, Button, Space, App, Typography, Divider, Modal, Switch } from 'antd';
+import { SaveOutlined, ClearOutlined } from '@ant-design/icons';
 import ApiConfigSection from '../components/configuration-form/api-config-section';
 import ColumnsConfigSection from '../components/configuration-form/columns-config-section';
 import PaginationConfigSection from '../components/configuration-form/pagination-config-section';
@@ -34,12 +22,16 @@ import { validateConfiguration } from '../core/validators/config-validator';
 import { useConfigurationState } from '../core/hooks/use-configuration-state';
 import { useConfigurationWizard } from '../features/configuration/hooks/use-configuration-wizard.jsx';
 import { useJsonConfigMode } from '../features/configuration/hooks/use-json-config-mode';
+import { useUrlNavigation } from '../hooks/use-url-navigation';
+import { VIEWS } from '../hooks/use-view-manager';
 
 const { Title, Paragraph, Text } = Typography;
 
-const ConfigurationPage = () => {
-  const navigate = useNavigate();
+const ConfigurationPage = ({ onNavigate }) => {
   const { message } = App.useApp();
+
+  // Use URL navigation hook
+  const urlNav = useUrlNavigation({ defaultView: 'configuration', defaultStep: 'api' });
 
   // Use configuration state hook
   const configState = useConfigurationState();
@@ -47,22 +39,26 @@ const ConfigurationPage = () => {
   // Use wizard navigation hook
   const wizard = useConfigurationWizard();
 
-  // Use JSON configuration mode hook
-  const jsonMode = useJsonConfigMode(configState.config);
+  // Use JSON configuration mode hook (pass urlNav for URL sync)
+  const jsonMode = useJsonConfigMode(configState.config, urlNav);
 
   /**
    * Applies suggested columns from preview
    * Memoized to prevent unnecessary re-renders
    */
-  const handleSuggestColumns = useCallback((suggestedColumns) => {
-    configState.updateColumns(suggestedColumns);
-    message.success(`Aplicadas ${suggestedColumns.length} colunas sugeridas`);
-    wizard.goToStep(2); // Move to columns step
-  }, [configState, message, wizard]);
+  const handleSuggestColumns = useCallback(
+    (suggestedColumns) => {
+      configState.updateColumns(suggestedColumns);
+      message.success(`Aplicadas ${suggestedColumns.length} colunas sugeridas`);
+      wizard.goToStep(2); // Move to columns step
+    },
+    [configState, message, wizard]
+  );
 
   /**
    * Saves configuration and navigates to datatable
    * Memoized to prevent unnecessary re-renders
+   * Step param will be automatically cleared by useViewManager when navigating to datatable
    */
   const handleSaveConfiguration = useCallback(() => {
     // If in JSON mode, apply the JSON config first
@@ -110,33 +106,37 @@ const ConfigurationPage = () => {
     if (success) {
       message.success('Configuração salva com sucesso! Redirecionando...', 2);
       setTimeout(() => {
-        navigate('/datatable');
+        // Navigate to datatable - step param will be automatically cleared
+        onNavigate(VIEWS.DATATABLE);
       }, 1000);
     } else {
       message.error('Falha ao salvar a configuração');
     }
-  }, [configState, jsonMode, message, navigate]);
+  }, [configState, jsonMode, message, onNavigate]);
 
   /**
    * Handles mode toggle between Visual and JSON
    */
-  const handleModeToggle = useCallback((checked) => {
-    if (checked) {
-      // Switching to JSON mode
-      jsonMode.switchToJsonMode();
-    } else {
-      // Switching to Visual mode
-      Modal.confirm({
-        title: 'Voltar ao Editor Visual?',
-        content: 'As alterações não salvas no JSON serão perdidas. Deseja continuar?',
-        okText: 'Sair sem salvar',
-        cancelText: 'Cancelar',
-        onOk: () => {
-          jsonMode.switchToVisualMode();
-        },
-      });
-    }
-  }, [jsonMode]);
+  const handleModeToggle = useCallback(
+    (checked) => {
+      if (checked) {
+        // Switching to JSON mode
+        jsonMode.switchToJsonMode();
+      } else {
+        // Switching to Visual mode
+        Modal.confirm({
+          title: 'Voltar ao Editor Visual?',
+          content: 'As alterações não salvas no JSON serão perdidas. Deseja continuar?',
+          okText: 'Sair sem salvar',
+          cancelText: 'Cancelar',
+          onOk: () => {
+            jsonMode.switchToVisualMode();
+          },
+        });
+      }
+    },
+    [jsonMode]
+  );
 
   /**
    * Clears all configuration
@@ -145,8 +145,7 @@ const ConfigurationPage = () => {
   const handleClearAll = useCallback(() => {
     Modal.confirm({
       title: 'Limpar Toda a Configuração?',
-      content:
-        'Isso removerá todas as suas configurações atuais. Esta ação não pode ser desfeita.',
+      content: 'Isso removerá todas as suas configurações atuais. Esta ação não pode ser desfeita.',
       okText: 'Sim, Limpar Tudo',
       okType: 'danger',
       cancelText: 'Cancelar',
@@ -162,115 +161,126 @@ const ConfigurationPage = () => {
    * Step definitions with components (wrapped with ErrorBoundary)
    * Memoized to prevent unnecessary re-creation of step array
    */
-  const steps = useMemo(() => [
-    {
-      ...wizard.stepDefinitions[0],
-      content: (
-        <ErrorBoundary>
-          <ApiConfigSection
-            value={{
-              apiEndpoint: configState.config.apiEndpoint,
-              authToken: configState.config.authToken,
-              urlParams: configState.config.urlParams,
-              defaultQueryParams: configState.config.defaultQueryParams,
-            }}
-            onChange={configState.updateApiConfig}
-          />
-        </ErrorBoundary>
-      ),
-    },
-    {
-      ...wizard.stepDefinitions[1],
-      content: (
-        <ErrorBoundary>
-          <PreviewSection
-            apiEndpoint={configState.config.apiEndpoint}
-            authToken={configState.config.authToken}
-            urlParams={configState.config.urlParams}
-            defaultQueryParams={configState.config.defaultQueryParams}
-            testQueryParams={configState.config.testQueryParams}
-            responseDataPath={configState.config.responseDataPath}
-            onTestQueryParamsChange={configState.updateTestQueryParams}
-            onSuggestColumns={handleSuggestColumns}
-            onResponseMappingChange={configState.updateResponseMapping}
-          />
-        </ErrorBoundary>
-      ),
-    },
-    {
-      ...wizard.stepDefinitions[2],
-      content: (
-        <ErrorBoundary>
-          <ColumnsConfigSection
-            value={configState.config.columns}
-            onChange={configState.updateColumns}
-          />
-        </ErrorBoundary>
-      ),
-    },
-    {
-      ...wizard.stepDefinitions[3],
-      content: (
-        <ErrorBoundary>
-          <PaginationConfigSection
-            value={configState.config.pagination}
-            onChange={configState.updatePagination}
-          />
-        </ErrorBoundary>
-      ),
-    },
-    {
-      ...wizard.stepDefinitions[4],
-      content: (
-        <ErrorBoundary>
-          <EventsConfigSection
-            value={configState.config.events}
-            onChange={configState.updateEvents}
-          />
-        </ErrorBoundary>
-      ),
-    },
-    {
-      ...wizard.stepDefinitions[5],
-      content: (
-        <ErrorBoundary>
-          <DynamicParamsConfigSection
-            value={configState.config.dynamicParams}
-            onChange={configState.updateDynamicParams}
-          />
-        </ErrorBoundary>
-      ),
-    },
-  ], [
-    wizard.stepDefinitions,
-    configState.config.apiEndpoint,
-    configState.config.authToken,
-    configState.config.urlParams,
-    configState.config.defaultQueryParams,
-    configState.config.testQueryParams,
-    configState.config.responseDataPath,
-    configState.config.columns,
-    configState.config.pagination,
-    configState.config.events,
-    configState.config.dynamicParams,
-    configState.updateApiConfig,
-    configState.updateTestQueryParams,
-    configState.updateResponseMapping,
-    configState.updateColumns,
-    configState.updatePagination,
-    configState.updateEvents,
-    configState.updateDynamicParams,
-    handleSuggestColumns,
-  ]);
+  const steps = useMemo(
+    () => [
+      {
+        ...wizard.stepDefinitions[0],
+        content: (
+          <ErrorBoundary>
+            <ApiConfigSection
+              value={{
+                apiEndpoint: configState.config.apiEndpoint,
+                authToken: configState.config.authToken,
+                urlParams: configState.config.urlParams,
+                defaultQueryParams: configState.config.defaultQueryParams,
+              }}
+              onChange={configState.updateApiConfig}
+            />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        ...wizard.stepDefinitions[1],
+        content: (
+          <ErrorBoundary>
+            <PreviewSection
+              apiEndpoint={configState.config.apiEndpoint}
+              authToken={configState.config.authToken}
+              urlParams={configState.config.urlParams}
+              defaultQueryParams={configState.config.defaultQueryParams}
+              testQueryParams={configState.config.testQueryParams}
+              responseDataPath={configState.config.responseDataPath}
+              onTestQueryParamsChange={configState.updateTestQueryParams}
+              onSuggestColumns={handleSuggestColumns}
+              onResponseMappingChange={configState.updateResponseMapping}
+            />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        ...wizard.stepDefinitions[2],
+        content: (
+          <ErrorBoundary>
+            <ColumnsConfigSection
+              value={configState.config.columns}
+              onChange={configState.updateColumns}
+            />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        ...wizard.stepDefinitions[3],
+        content: (
+          <ErrorBoundary>
+            <PaginationConfigSection
+              value={configState.config.pagination}
+              onChange={configState.updatePagination}
+            />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        ...wizard.stepDefinitions[4],
+        content: (
+          <ErrorBoundary>
+            <EventsConfigSection
+              value={configState.config.events}
+              onChange={configState.updateEvents}
+            />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        ...wizard.stepDefinitions[5],
+        content: (
+          <ErrorBoundary>
+            <DynamicParamsConfigSection
+              value={configState.config.dynamicParams}
+              onChange={configState.updateDynamicParams}
+            />
+          </ErrorBoundary>
+        ),
+      },
+    ],
+    [
+      wizard.stepDefinitions,
+      configState.config.apiEndpoint,
+      configState.config.authToken,
+      configState.config.urlParams,
+      configState.config.defaultQueryParams,
+      configState.config.testQueryParams,
+      configState.config.responseDataPath,
+      configState.config.columns,
+      configState.config.pagination,
+      configState.config.events,
+      configState.config.dynamicParams,
+      configState.updateApiConfig,
+      configState.updateTestQueryParams,
+      configState.updateResponseMapping,
+      configState.updateColumns,
+      configState.updatePagination,
+      configState.updateEvents,
+      configState.updateDynamicParams,
+      handleSuggestColumns,
+    ]
+  );
 
   return (
     <div style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto' }}>
       <Card>
         <Space direction="vertical" size="large" style={{ width: '100%' }}>
           {/* Header with Toggle */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'flex-start',
+            }}
+          >
             <div>
-              <Title level={2} style={{ marginBottom: '8px' }}>Configure da Tabela</Title>
+              <Title level={2} style={{ marginBottom: '8px' }}>
+                Configure da Tabela
+              </Title>
               <Paragraph type="secondary" style={{ marginBottom: 0 }}>
                 {jsonMode.isJsonMode
                   ? 'Configure sua tabela editando o JSON diretamente.'
@@ -279,14 +289,11 @@ const ConfigurationPage = () => {
             </div>
 
             {/* Simple Mode Toggle */}
-            <Space align="center">              
-              <Switch
-                checked={jsonMode.isJsonMode}
-                onChange={handleModeToggle}
-              />
+            <Space align="center">
+              <Switch checked={jsonMode.isJsonMode} onChange={handleModeToggle} />
               <Text type="secondary">Editor JSON</Text>
             </Space>
-          </div>         
+          </div>
 
           {/* Content based on mode */}
           {jsonMode.isVisualMode ? (
@@ -320,10 +327,7 @@ const ConfigurationPage = () => {
           <Divider />
 
           {/* Navigation & Actions */}
-          <Space
-            direction="horizontal"
-            style={{ width: '100%', justifyContent: 'space-between' }}
-          >
+          <Space direction="horizontal" style={{ width: '100%', justifyContent: 'space-between' }}>
             <Space>
               <Button icon={<ClearOutlined />} onClick={handleClearAll}>
                 Limpar configuração
@@ -358,6 +362,10 @@ const ConfigurationPage = () => {
       </Card>
     </div>
   );
+};
+
+ConfigurationPage.propTypes = {
+  onNavigate: PropTypes.func.isRequired,
 };
 
 export default ConfigurationPage;

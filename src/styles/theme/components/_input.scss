@@ -12,146 +12,146 @@
 // ============================================
 
 // Background (Fundo)
-$input-bg: $color-bg-primary;                            // Fundo normal
-$input-disabled-bg: $color-bg-tertiary;                  // Fundo desabilitado
+$input-bg: $color-bg-primary; // Fundo normal
+$input-disabled-bg: $color-bg-tertiary; // Fundo desabilitado
 
 // Text (Texto)
-$input-color: $color-text-primary;                       // Texto normal
-$input-placeholder-color: $color-text-quaternary;        // Placeholder
-$input-disabled-color: $color-text-quaternary;           // Texto desabilitado
+$input-color: $color-text-primary; // Texto normal
+$input-placeholder-color: $color-text-quaternary; // Placeholder
+$input-disabled-color: $color-text-quaternary; // Texto desabilitado
 
 // Border (Bordas)
-$input-border-color: $color-border-primary;              // Borda normal
-$input-hover-border-color: $color-primary-500;           // Borda no hover
-$input-focus-border-color: $color-primary-600;           // Borda focado
-$input-error-border-color: $color-error-600;             // Borda com erro
+$input-border-color: $color-border-primary; // Borda normal
+$input-hover-border-color: $color-primary-500; // Borda no hover
+$input-focus-border-color: $color-primary-600; // Borda focado
+$input-error-border-color: $color-error-600; // Borda com erro
 
 // Addon (Addons antes/depois do input)
-$input-addon-bg: $color-bg-tertiary;                     // Fundo do addon
+$input-addon-bg: $color-bg-tertiary; // Fundo do addon
 
 // Affix (Prefix e Suffix)
-$input-affix-color: $color-text-tertiary;                // Cor de ícones prefix/suffix
+$input-affix-color: $color-text-tertiary; // Cor de ícones prefix/suffix
 
 // ============================================
 // INPUT SIZES - Tamanhos do Input
 // ============================================
 
 // Height (Altura)
-$input-height-base: $control-height-md;                  // 40px - Padrão
-$input-height-lg: $control-height-lg;                    // 48px - Grande
-$input-height-sm: $control-height-sm;                    // 32px - Pequeno
+$input-height-base: $control-height-md; // 40px - Padrão
+$input-height-lg: $control-height-lg; // 48px - Grande
+$input-height-sm: $control-height-sm; // 32px - Pequeno
 
 // Padding Horizontal (laterais)
-$input-padding-horizontal: $padding-sm;                  // 12px - Padrão
-$input-padding-horizontal-lg: $padding-md;               // 16px - Grande
-$input-padding-horizontal-sm: $padding-xs;               // 8px - Pequeno
+$input-padding-horizontal: $padding-sm; // 12px - Padrão
+$input-padding-horizontal-lg: $padding-md; // 16px - Grande
+$input-padding-horizontal-sm: $padding-xs; // 8px - Pequeno
 
 // Padding Vertical (topo/baixo)
-$input-padding-vertical-base: 4px;                       // Padrão
-$input-padding-vertical-lg: 7px;                         // Grande
-$input-padding-vertical-sm: 0px;                         // Pequeno
+$input-padding-vertical-base: 4px; // Padrão
+$input-padding-vertical-lg: 7px; // Grande
+$input-padding-vertical-sm: 0px; // Pequeno
 
 // Padding para Addons
-$input-addon-padding-horizontal: $padding-sm;            // 12px
+$input-addon-padding-horizontal: $padding-sm; // 12px
 
 // ============================================
 // INPUT TYPOGRAPHY - Tipografia do Input
 // ============================================
 
 // Font Size
-$input-font-size: $font-size-base;                       // 14px - Padrão
-$input-font-size-lg: $font-size-lg;                      // 16px - Grande
-$input-font-size-sm: $font-size-sm;                      // 12px - Pequeno
+$input-font-size: $font-size-base; // 14px - Padrão
+$input-font-size-lg: $font-size-lg; // 16px - Grande
+$input-font-size-sm: $font-size-sm; // 12px - Pequeno
 
 // Font Weight
-$input-font-weight: $font-weight-normal;                 // 400
+$input-font-weight: $font-weight-normal; // 400
 
 // Line Height
-$input-line-height: $line-height-base;                   // 1.5715
+$input-line-height: $line-height-base; // 1.5715
 
 // ============================================
 // INPUT BORDERS - Bordas do Input
 // ============================================
 
 // Border Width
-$input-border-width: $border-width-thin;                 // 1px
+$input-border-width: $border-width-thin; // 1px
 
 // Border Radius
-$input-border-radius: $border-radius-md;                 // 6px - Padrão
-$input-border-radius-lg: $border-radius-lg;              // 8px - Grande
-$input-border-radius-sm: $border-radius-sm;              // 4px - Pequeno
+$input-border-radius: $border-radius-md; // 6px - Padrão
+$input-border-radius-lg: $border-radius-lg; // 8px - Grande
+$input-border-radius-sm: $border-radius-sm; // 4px - Pequeno
 
 // Border Style
-$input-border-style: $border-style-solid;                // solid
+$input-border-style: $border-style-solid; // solid
 
 // ============================================
 // INPUT STATES - Estados do Input
 // ============================================
 
 // Focus
-$input-outline-offset: 0;                                // Offset do outline
+$input-outline-offset: 0; // Offset do outline
 $input-focus-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2); // Sombra de foco
 
 // Error
-$input-error-bg: $color-bg-primary;                      // Fundo com erro (opcional)
+$input-error-bg: $color-bg-primary; // Fundo com erro (opcional)
 
 // Warning
-$input-warning-border-color: $color-warning-600;         // Borda com warning
+$input-warning-border-color: $color-warning-600; // Borda com warning
 
 // ============================================
 // INPUT GROUP - Grupos de Input
 // ============================================
 
-$input-group-addon-bg: $color-bg-tertiary;               // Fundo do addon do grupo
-$input-group-addon-border-color: $color-border-primary;  // Borda do addon
+$input-group-addon-bg: $color-bg-tertiary; // Fundo do addon do grupo
+$input-group-addon-border-color: $color-border-primary; // Borda do addon
 
 // ============================================
 // INPUT TEXTAREA - Área de Texto
 // ============================================
 
 // Padding
-$textarea-padding-vertical: $spacing-xs;                 // 8px
-$textarea-padding-horizontal: $spacing-sm;               // 12px
+$textarea-padding-vertical: $spacing-xs; // 8px
+$textarea-padding-horizontal: $spacing-sm; // 12px
 
 // Min Height
-$textarea-min-height: 80px;                              // Altura mínima
+$textarea-min-height: 80px; // Altura mínima
 
 // ============================================
 // INPUT PASSWORD - Campo de Senha
 // ============================================
 
-$input-password-icon-color: $color-text-tertiary;        // Cor do ícone de mostrar/ocultar
+$input-password-icon-color: $color-text-tertiary; // Cor do ícone de mostrar/ocultar
 
 // ============================================
 // INPUT SEARCH - Campo de Busca
 // ============================================
 
-$input-search-button-bg: $color-primary-600;             // Fundo do botão de busca
-$input-search-button-hover-bg: $color-primary-500;       // Hover do botão
+$input-search-button-bg: $color-primary-600; // Fundo do botão de busca
+$input-search-button-hover-bg: $color-primary-500; // Hover do botão
 
 // ============================================
 // INPUT NUMBER - Campo Numérico
 // ============================================
 
-$input-number-handler-bg: $color-bg-tertiary;            // Fundo dos botões +/-
-$input-number-handler-hover-bg: $color-bg-secondary;     // Hover dos botões
-$input-number-handler-active-bg: $color-neutral-400;     // Active dos botões
+$input-number-handler-bg: $color-bg-tertiary; // Fundo dos botões +/-
+$input-number-handler-hover-bg: $color-bg-secondary; // Hover dos botões
+$input-number-handler-active-bg: $color-neutral-400; // Active dos botões
 $input-number-handler-border-color: $color-border-primary; // Borda dos botões
 
 // ============================================
 // INPUT AFFIX WRAPPER - Wrapper com Prefix/Suffix
 // ============================================
 
-$input-affix-margin: $spacing-xxs;                       // 4px - Margem entre affix e texto
-$input-affix-icon-size: 14px;                            // Tamanho dos ícones
+$input-affix-margin: $spacing-xxs; // 4px - Margem entre affix e texto
+$input-affix-icon-size: 14px; // Tamanho dos ícones
 
 // ============================================
 // INPUT CLEAR BUTTON - Botão de Limpar
 // ============================================
 
-$input-clear-button-size: 16px;                          // Tamanho do botão X
-$input-clear-button-color: $color-text-quaternary;       // Cor do X
-$input-clear-button-hover-color: $color-text-tertiary;   // Cor no hover
+$input-clear-button-size: 16px; // Tamanho do botão X
+$input-clear-button-color: $color-text-quaternary; // Cor do X
+$input-clear-button-hover-color: $color-text-tertiary; // Cor no hover
 
 // ============================================
 // EXPORTAÇÃO PARA CSS CUSTOM PROPERTIES
@@ -161,88 +161,88 @@ $input-clear-button-hover-color: $color-text-tertiary;   // Cor no hover
   // Colors - Background
   inputBg: $input-bg;
   inputDisabledBg: $input-disabled-bg;
-  
+
   // Colors - Text
   inputColor: $input-color;
   inputPlaceholderColor: $input-placeholder-color;
   inputDisabledColor: $input-disabled-color;
-  
+
   // Colors - Border
   inputBorderColor: $input-border-color;
   inputHoverBorderColor: $input-hover-border-color;
   inputFocusBorderColor: $input-focus-border-color;
   inputErrorBorderColor: $input-error-border-color;
   inputWarningBorderColor: $input-warning-border-color;
-  
+
   // Colors - Addon
   inputAddonBg: $input-addon-bg;
-  
+
   // Colors - Affix
   inputAffixColor: $input-affix-color;
-  
+
   // Sizes - Height
   inputHeightBase: $input-height-base;
   inputHeightLG: $input-height-lg;
   inputHeightSM: $input-height-sm;
-  
+
   // Sizes - Padding Horizontal
   inputPaddingHorizontal: $input-padding-horizontal;
   inputPaddingHorizontalLG: $input-padding-horizontal-lg;
   inputPaddingHorizontalSM: $input-padding-horizontal-sm;
-  
+
   // Sizes - Padding Vertical
   inputPaddingVerticalBase: $input-padding-vertical-base;
   inputPaddingVerticalLG: $input-padding-vertical-lg;
   inputPaddingVerticalSM: $input-padding-vertical-sm;
-  
+
   // Sizes - Addon Padding
   inputAddonPaddingHorizontal: $input-addon-padding-horizontal;
-  
+
   // Typography
   inputFontSize: $input-font-size;
   inputFontSizeLG: $input-font-size-lg;
   inputFontSizeSM: $input-font-size-sm;
   inputFontWeight: $input-font-weight;
   inputLineHeight: $input-line-height;
-  
+
   // Borders
   inputBorderWidth: $input-border-width;
   inputBorderRadius: $input-border-radius;
   inputBorderRadiusLG: $input-border-radius-lg;
   inputBorderRadiusSM: $input-border-radius-sm;
   inputBorderStyle: $input-border-style;
-  
+
   // States
   inputOutlineOffset: $input-outline-offset;
   inputFocusShadow: $input-focus-shadow;
   inputErrorBg: $input-error-bg;
-  
+
   // Group
   inputGroupAddonBg: $input-group-addon-bg;
   inputGroupAddonBorderColor: $input-group-addon-border-color;
-  
+
   // TextArea
   textareaPaddingVertical: $textarea-padding-vertical;
   textareaPaddingHorizontal: $textarea-padding-horizontal;
   textareaMinHeight: $textarea-min-height;
-  
+
   // Password
   inputPasswordIconColor: $input-password-icon-color;
-  
+
   // Search
   inputSearchButtonBg: $input-search-button-bg;
   inputSearchButtonHoverBg: $input-search-button-hover-bg;
-  
+
   // Number
   inputNumberHandlerBg: $input-number-handler-bg;
   inputNumberHandlerHoverBg: $input-number-handler-hover-bg;
   inputNumberHandlerActiveBg: $input-number-handler-active-bg;
   inputNumberHandlerBorderColor: $input-number-handler-border-color;
-  
+
   // Affix Wrapper
   inputAffixMargin: $input-affix-margin;
   inputAffixIconSize: $input-affix-icon-size;
-  
+
   // Clear Button
   inputClearButtonSize: $input-clear-button-size;
   inputClearButtonColor: $input-clear-button-color;

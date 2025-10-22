@@ -22,27 +22,33 @@
 // Use para: Cards padrão, inputs, chips, elementos que estão ligeiramente elevados
 // Percepção: Elemento flutua minimamente sobre a superfície
 // Altura simulada: ~2-4px
-$shadow-1: 
-  0 1px 2px 0 rgba(0, 0, 0, 0.03),    // Sombra direcional sutil
-  0 1px 6px -1px rgba(0, 0, 0, 0.02), // Sombra ambiente mínima
-  0 2px 4px 0 rgba(0, 0, 0, 0.02);    // Penumbra suave
+$shadow-1:
+  0 1px 2px 0 rgba(0, 0, 0, 0.03),
+  // Sombra direcional sutil
+  0 1px 6px -1px rgba(0, 0, 0, 0.02),
+  // Sombra ambiente mínima
+  0 2px 4px 0 rgba(0, 0, 0, 0.02); // Penumbra suave
 
 // SHADOW 2 - Elevação Média (6-12dp)
 // Use para: Dropdowns, popovers, tooltips, cards com hover, menus
 // Percepção: Elemento claramente flutua, mas não domina visualmente
 // Altura simulada: ~6-12px
-$shadow-2: 
-  0 3px 6px -4px rgba(0, 0, 0, 0.12), // Sombra direcional moderada
-  0 6px 16px 0 rgba(0, 0, 0, 0.08),   // Sombra ambiente média
+$shadow-2:
+  0 3px 6px -4px rgba(0, 0, 0, 0.12),
+  // Sombra direcional moderada
+  0 6px 16px 0 rgba(0, 0, 0, 0.08),
+  // Sombra ambiente média
   0 9px 28px 8px rgba(0, 0, 0, 0.05); // Penumbra ampla
 
 // SHADOW 3 - Elevação Alta (16-24dp)
 // Use para: Modais, drawers, elementos que devem estar "na frente de tudo"
 // Percepção: Elemento claramente no topo da hierarquia, dominante
 // Altura simulada: ~16-24px
-$shadow-3: 
-  0 6px 16px 0 rgba(0, 0, 0, 0.08),   // Sombra direcional forte
-  0 3px 6px -4px rgba(0, 0, 0, 0.12), // Sombra ambiente adicional
+$shadow-3:
+  0 6px 16px 0 rgba(0, 0, 0, 0.08),
+  // Sombra direcional forte
+  0 3px 6px -4px rgba(0, 0, 0, 0.12),
+  // Sombra ambiente adicional
   0 9px 28px 8px rgba(0, 0, 0, 0.05); // Penumbra muito ampla
 
 // ============================================
@@ -54,7 +60,7 @@ $shadow-3:
 // DROPDOWN SHADOWS - Sombras para Menus Dropdown
 // Dropdowns aparecem sobre conteúdo e precisam de sombra média-alta
 // para se destacar claramente do conteúdo abaixo
-$shadow-dropdown: 
+$shadow-dropdown:
   0 6px 16px 0 rgba(0, 0, 0, 0.08),
   0 3px 6px -4px rgba(0, 0, 0, 0.12),
   0 9px 28px 8px rgba(0, 0, 0, 0.05);
@@ -62,14 +68,14 @@ $shadow-dropdown:
 // MODAL SHADOWS - Sombras para Modais
 // Modais são os elementos de maior elevação, ficam acima de tudo
 // incluindo overlay semi-transparente
-$shadow-modal: 
+$shadow-modal:
   0 6px 16px 0 rgba(0, 0, 0, 0.08),
   0 3px 6px -4px rgba(0, 0, 0, 0.12),
   0 9px 28px 8px rgba(0, 0, 0, 0.05);
 
 // CARD SHADOWS - Sombras para Cards
 // Cards em estado padrão têm elevação mínima
-$shadow-card: 
+$shadow-card:
   0 1px 2px 0 rgba(0, 0, 0, 0.03),
   0 1px 6px -1px rgba(0, 0, 0, 0.02),
   0 2px 4px 0 rgba(0, 0, 0, 0.02);
@@ -77,7 +83,7 @@ $shadow-card:
 // CARD HOVER SHADOWS - Sombras para Cards em Hover
 // Quando o usuário passa o mouse, o card "levanta" mais
 // criando feedback visual de interatividade
-$shadow-card-hover: 
+$shadow-card-hover:
   0 1px 2px -2px rgba(0, 0, 0, 0.16),
   0 3px 6px 0 rgba(0, 0, 0, 0.12),
   0 5px 12px 4px rgba(0, 0, 0, 0.09);
@@ -85,7 +91,7 @@ $shadow-card-hover:
 // POPOVER SHADOWS - Sombras para Popovers e Tooltips
 // Similar ao dropdown, mas pode ser ligeiramente mais sutil
 // pois popovers geralmente são menores
-$shadow-popover: 
+$shadow-popover:
   0 3px 6px -4px rgba(0, 0, 0, 0.12),
   0 6px 16px 0 rgba(0, 0, 0, 0.08),
   0 9px 28px 8px rgba(0, 0, 0, 0.05);
@@ -93,26 +99,23 @@ $shadow-popover:
 // DRAWER SHADOWS - Sombras para Drawers/Sidebars
 // Drawers deslizam de fora da tela, precisam de sombra forte
 // para indicar que estão "acima" do conteúdo principal
-$shadow-drawer: 
+$shadow-drawer:
   -6px 0 16px 0 rgba(0, 0, 0, 0.08),
   -3px 0 6px -4px rgba(0, 0, 0, 0.12),
   -9px 0 28px 8px rgba(0, 0, 0, 0.05);
 
 // BUTTON SHADOWS - Sombras para Botões Elevados
 // Alguns botões (FAB - Floating Action Button) precisam parecer elevados
-$shadow-button: 
-  0 2px 0 rgba(0, 0, 0, 0.016);
+$shadow-button: 0 2px 0 rgba(0, 0, 0, 0.016);
 
 // BUTTON HOVER SHADOWS - Sombras para Botões em Hover
 // Feedback visual quando usuário interage com botão elevado
-$shadow-button-hover: 
-  0 4px 4px rgba(0, 0, 0, 0.08);
+$shadow-button-hover: 0 4px 4px rgba(0, 0, 0, 0.08);
 
 // TABLE SHADOWS - Sombras para Cabeçalho Fixo de Tabelas
 // Quando o header da tabela fica fixo no scroll, precisa de sombra
 // para indicar que está "flutuando" sobre as linhas
-$shadow-table-header: 
-  0 2px 4px 0 rgba(0, 0, 0, 0.06);
+$shadow-table-header: 0 2px 4px 0 rgba(0, 0, 0, 0.06);
 
 // ============================================
 // INNER SHADOWS - Sombras Internas
@@ -122,13 +125,11 @@ $shadow-table-header:
 
 // INSET SHADOW - Sombra interna padrão
 // Use para: Inputs, text areas, elementos que parecem "afundados"
-$shadow-inset: 
-  inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+$shadow-inset: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
 
 // INSET SHADOW STRONG - Sombra interna forte
 // Use para: Elementos muito deprimidos, áreas de "wells"
-$shadow-inset-strong: 
-  inset 0 3px 6px 0 rgba(0, 0, 0, 0.12);
+$shadow-inset-strong: inset 0 3px 6px 0 rgba(0, 0, 0, 0.12);
 
 // ============================================
 // GLOW EFFECTS - Efeitos de Brilho
@@ -139,23 +140,19 @@ $shadow-inset-strong:
 // FOCUS GLOW - Brilho de foco (ring) para acessibilidade
 // Use para: Indicar foco de teclado em elementos interativos
 // NOTA: A cor deve ser definida dinamicamente baseada no tema
-$shadow-focus: 
-  0 0 0 4px rgba(24, 144, 255, 0.2);
+$shadow-focus: 0 0 0 4px rgba(24, 144, 255, 0.2);
 
 // PRIMARY GLOW - Brilho da cor primária
 // Use para: Destacar elementos importantes ou CTAs
-$shadow-primary-glow: 
-  0 0 16px rgba(24, 144, 255, 0.3);
+$shadow-primary-glow: 0 0 16px rgba(24, 144, 255, 0.3);
 
 // SUCCESS GLOW - Brilho de sucesso
 // Use para: Feedback visual positivo, confirmações
-$shadow-success-glow: 
-  0 0 16px rgba(82, 196, 26, 0.3);
+$shadow-success-glow: 0 0 16px rgba(82, 196, 26, 0.3);
 
 // ERROR GLOW - Brilho de erro
 // Use para: Indicar erros de validação, estados de erro
-$shadow-error-glow: 
-  0 0 16px rgba(245, 34, 45, 0.3);
+$shadow-error-glow: 0 0 16px rgba(245, 34, 45, 0.3);
 
 // ============================================
 // OBSERVAÇÕES DE USO

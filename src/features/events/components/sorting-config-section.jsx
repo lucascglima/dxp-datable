@@ -58,7 +58,7 @@ const SortingConfigSection = ({ value, onChange }) => {
     if (format === 'numeric') {
       orderValues = { ascend: '1', descend: '-1' };
     }
-    if (format === 'asc-desc') {    
+    if (format === 'asc-desc') {
       orderValues = { ascend: 'asc', descend: 'desc' };
     } else if (format === 'ascend-descend') {
       orderValues = { ascend: 'ascend', descend: 'descend' };
@@ -90,11 +90,7 @@ const SortingConfigSection = ({ value, onChange }) => {
         </Paragraph>
 
         <Form.Item label="Modo de Ordenação">
-          <Radio.Group
-            value={currentValue.mode}
-            onChange={handleModeChange}
-            buttonStyle="solid"
-          >
+          <Radio.Group value={currentValue.mode} onChange={handleModeChange} buttonStyle="solid">
             <Radio.Button value="server">Lado do Servidor (API)</Radio.Button>
             <Radio.Button value="client">Lado do Cliente (Navegador)</Radio.Button>
             <Radio.Button value="disabled">Desabilitado</Radio.Button>
@@ -106,12 +102,12 @@ const SortingConfigSection = ({ value, onChange }) => {
             <Alert
               message="Ordenação no Servidor"
               description="Os parâmetros de ordenação serão enviados na URL da requisição."
-              type="info"              
+              type="info"
             />
 
             <Form.Item
               label="Parâmetro da Coluna"
-              help="Nome do parâmetro que indica qual coluna será usada na ordenação (ex.: 'sortBy', '_columnSort')."    
+              help="Nome do parâmetro que indica qual coluna será usada na ordenação (ex.: 'sortBy', '_columnSort')."
             >
               <Input
                 value={currentValue.serverConfig.columnParam}
@@ -178,7 +174,7 @@ const SortingConfigSection = ({ value, onChange }) => {
         {currentValue.mode === 'client' && (
           <Alert
             message="Ordenação do Lado do Cliente"
-            description="Os dados serão ordenados diretamente no navegador. Isso funciona bem para pequenos conjuntos de dados, mas pode ser lento para tabelas grandes. Nenhuma chamada de API é feita ao ordenar."            
+            description="Os dados serão ordenados diretamente no navegador. Isso funciona bem para pequenos conjuntos de dados, mas pode ser lento para tabelas grandes. Nenhuma chamada de API é feita ao ordenar."
             type="info"
           />
         )}

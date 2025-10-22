@@ -7,25 +7,34 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "lint": "eslint . --ext js,jsx"
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "prepare": "husky"
   },
   "dependencies": {
     "@monaco-editor/react": "^4.7.0",
-    "antd": "^5.23.3",
+    "antd": "^5.27.6",
     "axios": "^1.7.9",
     "date-fns": "^4.1.0",
     "prop-types": "^15.8.1",
     "react": "18.3.1",
-    "react-dom": "18.3.1",
-    "react-router-dom": "^7.1.3"
+    "react-dom": "18.3.1"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.4",
     "eslint": "^8.57.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
     "eslint-plugin-react": "^7.37.2",
     "eslint-plugin-react-hooks": "^4.6.2",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.6",
+    "prettier": "^3.6.2",
     "sass-embedded": "^1.93.2",
-    "vite": "^6.0.11"
+    "terser": "^5.44.0",
+    "vite": "^6.4.1"
   },
   "keywords": [
     "react",
@@ -35,5 +44,14 @@
     "custom-element"
   ],
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "lint-staged": {
+    "*.{js,jsx}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "*.{json,css,scss,md}": [
+      "prettier --write"
+    ]
+  }
 }

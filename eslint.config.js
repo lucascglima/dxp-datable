@@ -1,14 +1,21 @@
 import js from '@eslint/js';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
+import prettier from 'eslint-plugin-prettier';
+import prettierConfig from 'eslint-config-prettier';
 
 export default [
+  {
+    ignores: ['dist/**', 'build/**', 'node_modules/**', '*.min.js', 'coverage/**'],
+  },
   js.configs.recommended,
+  prettierConfig,
   {
     files: ['**/*.{js,jsx}'],
     plugins: {
       react,
       'react-hooks': reactHooks,
+      prettier,
     },
     languageOptions: {
       ecmaVersion: 'latest',
@@ -27,6 +34,14 @@ export default [
         require: 'readonly',
         customElements: 'readonly',
         HTMLElement: 'readonly',
+        localStorage: 'readonly',
+        navigator: 'readonly',
+        URL: 'readonly',
+        URLSearchParams: 'readonly',
+        Blob: 'readonly',
+        setTimeout: 'readonly',
+        clearTimeout: 'readonly',
+        fetch: 'readonly',
       },
     },
     rules: {
@@ -35,6 +50,8 @@ export default [
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
       'no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+      'prettier/prettier': 'error',
+      'no-prototype-builtins': 'warn',
     },
     settings: {
       react: {

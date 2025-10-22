@@ -24,10 +24,13 @@ const ColumnsConfigSection = ({ value = [], onChange }) => {
    * Handles render type change for a column
    * Memoized to prevent unnecessary re-renders
    */
-  const handleRenderTypeChange = useCallback((index, renderType) => {
-    const defaultConfig = getRendererDefaultConfig(renderType);
-    columnManager.updateRenderType(index, renderType, defaultConfig);
-  }, [columnManager]);
+  const handleRenderTypeChange = useCallback(
+    (index, renderType) => {
+      const defaultConfig = getRendererDefaultConfig(renderType);
+      columnManager.updateRenderType(index, renderType, defaultConfig);
+    },
+    [columnManager]
+  );
 
   /**
    * Opens JSON import/export modal
@@ -49,16 +52,19 @@ const ColumnsConfigSection = ({ value = [], onChange }) => {
    * Handles JSON import
    * Memoized to prevent unnecessary re-renders
    */
-  const handleImportJson = useCallback((jsonText) => {
-    return columnManager.importFromJson(jsonText);
-  }, [columnManager]);
+  const handleImportJson = useCallback(
+    (jsonText) => {
+      return columnManager.importFromJson(jsonText);
+    },
+    [columnManager]
+  );
 
   return (
     <Space direction="vertical" size="large" style={{ width: '100%' }}>
       <Alert
         message="Configuração das colunas da tabela"
         description="Defina quais colunas serão exibidas na sua tabela. Você pode configurar visualmente ou importar via JSON."
-        type='info'
+        type="info"
       />
 
       <Space>

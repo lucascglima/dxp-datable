@@ -8,12 +8,7 @@
 import React, { useState } from 'react';
 import Editor from '@monaco-editor/react';
 import { Card, Alert, Space, Button, Typography } from 'antd';
-import {
-  CheckCircleOutlined,
-  CloseCircleOutlined,
-  CopyOutlined,
-  
-} from '@ant-design/icons';
+import { CheckCircleOutlined, CloseCircleOutlined, CopyOutlined } from '@ant-design/icons';
 
 const { Title, Paragraph } = Typography;
 
@@ -52,7 +47,6 @@ const JsonConfigEditor = ({
     }
   };
 
-
   /**
    * Formats current JSON
    */
@@ -76,23 +70,16 @@ const JsonConfigEditor = ({
 
   return (
     <Card style={{ gap: 8 }}>
-      <Space direction="vertical" style={{ width: '100%' }}>  
+      <Space direction="vertical" style={{ width: '100%' }}>
         {/* Editor Actions */}
         <Space style={{ justifyContent: 'end', width: '100%' }}>
-          <Button onClick={handleFormatJson}                                
-          >
-            Formatar JSON
-          </Button>
-          <Button
-            icon={<CopyOutlined />}
-            onClick={handleCopyJson}                      
-            
-          >
+          <Button onClick={handleFormatJson}>Formatar JSON</Button>
+          <Button icon={<CopyOutlined />} onClick={handleCopyJson}>
             Copiar
           </Button>
         </Space>
         {/* Monaco Editor */}
-        <div style={{ border: '1px solid #d9d9d9', borderRadius: '4px', }}>
+        <div style={{ border: '1px solid #d9d9d9', borderRadius: '4px' }}>
           <Editor
             height={height}
             defaultLanguage="json"
@@ -121,7 +108,7 @@ const JsonConfigEditor = ({
             }}
           />
         </div>
-            {/* Validation Status */}
+        {/* Validation Status */}
         {isValid ? (
           <Alert
             message="JSON Válido"
@@ -129,7 +116,7 @@ const JsonConfigEditor = ({
             type="success"
             icon={<CheckCircleOutlined />}
             showIcon
-            style={{marginBottom: '8px', marginTop: '8px'}}
+            style={{ marginBottom: '8px', marginTop: '8px' }}
           />
         ) : (
           <Alert
@@ -158,8 +145,8 @@ const JsonConfigEditor = ({
               <li>Erros de sintaxe são destacados automaticamente</li>
             </ul>
           }
-          type="info"          
-          style={{marginBottom: '8px', marginTop: '8px'}}
+          type="info"
+          style={{ marginBottom: '8px', marginTop: '8px' }}
           closable
         />
       </Space>

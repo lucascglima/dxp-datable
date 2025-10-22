@@ -9,7 +9,14 @@ import { Space, Button, Alert } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import ColumnEditor from './column-editor';
 
-const ColumnList = ({ columns, onAdd, onUpdate, onRemove, onRenderTypeChange, onRenderConfigChange }) => {
+const ColumnList = ({
+  columns,
+  onAdd,
+  onUpdate,
+  onRemove,
+  onRenderTypeChange,
+  onRenderConfigChange,
+}) => {
   return (
     <Space direction="vertical" size="large" style={{ width: '100%' }}>
       {columns.length === 0 && (
@@ -33,13 +40,7 @@ const ColumnList = ({ columns, onAdd, onUpdate, onRemove, onRenderTypeChange, on
         />
       ))}
 
-      <Button
-        type="dashed"
-        icon={<PlusOutlined />}
-        onClick={onAdd}
-        block
-        size="large"
-      >
+      <Button type="dashed" icon={<PlusOutlined />} onClick={onAdd} block size="large">
         Adicionar Coluna
       </Button>
 

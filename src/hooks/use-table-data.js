@@ -108,10 +108,10 @@ export const useTableData = (endpoint, options = {}) => {
   }, [endpoint, pagination.current, pagination.pageSize, sorting, filters]);
 
   // Debounced version of fetchData
-  const debouncedFetchData = useCallback(
-    debounce(fetchData, debounceDelay),
-    [fetchData, debounceDelay]
-  );
+  const debouncedFetchData = useCallback(debounce(fetchData, debounceDelay), [
+    fetchData,
+    debounceDelay,
+  ]);
 
   /**
    * Handles pagination changes

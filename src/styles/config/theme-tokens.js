@@ -22,7 +22,6 @@ import * as tooltipTokens from '../theme/components/_tooltip.module.scss';
 // ============================================
 // TOKENS GLOBAIS
 // ============================================
-console.log(globalColors, 'globalColors')
 
 export const globalThemeTokens = {
   // Cores
@@ -120,18 +119,18 @@ export const componentTokens = {
     defaultColor: buttonTokens.buttonDefaultColor,
     defaultBg: buttonTokens.buttonDefaultBg,
     defaultBorderColor: buttonTokens.buttonDefaultBorder,
-    
+
     // Tamanhos
     controlHeight: parseFloat(buttonTokens.buttonHeightBase),
     controlHeightLG: parseFloat(buttonTokens.buttonHeightLG),
     controlHeightSM: parseFloat(buttonTokens.buttonHeightSM),
     paddingContentHorizontal: parseFloat(buttonTokens.buttonPaddingHorizontalBase),
-    
+
     // Tipografia
     fontSize: parseFloat(buttonTokens.buttonFontSizeBase),
     fontSizeLG: parseFloat(buttonTokens.buttonFontSizeLG),
     fontSizeSM: parseFloat(buttonTokens.buttonFontSizeSM),
-    
+
     // Bordas
     borderRadius: parseFloat(buttonTokens.buttonBorderRadius),
     borderRadiusSM: parseFloat(buttonTokens.buttonBorderRadiusSM),
@@ -155,11 +154,11 @@ export const componentTokens = {
     borderColor: tableTokens.tableBorderColor,
     footerBg: tableTokens.tableFooterBg,
     footerColor: tableTokens.tableFooterColor,
-    
+
     // Tipografia
     fontSize: parseFloat(tableTokens.tableFontSize),
     headerFontSize: parseFloat(tableTokens.tableHeaderFontSize),
-    
+
     // Espaçamento
     cellPaddingBlock: parseFloat(tableTokens.tablePaddingVertical),
     cellPaddingInline: parseFloat(tableTokens.tablePaddingHorizontal),
@@ -167,7 +166,7 @@ export const componentTokens = {
     cellPaddingInlineSM: parseFloat(tableTokens.tablePaddingHorizontalSM),
     cellPaddingBlockMD: parseFloat(tableTokens.tablePaddingVerticalMD),
     cellPaddingInlineMD: parseFloat(tableTokens.tablePaddingHorizontalMD),
-    
+
     // Bordas
     borderRadius: parseFloat(tableTokens.tableBorderRadius),
   },
@@ -183,7 +182,7 @@ export const componentTokens = {
     colorBgContainerDisabled: inputTokens.inputDisabledBg,
     colorTextDisabled: inputTokens.inputDisabledColor,
     addonBg: inputTokens.inputAddonBg,
-    
+
     // Tamanhos
     controlHeight: parseFloat(inputTokens.inputHeightBase),
     controlHeightLG: parseFloat(inputTokens.inputHeightLG),
@@ -191,12 +190,12 @@ export const componentTokens = {
     paddingInline: parseFloat(inputTokens.inputPaddingHorizontal),
     paddingInlineLG: parseFloat(inputTokens.inputPaddingHorizontalLG),
     paddingInlineSM: parseFloat(inputTokens.inputPaddingHorizontalSM),
-    
+
     // Tipografia
     fontSize: parseFloat(inputTokens.inputFontSize),
     fontSizeLG: parseFloat(inputTokens.inputFontSizeLG),
     fontSizeSM: parseFloat(inputTokens.inputFontSizeSM),
-    
+
     // Bordas
     borderRadius: parseFloat(inputTokens.inputBorderRadius),
     borderRadiusLG: parseFloat(inputTokens.inputBorderRadiusLG),
@@ -252,12 +251,11 @@ export const componentTokens = {
   Space: {
     // O Space usa principalmente os tokens globais de size
     // Mas podemos definir valores customizados se necessário
-      spaceSize:spaceTokens.spaceSize,
-      spaceSizeSM: spaceTokens.spaceSizeSM,
-      spaceSizeMD: spaceTokens.spaceSizeMD,
-      spaceSizeLG: spaceTokens.spaceSizeLG,
-      spaceSizeXL: spaceTokens.spaceSizeXL,
-
+    spaceSize: spaceTokens.spaceSize,
+    spaceSizeSM: spaceTokens.spaceSizeSM,
+    spaceSizeMD: spaceTokens.spaceSizeMD,
+    spaceSizeLG: spaceTokens.spaceSizeLG,
+    spaceSizeXL: spaceTokens.spaceSizeXL,
   },
 
   // ============================================

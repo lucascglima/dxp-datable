@@ -20,6 +20,7 @@ Documentation for validation utilities used to ensure data integrity and enforce
 Validates the complete configuration object.
 
 **Signature**:
+
 ```javascript
 validateConfiguration(config: Object): {
   valid: boolean,
@@ -28,12 +29,14 @@ validateConfiguration(config: Object): {
 ```
 
 **Validates**:
+
 - API endpoint presence and format
 - Columns configuration
 - Pagination settings
 - Events configuration
 
 **Example**:
+
 ```javascript
 import { validateConfiguration } from '../core/validators/config-validator';
 
@@ -55,6 +58,7 @@ if (!result.valid) {
 Validates URL parameters array.
 
 **Signature**:
+
 ```javascript
 validateUrlParams(urlParams: Array): {
   valid: boolean,
@@ -63,10 +67,11 @@ validateUrlParams(urlParams: Array): {
 ```
 
 **Example**:
+
 ```javascript
 const urlParams = [
   { name: 'userId', value: '123' },
-  { name: 'version', value: 'v1' }
+  { name: 'version', value: 'v1' },
 ];
 
 const result = validateUrlParams(urlParams);
@@ -77,6 +82,7 @@ const result = validateUrlParams(urlParams);
 Validates query parameters array for duplicates and required fields.
 
 **Signature**:
+
 ```javascript
 validateQueryParams(queryParams: Array): {
   valid: boolean,
@@ -95,17 +101,20 @@ validateQueryParams(queryParams: Array): {
 Validates a single column configuration.
 
 **Signature**:
+
 ```javascript
 validateColumn(column: Object, index: number): string[]
 ```
 
 **Validates**:
+
 - Title is required
 - DataIndex is required
 - Width is within valid range (50-1000px)
 - Render configuration is valid
 
 **Example**:
+
 ```javascript
 import { validateColumn } from '../core/validators/column-validator';
 
@@ -114,7 +123,7 @@ const column = {
   dataIndex: 'name',
   width: 150,
   sortable: true,
-  render: { type: 'default', config: {} }
+  render: { type: 'default', config: {} },
 };
 
 const errors = validateColumn(column, 0);
@@ -128,6 +137,7 @@ if (errors.length > 0) {
 Validates an array of columns, including duplicate checks.
 
 **Signature**:
+
 ```javascript
 validateColumns(columns: Array): {
   valid: boolean,
@@ -136,11 +146,12 @@ validateColumns(columns: Array): {
 ```
 
 **Example**:
+
 ```javascript
 const columns = [
   { title: 'ID', dataIndex: 'id' },
   { title: 'Name', dataIndex: 'name' },
-  { title: 'Email', dataIndex: 'email' }
+  { title: 'Email', dataIndex: 'email' },
 ];
 
 const result = validateColumns(columns);
@@ -151,6 +162,7 @@ const result = validateColumns(columns);
 Validates JSON string for column import.
 
 **Signature**:
+
 ```javascript
 validateColumnsJson(jsonText: string): {
   valid: boolean,
@@ -160,6 +172,7 @@ validateColumnsJson(jsonText: string): {
 ```
 
 **Example**:
+
 ```javascript
 const jsonText = '[{"title":"Name","dataIndex":"name"}]';
 const result = validateColumnsJson(jsonText);
@@ -180,6 +193,7 @@ if (result.valid) {
 Validates response mapping paths against actual response data.
 
 **Signature**:
+
 ```javascript
 validateMapping(
   responseData: Object,
@@ -197,14 +211,15 @@ validateMapping(
 ```
 
 **Example**:
+
 ```javascript
 import { validateMapping } from '../core/validators/mapping-validator';
 
 const response = {
   data: {
     items: [{ id: 1 }, { id: 2 }],
-    pagination: { total: 100 }
-  }
+    pagination: { total: 100 },
+  },
 };
 
 const result = validateMapping(response, 'data.items', 'data.pagination.total');
@@ -222,6 +237,7 @@ if (result.totalFound) {
 Validates mapping configuration before API test.
 
 **Signature**:
+
 ```javascript
 validateMappingConfig(mappingConfig: Object|null): {
   valid: boolean,
@@ -230,11 +246,12 @@ validateMappingConfig(mappingConfig: Object|null): {
 ```
 
 **Example**:
+
 ```javascript
 const mappingConfig = {
   dataKey: 'data.items',
   totalKey: 'data.total',
-  totalSource: 'body'
+  totalSource: 'body',
 };
 
 const result = validateMappingConfig(mappingConfig);
@@ -245,6 +262,7 @@ const result = validateMappingConfig(mappingConfig);
 Utility function to extract items array from response using mapping.
 
 **Signature**:
+
 ```javascript
 extractItemsFromResponse(
   responseData: Object,
@@ -257,6 +275,7 @@ extractItemsFromResponse(
 Utility function to extract total count from response using mapping.
 
 **Signature**:
+
 ```javascript
 extractTotalFromResponse(
   responseData: Object,
@@ -347,6 +366,7 @@ export const validateColumn = (column, index = 0) => {
 ## Validator Best Practices
 
 ### 1. Pure Functions
+
 Validators should be pure functions with no side effects:
 
 ```javascript
@@ -358,12 +378,13 @@ export const validateColumn = (column) => {
 
 // ❌ Bad - Modifies input
 export const validateColumn = (column) => {
-  column.validated = true;  // Side effect!
+  column.validated = true; // Side effect!
   return errors;
 };
 ```
 
 ### 2. Consistent Return Types
+
 Always return the same structure:
 
 ```javascript
@@ -380,6 +401,7 @@ export const validateConfig = (config) => {
 ```
 
 ### 3. Descriptive Error Messages
+
 Provide clear, actionable error messages:
 
 ```javascript
@@ -391,6 +413,7 @@ errors.push('Invalid');
 ```
 
 ### 4. Composable Validators
+
 Build complex validators from simple ones:
 
 ```javascript

@@ -68,7 +68,7 @@ const DynamicParamsConfigSection = ({ value = {}, onChange }) => {
   /**
    * Loads example configuration
    */
-  const handleLoadExample = () => { 
+  const handleLoadExample = () => {
     onChange({
       ...currentConfig,
       searchInput: {
@@ -107,7 +107,8 @@ const DynamicParamsConfigSection = ({ value = {}, onChange }) => {
       >
         <Space direction="vertical" size="middle" style={{ width: '100%' }}>
           <Paragraph type="secondary" style={{ marginBottom: 0 }}>
-          Adicione um campo de busca acima da tabela. O texto digitado será enviado para a API como parâmetro de consulta.
+            Adicione um campo de busca acima da tabela. O texto digitado será enviado para a API
+            como parâmetro de consulta.
           </Paragraph>
 
           {currentConfig.searchInput?.enabled && (
@@ -153,7 +154,8 @@ const DynamicParamsConfigSection = ({ value = {}, onChange }) => {
                     <li>O usuário digita no campo de busca acima da tabela</li>
                     <li>Após 1 segundo sem digitar, o valor é enviado à API</li>
                     <li>
-                      A API recebe: <code>?{currentConfig.searchInput?.queryParamName}=valor_da_busca</code>
+                      A API recebe:{' '}
+                      <code>?{currentConfig.searchInput?.queryParamName}=valor_da_busca</code>
                     </li>
                     <li>
                       O valor de busca é salvo no localStorage e restaurado ao recarregar a página
@@ -176,7 +178,6 @@ const DynamicParamsConfigSection = ({ value = {}, onChange }) => {
               message="Busca desativada"
               description="Ative para adicionar um campo de busca à tabela."
               type="warning"
-              
             />
           )}
         </Space>
@@ -206,7 +207,9 @@ const DynamicParamsConfigSection = ({ value = {}, onChange }) => {
               <Text disabled>Filtros Dropdown – Seleção única ou múltipla</Text>
             </li>
             <li>
-              <Text disabled>Parâmetros Personalizados – Defina seus próprios tipos de parâmetro</Text>
+              <Text disabled>
+                Parâmetros Personalizados – Defina seus próprios tipos de parâmetro
+              </Text>
             </li>
           </ul>
         </Space>

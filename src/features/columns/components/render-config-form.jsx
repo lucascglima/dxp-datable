@@ -23,11 +23,7 @@ const RenderConfigForm = ({ renderType, config, fields, onConfigChange }) => {
     switch (field.type) {
       case 'text':
         return (
-          <Form.Item
-            key={field.name}
-            label={field.label}        
-            help={field.helpText}
-          >
+          <Form.Item key={field.name} label={field.label} help={field.helpText}>
             <Input
               value={config[field.name] ?? field.defaultValue}
               onChange={(e) => onConfigChange(field.name, e.target.value)}
@@ -50,11 +46,7 @@ const RenderConfigForm = ({ renderType, config, fields, onConfigChange }) => {
 
       case 'select':
         return (
-          <Form.Item
-            key={field.name}
-            label={field.label}          
-            help={field.helpText}
-          >
+          <Form.Item key={field.name} label={field.label} help={field.helpText}>
             <Select
               value={config[field.name] ?? field.defaultValue}
               onChange={(value) => onConfigChange(field.name, value)}

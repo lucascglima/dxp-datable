@@ -113,7 +113,12 @@ export const getTableData = async (endpoint, params = {}) => {
 
     // Extract data and pagination from response
     // Liferay headless APIs typically return data in this format
-    const { items = [], totalCount = 0, page: currentPage = 1, pageSize: size = 10 } = response.data;
+    const {
+      items = [],
+      totalCount = 0,
+      page: currentPage = 1,
+      pageSize: size = 10,
+    } = response.data;
 
     return {
       data: items,

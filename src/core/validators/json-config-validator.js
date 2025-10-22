@@ -110,7 +110,6 @@ export const validateJsonSyntax = (jsonString) => {
   }
 };
 
-
 export default {
   validateJsonConfiguration,
   formatConfigurationAsJson,

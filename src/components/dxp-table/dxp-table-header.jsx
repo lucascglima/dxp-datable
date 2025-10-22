@@ -65,33 +65,31 @@ const DxpTableHeader = ({ columns, onSort = () => {}, sortingConfig }) => {
   const processColumns = () => {
     const sortingMode = sortingConfig?.mode || 'disabled';
 
-    return columns
-      .filter(validateColumn)
-      .map((column) => {
-        const antColumn = {
-          key: column.key,
-          title: column.title,
-          dataIndex: column.dataIndex,
-          ...(column.width && { width: column.width }),
-          ...(column.align && { align: column.align }),
-          ...(column.render && { render: column.render }),
-        };
+    return columns.filter(validateColumn).map((column) => {
+      const antColumn = {
+        key: column.key,
+        title: column.title,
+        dataIndex: column.dataIndex,
+        ...(column.width && { width: column.width }),
+        ...(column.align && { align: column.align }),
+        ...(column.render && { render: column.render }),
+      };
 
-        // Add sorting configuration if sortable
-        if (column.sortable && sortingMode !== 'disabled') {
-          antColumn.sortDirections = ['ascend', 'descend'];
+      // Add sorting configuration if sortable
+      if (column.sortable && sortingMode !== 'disabled') {
+        antColumn.sortDirections = ['ascend', 'descend'];
 
-          if (sortingMode === 'client') {
-            // Client-side sorting: provide actual sorter function
-            antColumn.sorter = createSorter(column.dataIndex);
-          } else if (sortingMode === 'server') {
-            // Server-side sorting: just indicate sortable
-            antColumn.sorter = true;
-          }
+        if (sortingMode === 'client') {
+          // Client-side sorting: provide actual sorter function
+          antColumn.sorter = createSorter(column.dataIndex);
+        } else if (sortingMode === 'server') {
+          // Server-side sorting: just indicate sortable
+          antColumn.sorter = true;
         }
+      }
 
-        return antColumn;
-      });
+      return antColumn;
+    });
   };
 
   /**
@@ -101,9 +99,7 @@ const DxpTableHeader = ({ columns, onSort = () => {}, sortingConfig }) => {
   const handleSortChange = (pagination, filters, sorter) => {
     if (sorter && sorter.column) {
       // Find the original column config to get sortField
-      const originalColumn = columns.find(
-        (col) => col.key === (sorter.columnKey || sorter.field)
-      );
+      const originalColumn = columns.find((col) => col.key === (sorter.columnKey || sorter.field));
 
       onSort({
         columnKey: sorter.columnKey || sorter.field,

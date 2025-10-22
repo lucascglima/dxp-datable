@@ -2,7 +2,6 @@
  * PropTypes for Dynamic Parameters Components
  */
 
-
 /**
  * Default configuration for dynamic parameters
  */
@@ -22,6 +21,6 @@ export const defaultDynamicParamsConfig = {
   // },
 };
 
-export default {  
+export default {
   defaultDynamicParamsConfig,
 };
