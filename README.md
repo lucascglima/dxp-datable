@@ -196,6 +196,7 @@ Este exemplo demonstra:
 
 ## Arquitetura do Projeto
 
+
 O projeto segue **Clean Architecture** com separação clara de responsabilidades:
 
 ```
